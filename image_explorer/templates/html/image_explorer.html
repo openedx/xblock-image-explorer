@@ -11,7 +11,7 @@
         {% for hotspot in hotspots %}
             <a class="image-explorer-hotspot" style="position: absolute; top: {{hotspot.y}}px; left: {{hotspot.x}}px; background-image: url('{{sprite_url}}')" href="#">
                 <div class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}}>
-                    <div class="image-explorer-close-reveal"></div>
+                    <div class="image-explorer-close-reveal">X</div>
 
                     <div class="image-explorer-hotspot-content-wrapper">
                         {% if hotspot.feedback.header %}
