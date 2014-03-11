@@ -5,7 +5,7 @@ function ImageExplorerEditBlock(runtime, element) {
     $(element).find('.save-button').bind('click', function() {
         var data = {
             'display_name': $(element).find('.edit-display-name').val(),
-            'data': $(element).find('.edit-data').val(),
+            'data': xmlEditor.getValue(),
         };
         var handlerUrl = runtime.handlerUrl(element, 'studio_submit');
         $.post(handlerUrl, JSON.stringify(data)).complete(function() {

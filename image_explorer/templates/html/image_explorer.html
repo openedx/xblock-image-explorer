@@ -9,14 +9,8 @@
     <div class="image-explorer-wrapper">
         <img src="{{background.src}}" class="image-explorer-background" />
         {% for hotspot in hotspots %}
-            {% comment %}
-                hotspot_reveal_style = 'style="{0}{1}"'.format(
-                    'width: ' + hotspot.feedback.width + 'px;' if hotspot.feedback.width else '',
-                    'height: ' + hotspot.feedback.height + 'px;' if hotspot.feedback.height else ''
-                )
-            {% endcomment %}
             <a class="image-explorer-hotspot" style="position: absolute; top: {{hotspot.y}}px; left: {{hotspot.x}}px; background-image: url('{{sprite_url}}')" href="#">
-                <div class="image-explorer-hotspot-reveal" {{hotspot_reveal_style}}>
+                <div class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}}>
                     <div class="image-explorer-close-reveal"></div>
 
                     <div class="image-explorer-hotspot-content-wrapper">

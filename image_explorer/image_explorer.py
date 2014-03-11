@@ -82,6 +82,12 @@ class ImageExplorerBlock(XBlock):
         hotspots = self._get_hotspots(xmltree)
         background = self._get_background(xmltree)
 
+        for hotspot in hotspots:
+            hotspot.reveal_style = 'style="{0}{1}"'.format(
+                    'width: ' + hotspot.feedback.width + 'px;' if hotspot.feedback.width else '',
+                    'height: ' + hotspot.feedback.height + 'px;' if hotspot.feedback.height else ''
+                )
+
         sprite_url = self.runtime.local_resource_url(self, 'public/images/hotspot-sprite.png')
 
         context = {
@@ -118,7 +124,6 @@ class ImageExplorerBlock(XBlock):
 
     @XBlock.json_handler
     def studio_submit(self, submissions, suffix=''):
-        log.info(u'Received submissions: {}'.format(submissions))
 
         self.display_name = submissions['display_name']
         self.data = submissions['data']
