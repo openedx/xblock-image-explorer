@@ -31,5 +31,4 @@ setup(
     entry_points={
         'xblock.v1': 'image-explorer = image_explorer:ImageExplorerBlock',
     },
-    package_data=package_data("image_explorer", "static"),
 )

@@ -82,7 +82,7 @@ class ImageExplorerBlock(XBlock):
         hotspots = self._get_hotspots(xmltree)
         background = self._get_background(xmltree)
 
-        sprite_url = self.runtime.local_resource_url(self, 'static/images/hotspot-sprite.png')
+        sprite_url = self.runtime.local_resource_url(self, 'public/images/hotspot-sprite.png')
 
         context = {
             'title': self.display_name,
@@ -94,9 +94,9 @@ class ImageExplorerBlock(XBlock):
 
 
         fragment = Fragment()
-        fragment.add_content(render_template('templates/html/image_explorer.html', context))
-        fragment.add_css(load_resource('static/css/image_explorer.css'))
-        fragment.add_javascript(load_resource('static/js/image_explorer.js'))
+        fragment.add_content(render_template('/templates/html/image_explorer.html', context))
+        fragment.add_css(load_resource('/static/css/image_explorer.css'))
+        fragment.add_javascript(load_resource('/static/js/image_explorer.js'))
 
         fragment.initialize_js('ImageExplorerBlock')
 
@@ -107,10 +107,10 @@ class ImageExplorerBlock(XBlock):
         Editing view in Studio
         """
         fragment = Fragment()
-        fragment.add_content(render_template('templates/html/image_explorer_edit.html', {
+        fragment.add_content(render_template('/templates/html/image_explorer_edit.html', {
             'self': self,
         }))
-        fragment.add_javascript(load_resource('static/js/image_explorer_edit.js'))
+        fragment.add_javascript(load_resource('/static/js/image_explorer_edit.js'))
 
         fragment.initialize_js('ImageExplorerEditBlock')
 
