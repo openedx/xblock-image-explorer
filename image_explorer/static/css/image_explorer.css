@@ -73,3 +73,8 @@ a.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-
     margin-top: 2px;
     color: #FFFFFF;
 }
+
+.codemirror-editor-wrapper {
+    border-style: solid;
+    border-width: 1px;
+}

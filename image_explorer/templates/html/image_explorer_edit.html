@@ -12,9 +12,11 @@
       <li class="field comp-setting-entry is-set">
           <div class="wrapper-comp-setting">
             <label class="label setting-label" for="edit_data">Definition</label>
-            <textarea class="block-xml-editor edit-data">{{ self.data }}</textarea>
+            <span class="tip setting-help">The XML definition for the Image Explorer</span>
+            <div class='codemirror-editor-wrapper'>
+              <textarea class="block-xml-editor edit-data">{{ self.data }}</textarea>
+            </div>
           </div>
-          <span class="tip setting-help">The XML definition for the Image Explorer</span>
       </li>
   </ul>
 </div>
