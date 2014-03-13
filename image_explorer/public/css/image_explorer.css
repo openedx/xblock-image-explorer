@@ -78,3 +78,9 @@ a.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-
     border-style: solid;
     border-width: 1px;
 }
+
+.xblock-editor-error-message {
+    display: none;
+    padding-left: 10px;
+    color: red;
+}

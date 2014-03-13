@@ -8,8 +8,15 @@ function ImageExplorerEditBlock(runtime, element) {
             'data': xmlEditor.getValue(),
         };
         var handlerUrl = runtime.handlerUrl(element, 'studio_submit');
-        $.post(handlerUrl, JSON.stringify(data)).complete(function() {
-            window.location.reload(false);
+        $('.xblock-editor-error-message', element).html();
+        $('.xblock-editor-error-message', element).css('display', 'none');
+        $.post(handlerUrl, JSON.stringify(data)).done(function(response) {
+            if (response.result === 'success') {
+                window.location.reload(false);
+            } else {
+                $('.xblock-editor-error-message', element).html('Error: '+response.message);
+                $('.xblock-editor-error-message', element).css('display', 'block');
+            }
         });
     });
 }
