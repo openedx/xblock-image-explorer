@@ -12,7 +12,9 @@ from xblock.core import XBlock
 from xblock.fields import Scope, String
 from xblock.fragment import Fragment
 
-from .utils import load_resource, render_template, AttrDict
+from StringIO import StringIO
+
+from .utils import render_template, AttrDict, load_resource
 
 
 # Globals ###########################################################
@@ -101,8 +103,8 @@ class ImageExplorerBlock(XBlock):
 
         fragment = Fragment()
         fragment.add_content(render_template('/templates/html/image_explorer.html', context))
-        fragment.add_css(load_resource('/static/css/image_explorer.css'))
-        fragment.add_javascript(load_resource('/static/js/image_explorer.js'))
+        fragment.add_css(load_resource('public/css/image_explorer.css'))
+        fragment.add_javascript(load_resource('public/js/image_explorer.js'))
 
         fragment.initialize_js('ImageExplorerBlock')
 
@@ -116,7 +118,7 @@ class ImageExplorerBlock(XBlock):
         fragment.add_content(render_template('/templates/html/image_explorer_edit.html', {
             'self': self,
         }))
-        fragment.add_javascript(load_resource('/static/js/image_explorer_edit.js'))
+        fragment.add_javascript(load_resource('public/js/image_explorer_edit.js'))
 
         fragment.initialize_js('ImageExplorerEditBlock')
 
@@ -126,9 +128,16 @@ class ImageExplorerBlock(XBlock):
     def studio_submit(self, submissions, suffix=''):
 
         self.display_name = submissions['display_name']
-        self.data = submissions['data']
+        xml_content = submissions['data']
 
-        # validate submitted XML
+        try:
+            etree.parse(StringIO(xml_content))
+            self.data = xml_content
+        except etree.XMLSyntaxError as e:
+            return {
+                'result': 'error',
+                'message': e.message
+            }
 
         return {
             'result': 'success',

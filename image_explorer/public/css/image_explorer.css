@@ -69,7 +69,7 @@ a.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-
     float: right;
     width: 20px;
     height: 20px;
-    margin-right: 0px;
+    margin-right: -3px;
     margin-top: 2px;
     color: #FFFFFF;
 }
