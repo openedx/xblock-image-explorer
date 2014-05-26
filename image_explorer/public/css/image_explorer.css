@@ -8,18 +8,18 @@
 }
 
 .image-explorer-hotspot-reveal {
-    background-color: rgba(0, 101, 189, 0.80);
+    position: absolute;
+    background-color: rgba(102, 165, 181, 0.90);
     color: #000000;
     left: 100%;
-    position: absolute;
     top: 25%;
-    width: 300px;
     z-index: 1;
     display: none;
 }
 
 .image-explorer-hotspot-content-wrapper {
-    margin: 10px 20px 10px 10px;
+    color: #ffffff;
+    margin: 35px 15px 15px 15px;
 }
 
 .image-explorer-hotspot-reveal.active {
@@ -28,7 +28,7 @@
 }
 
 .image-explorer-hotspot-reveal-header {
-    font-family: "Open Sans Regular";
+    font-family: "Open Sans", sans-serif;
     font-size: 16px;
 }
 
@@ -52,7 +52,7 @@ a.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-
 }
 
 .image-explorer-hotspot-reveal-body {
-    font-family: "Open Sans Regular";
+    font-family: "Open Sans", sans-serif;
     font-size: 14px;
 }
 
@@ -67,11 +67,12 @@ a.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-
 .image-explorer-close-reveal {
     /* background: url("../images/image-explorer-reveal-close.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0); */
     float: right;
-    width: 20px;
-    height: 20px;
-    margin-right: -3px;
-    margin-top: 2px;
+    margin-right: 8px;
+    margin-top: 8px;
+    margin-left: 20px;
     color: #FFFFFF;
+    font-family: "fontawesome";
+    font-size: 18pt;
 }
 
 .codemirror-editor-wrapper {

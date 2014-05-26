@@ -45,7 +45,7 @@ class ImageExplorerBlock(XBlock):
             </description>
             <hotspots>
                 <hotspot x='370' y='20'>
-                    <feedback width='300' height='170'>
+                    <feedback width='300' height='240'>
                         <header>
                             <p>
                                 This is where many pranks take place. Below are some of the highlights:
@@ -60,7 +60,7 @@ class ImageExplorerBlock(XBlock):
                     </feedback>
                 </hotspot>
                 <hotspot x='250' y='70'>
-                    <feedback width='420' height='360'>
+                    <feedback width='440' height='400'>
                         <header>
                             <p>
                                 Watch the Red Line subway go around the dome
