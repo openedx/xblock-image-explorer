@@ -108,6 +108,10 @@ class ImageExplorerBlock(XBlock):
 
         fragment.initialize_js('ImageExplorerBlock')
 
+        self.runtime.publish(self, 'image-explorer.problem.shown',
+                {'component_id': self.scope_ids.usage_id, 'user_id': self.runtime.user_id}
+        )
+
         return fragment
 
     def studio_view(self, context):
