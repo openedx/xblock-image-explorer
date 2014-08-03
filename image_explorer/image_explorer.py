@@ -209,3 +209,8 @@ class ImageExplorerBlock(XBlock):
             hotspots.append(hotspot)
 
         return hotspots
+
+    @staticmethod
+    def workbench_scenarios():
+        """A canned scenario for display in the workbench."""
+        return [("Image explorer scenario", "<vertical_demo><image-explorer/></vertical_demo>")]
