@@ -197,7 +197,7 @@ class ImageExplorerBlock(XBlock):
         hotspots_element= xmltree.find('hotspots')
         hotspot_elements = hotspots_element.findall('hotspot')
         hotspots = []
-        for hotspot_element in hotspot_elements:
+        for index, hotspot_element in enumerate(hotspot_elements):
             feedback_element = hotspot_element.find('feedback')
 
             feedback = AttrDict()
@@ -221,6 +221,7 @@ class ImageExplorerBlock(XBlock):
                 feedback.youtube.height = youtube_element.get('height')
 
             hotspot = AttrDict()
+            hotspot.item_id = 'hotspot' + str(index)
             hotspot.feedback = feedback
             hotspot.x = hotspot_element.get('x')
             hotspot.y = hotspot_element.get('y')
