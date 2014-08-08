@@ -32,7 +32,7 @@ function ImageExplorerBlock(runtime, element) {
       reveal.css('display', 'block');
       hotspot_opened_at = new Date().getTime();
       publish_event({
-              event_type:'image-explorer.hotspot.opened',
+              event_type:'xblock.image-explorer.hotspot.opened',
               item_id: target.data('item-id')
       });
     });
@@ -45,10 +45,13 @@ function ImageExplorerBlock(runtime, element) {
       var hotspot = $(eventObj.currentTarget).closest('.image-explorer-hotspot');
       var duration = new Date().getTime() - hotspot_opened_at;
       publish_event({
-              event_type:'image-explorer.hotspot.closed',
+              event_type:'xblock.image-explorer.hotspot.closed',
               item_id: hotspot.data('item-id'),
               duration: String(duration)
       });
     });
 
+    publish_event({
+        event_type:'xblock.image-explorer.loaded'
+    });
 }
