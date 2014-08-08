@@ -44,7 +44,7 @@ class ImageExplorerBlock(XBlock):
                 </p>
             </description>
             <hotspots>
-                <hotspot x='370' y='20'>
+                <hotspot x='370' y='20' item-id='hotspotA'>
                     <feedback width='300' height='240'>
                         <header>
                             <p>
@@ -59,7 +59,7 @@ class ImageExplorerBlock(XBlock):
                         </body>
                     </feedback>
                 </hotspot>
-                <hotspot x='250' y='70'>
+                <hotspot x='250' y='70' item-id="hotspotB">
                     <feedback width='440' height='400'>
                         <header>
                             <p>
@@ -217,7 +217,9 @@ class ImageExplorerBlock(XBlock):
                 feedback.youtube.height = youtube_element.get('height')
 
             hotspot = AttrDict()
-            hotspot.item_id = 'hotspot' + str(index)
+            hotspot.item_id = hotspot_element.get('item-id')
+            if hotspot.item_id is None:
+                hotspot.item_id = 'hotspot' + str(index)
             hotspot.feedback = feedback
             hotspot.x = hotspot_element.get('x')
             hotspot.y = hotspot_element.get('y')
