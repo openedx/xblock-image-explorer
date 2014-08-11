@@ -44,7 +44,7 @@ class ImageExplorerBlock(XBlock):
                 </p>
             </description>
             <hotspots>
-                <hotspot x='370' y='20'>
+                <hotspot x='370' y='20' item-id='hotspotA'>
                     <feedback width='300' height='240'>
                         <header>
                             <p>
@@ -59,7 +59,7 @@ class ImageExplorerBlock(XBlock):
                         </body>
                     </feedback>
                 </hotspot>
-                <hotspot x='250' y='70'>
+                <hotspot x='250' y='70' item-id="hotspotB">
                     <feedback width='440' height='400'>
                         <header>
                             <p>
@@ -109,6 +109,21 @@ class ImageExplorerBlock(XBlock):
         fragment.initialize_js('ImageExplorerBlock')
 
         return fragment
+
+
+    @XBlock.json_handler
+    def publish_event(self, data, suffix=''):
+
+        try:
+            event_type = data.pop('event_type')
+        except KeyError as e:
+            return {'result': 'error', 'message': 'Missing event_type in JSON data'}
+
+        data['component_id'] = self.scope_ids.usage_id
+        data['user_id'] = self.runtime.user_id
+
+        self.runtime.publish(self, event_type, data)
+        return {'result':'success'}
 
     def studio_view(self, context):
         """
@@ -178,7 +193,7 @@ class ImageExplorerBlock(XBlock):
         hotspots_element= xmltree.find('hotspots')
         hotspot_elements = hotspots_element.findall('hotspot')
         hotspots = []
-        for hotspot_element in hotspot_elements:
+        for index, hotspot_element in enumerate(hotspot_elements):
             feedback_element = hotspot_element.find('feedback')
 
             feedback = AttrDict()
@@ -202,6 +217,9 @@ class ImageExplorerBlock(XBlock):
                 feedback.youtube.height = youtube_element.get('height')
 
             hotspot = AttrDict()
+            hotspot.item_id = hotspot_element.get('item-id')
+            if hotspot.item_id is None:
+                hotspot.item_id = 'hotspot' + str(index)
             hotspot.feedback = feedback
             hotspot.x = hotspot_element.get('x')
             hotspot.y = hotspot_element.get('y')

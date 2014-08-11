@@ -1,4 +1,15 @@
 function ImageExplorerBlock(runtime, element) {
+
+    var hotspot_opened_at = null;
+
+    function publish_event(data) {
+      $.ajax({
+          type: "POST",
+          url: runtime.handlerUrl(element, 'publish_event'),
+          data: JSON.stringify(data)
+      });
+    }
+
     /* reveal feedback action */
     $(element).find('.image-explorer-hotspot').bind('click', function(eventObj) {
       eventObj.preventDefault();
@@ -19,6 +30,11 @@ function ImageExplorerBlock(runtime, element) {
         reveal.css('margin-left', '-' + (reveal_width + hotspot_image_width) + 'px');
       }
       reveal.css('display', 'block');
+      hotspot_opened_at = new Date().getTime();
+      publish_event({
+              event_type:'xblock.image-explorer.hotspot.opened',
+              item_id: target.data('item-id')
+      });
     });
 
     /* close feedback action */
@@ -26,6 +42,16 @@ function ImageExplorerBlock(runtime, element) {
       $(element).find('.image-explorer-hotspot-reveal').css('display', 'none');
       eventObj.preventDefault();
       eventObj.stopPropagation();
-      close_hotspots(element);
+      var hotspot = $(eventObj.currentTarget).closest('.image-explorer-hotspot');
+      var duration = new Date().getTime() - hotspot_opened_at;
+      publish_event({
+              event_type:'xblock.image-explorer.hotspot.closed',
+              item_id: hotspot.data('item-id'),
+              duration: String(duration)
+      });
+    });
+
+    publish_event({
+        event_type:'xblock.image-explorer.loaded'
     });
 }
