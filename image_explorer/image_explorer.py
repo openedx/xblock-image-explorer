@@ -119,9 +119,6 @@ class ImageExplorerBlock(XBlock):
         except KeyError as e:
             return {'result': 'error', 'message': 'Missing event_type in JSON data'}
 
-        data['component_id'] = self.scope_ids.usage_id
-        data['user_id'] = self.runtime.user_id
-
         self.runtime.publish(self, event_type, data)
         return {'result':'success'}
 
