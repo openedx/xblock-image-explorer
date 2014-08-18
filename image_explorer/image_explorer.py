@@ -26,7 +26,7 @@ log = logging.getLogger(__name__)
 
 class ImageExplorerBlock(XBlock):
     """
-    XBlock providing a video player for videos hosted on Brightcove
+    XBlock that renders an image with tooltips
     """
     display_name = String(
         display_name="Display Name",
