@@ -8,7 +8,7 @@ hotspot icon, tooltip containing custom content is displayed.
 Screenshot below shows the Image Explorer XBlock rendered inside the
 edX LMS with an activated tooltip containing and embedded YouTube video.
 
-![Student view](https://raw.githubusercontent.com/mtyaka/xblock-image-explorer/readme-doc/doc/img/student-view.png)
+![Student view](https://raw.githubusercontent.com/edx-solutions/xblock-image-explorer/3b67392a73edcd606f4e3fb30cfa8b3cc20720d3/doc/img/student-view.png)
 
 Installation
 ------------
@@ -38,7 +38,7 @@ Usage
 When you add the `Image Explorer` component to a course in the studio,
 the block is field with default content, shown in the screenshot below.
 
-![Edit view](https://raw.githubusercontent.com/mtyaka/xblock-image-explorer/readme-doc/doc/img/edit-view.png)
+![Edit view](https://raw.githubusercontent.com/edx-solutions/xblock-image-explorer/3b67392a73edcd606f4e3fb30cfa8b3cc20720d3/doc/img/edit-view.png)
 
 The basic structure of the `image_explorer` XBlock looks like this:
 
