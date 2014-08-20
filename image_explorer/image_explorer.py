@@ -85,10 +85,14 @@ class ImageExplorerBlock(XBlock):
         background = self._get_background(xmltree)
 
         for hotspot in hotspots:
-            hotspot.reveal_style = 'style="{0}{1}"'.format(
-                    'width: ' + hotspot.feedback.width + 'px;' if hotspot.feedback.width else '',
-                    'height: ' + hotspot.feedback.height + 'px;' if hotspot.feedback.height else ''
-                )
+            width = 'width:{0}px'.format(hotspot.feedback.width) if hotspot.feedback.width else 'width:300px'
+            height = 'height:{0}px'.format(hotspot.feedback.height) if hotspot.feedback.height else ''
+            max_height = ''
+            if not hotspot.feedback.height:
+                max_height = 'max-height:{0}px'.format(hotspot.feedback.max_height) if \
+                             hotspot.feedback.max_height else 'max-height:300px'
+
+            hotspot.reveal_style = 'style="{0};{1};{2}"'.format(width, height, max_height)
 
         sprite_url = self.runtime.local_resource_url(self, 'public/images/hotspot-sprite.png')
 
@@ -196,6 +200,7 @@ class ImageExplorerBlock(XBlock):
             feedback = AttrDict()
             feedback.width = feedback_element.get('width')
             feedback.height = feedback_element.get('height')
+            feedback.max_height = feedback_element.get('max-height')
             feedback.header = self._inner_content(feedback_element.find('header'))
 
             feedback.body = None
