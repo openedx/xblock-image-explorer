@@ -95,10 +95,11 @@ image, and `item-id` which can be set to a unique string used to
 identify the hotspot in the emitted events.
 
 Each `<hotspot>` element must contain the `<feedback>` child
-element. The `<feedback>` element supports `width` and `height`
-attributes (both optional) that specify the dimensions of the tooltip
-element. The tooltip is sized dynamically if the dimensions aren't
-provided.
+element. The `<feedback>` element supports `width`, `height` and `max-height`
+attributes (all optional) that specify the dimensions of the tooltip
+element. The default width is `300px` and if no height is specified, the
+max-height is set to `500px`. So the content will be sized dynamically with a
+vertical scrollbar for the overflow.
 
 The `<feedback>` element can contain the following child elements:
 

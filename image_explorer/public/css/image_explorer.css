@@ -15,6 +15,8 @@
     top: 25%;
     z-index: 1;
     display: none;
+    overflow-y: scroll;
+    cursor: default;
 }
 
 .image-explorer-hotspot-content-wrapper {
@@ -73,6 +75,7 @@ a.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-
     color: #FFFFFF;
     font-family: "fontawesome";
     font-size: 18pt;
+    cursor: pointer;
 }
 
 .codemirror-editor-wrapper {
