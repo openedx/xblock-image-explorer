@@ -13,7 +13,7 @@
     color: #000000;
     left: 100%;
     top: 25%;
-    z-index: 1;
+    z-index: 2;
     display: none;
     overflow-y: scroll;
     cursor: default;
