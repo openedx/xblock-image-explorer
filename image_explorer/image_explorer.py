@@ -9,7 +9,7 @@ from lxml import etree
 from xml.etree import ElementTree as ET
 
 from xblock.core import XBlock
-from xblock.fields import Scope, String
+from xblock.fields import List, Scope, String
 from xblock.fragment import Fragment
 
 from StringIO import StringIO
@@ -24,7 +24,7 @@ log = logging.getLogger(__name__)
 
 # Classes ###########################################################
 
-class ImageExplorerBlock(XBlock):
+class ImageExplorerBlock(XBlock): # pylint: disable=no-init
     """
     XBlock that renders an image with tooltips
     """
@@ -33,6 +33,12 @@ class ImageExplorerBlock(XBlock):
         help="This name appears in the horizontal navigation at the top of the page.",
         scope=Scope.settings,
         default="Image Explorer"
+    )
+
+    opened_hotspots = List(
+        help="Store hotspots opened by student, for completion",
+        default=[],
+        scope=Scope.user_state,
     )
 
     data = String(help="XML contents to display for this module", scope=Scope.content, default=textwrap.dedent("""\
@@ -120,14 +126,43 @@ class ImageExplorerBlock(XBlock):
 
         try:
             event_type = data.pop('event_type')
-        except KeyError as e:
+        except KeyError:
             return {'result': 'error', 'message': 'Missing event_type in JSON data'}
 
         data['user_id'] = self.scope_ids.user_id
         data['component_id'] = self._get_unique_id()
-
         self.runtime.publish(self, event_type, data)
+
+        if event_type == 'xblock.image-explorer.hotspot.opened':
+            self.register_progress(data['item_id'])
+
         return {'result':'success'}
+
+    def register_progress(self, hotspot_id):
+        """
+        Registers the completion of an hotspot, identified by id
+        """
+        xmltree = etree.fromstring(self.data)
+        hotspots_ids = [h.item_id for h in self._get_hotspots(xmltree)]
+
+        if not hotspots_ids \
+                or hotspot_id not in hotspots_ids \
+                or hotspot_id in self.opened_hotspots:
+            return
+
+        self.opened_hotspots.append(hotspot_id)
+        log.debug(u'Opened hotspots so far for {}: {}'.format(self._get_unique_id(), self.opened_hotspots))
+
+        opened_hotspots = [h for h in hotspots_ids if h in self.opened_hotspots]
+        percent_completion = float(len(opened_hotspots)) / len(hotspots_ids)
+        self.runtime.publish(self, 'grade', {
+            'value': percent_completion,
+            'max_value': 1,
+        })
+        log.debug(u'Sending grade for {}: {}'.format(self._get_unique_id(), percent_completion))
+
+        if len(opened_hotspots) == len(hotspots_ids):
+            self.runtime.publish(self, 'progress', {})
 
     def _get_unique_id(self):
         try:
