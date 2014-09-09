@@ -150,6 +150,7 @@ class ImageExplorerBlock(XBlock): # pylint: disable=no-init
                 or hotspot_id in self.opened_hotspots:
             return
 
+        self.runtime.publish(self, 'progress', {})
         self.opened_hotspots.append(hotspot_id)
         log.debug(u'Opened hotspots so far for {}: {}'.format(self._get_unique_id(), self.opened_hotspots))
 
@@ -160,9 +161,6 @@ class ImageExplorerBlock(XBlock): # pylint: disable=no-init
             'max_value': 1,
         })
         log.debug(u'Sending grade for {}: {}'.format(self._get_unique_id(), percent_completion))
-
-        if len(opened_hotspots) == len(hotspots_ids):
-            self.runtime.publish(self, 'progress', {})
 
     def _get_unique_id(self):
         try:
