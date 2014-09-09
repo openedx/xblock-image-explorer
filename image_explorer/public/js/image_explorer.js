@@ -1,6 +1,7 @@
 function ImageExplorerBlock(runtime, element) {
 
     var hotspot_opened_at = null;
+    var active_feedback = null;
 
     function publish_event(data) {
       $.ajax({
@@ -11,8 +12,10 @@ function ImageExplorerBlock(runtime, element) {
     }
 
     /* reveal feedback action */
-    $(element).find('.image-explorer-hotspot').bind('click', function(eventObj) {
+    $(element).find('.image-explorer-hotspot').on('click', function(eventObj) {
       eventObj.preventDefault();
+      if (eventObj.target != this)
+        return; // User clicked on the feedback popup, which is a child of the hotspot.
       eventObj.stopPropagation();
       $(element).find('.image-explorer-hotspot-reveal').css('display', 'none');
 
@@ -30,6 +33,7 @@ function ImageExplorerBlock(runtime, element) {
         reveal.css('margin-left', '-' + (reveal_width + hotspot_image_width) + 'px');
       }
       reveal.css('display', 'block');
+      active_feedback = reveal;
       hotspot_opened_at = new Date().getTime();
       publish_event({
               event_type:'xblock.image-explorer.hotspot.opened',
@@ -38,17 +42,29 @@ function ImageExplorerBlock(runtime, element) {
     });
 
     /* close feedback action */
-    $(element).find('.image-explorer-close-reveal').bind('click', function(eventObj) {
-      $(element).find('.image-explorer-hotspot-reveal').css('display', 'none');
-      eventObj.preventDefault();
-      eventObj.stopPropagation();
-      var hotspot = $(eventObj.currentTarget).closest('.image-explorer-hotspot');
+    function close_feedback() {
+      // Close the visible feedback popup
+      active_feedback.css('display', 'none');
+      var hotspot = active_feedback.closest('.image-explorer-hotspot');
       var duration = new Date().getTime() - hotspot_opened_at;
       publish_event({
               event_type:'xblock.image-explorer.hotspot.closed',
               item_id: hotspot.data('item-id'),
               duration: String(duration)
       });
+      active_feedback = null;
+    }
+    $(document).on('click', function(eventObj) {
+      if (!active_feedback)
+        return;
+      var target = $(eventObj.target);
+      var close_btn = ".image-explorer-close-reveal";
+      var clicked_outside_feedback = (target.closest('.image-explorer-hotspot-reveal').length === 0);
+      if (target.is(close_btn) || clicked_outside_feedback) {
+        close_feedback();
+        eventObj.preventDefault();
+        eventObj.stopPropagation();
+      }
     });
 
     publish_event({
