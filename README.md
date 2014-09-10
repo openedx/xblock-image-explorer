@@ -91,8 +91,11 @@ background image and the content of the tooltips.
 
 The supported attributes of `<hotspot>` elements are `x` and `y` (both
 required) that specify the position of the hotspot on the background
-image, and `item-id` which can be set to a unique string used to
-identify the hotspot in the emitted events.
+image, `item-id` which can be set to a unique string used to
+identify the hotspot in the emitted events and optional `side` attribute 
+that allows to override hotspot's popup position. If `side` attribute is 
+missing or set to anything except `left` and `right` automatic positioning
+is used.
 
 Each `<hotspot>` element must contain the `<feedback>` child
 element. The `<feedback>` element supports `width`, `height` and `max-height`

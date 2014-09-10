@@ -247,6 +247,8 @@ class ImageExplorerBlock(XBlock): # pylint: disable=no-init
             feedback.max_height = feedback_element.get('max-height')
             feedback.header = self._inner_content(feedback_element.find('header'))
 
+            feedback.side = hotspot_element.get('side', 'auto')
+
             feedback.body = None
             body_element = feedback_element.find('body')
             if body_element is not None:
