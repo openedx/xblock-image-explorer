@@ -9,7 +9,7 @@
     <div class="image-explorer-wrapper">
         <img src="{{background.src}}" class="image-explorer-background" />
         {% for hotspot in hotspots %}
-        <a class="image-explorer-hotspot" style="position: absolute; top: {{hotspot.y}}px; left: {{hotspot.x}}px; background-image: url('{{sprite_url}}')" data-item-id="{{hotspot.item_id}}" href="#">
+        <div class="image-explorer-hotspot" style="position: absolute; top: {{hotspot.y}}px; left: {{hotspot.x}}px; background-image: url('{{sprite_url}}')" data-item-id="{{hotspot.item_id}}">
                 <div class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}">
                     <div class="image-explorer-close-reveal">&#xf057;</div>
                     <div class="image-explorer-hotspot-content-wrapper">
@@ -30,7 +30,7 @@
                         {% endif %}
                     </div>
                 </div>
-            </a>
+            </div>
         {% endfor %}
     </div>
 </div>

@@ -34,7 +34,7 @@
     font-size: 16px;
 }
 
-.image-explorer-wrapper a.image-explorer-hotspot {
+.image-explorer-wrapper div.image-explorer-hotspot {
     background: url("/static/images/image-explorer-hotspot-sprite.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     width: 41px;
     height: 41px;
@@ -45,11 +45,17 @@
     transition: all 0.0s linear 0s;
 }
 
-.image-explorer-wrapper a.image-explorer-hotspot:hover {
+div.image-explorer-hotspot a{
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.image-explorer-wrapper div.image-explorer-hotspot:hover {
     background-position: 0px -43px
 }
 
-a.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-header p {
+div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-header p {
     margin: 10px 0px 10px 20px;
 }
 
@@ -58,11 +64,11 @@ a.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-
     font-size: 14px;
 }
 
-a.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-body ul {
+.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-body ul {
     list-style-type: disc;
 }
 
-a.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-body ul li {
+div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-body ul li {
     margin: 0 0 24px 17px;
 }
 
