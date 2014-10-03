@@ -32,6 +32,15 @@ advanced settings.
    `"image-explorer"` to the policy value list.
 3. Click the "Save changes" button.
 
+Testing
+-------
+
+To run all integration and unit tests, run:
+
+```bash
+nosetests --with-django
+```
+
 Usage
 -----
 
