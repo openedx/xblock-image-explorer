@@ -16,15 +16,10 @@ from StringIO import StringIO
 
 from .utils import render_template, AttrDict, load_resource
 
-
-# Globals ###########################################################
-
 log = logging.getLogger(__name__)
 
 
-# Classes ###########################################################
-
-class ImageExplorerBlock(XBlock): # pylint: disable=no-init
+class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     """
     XBlock that renders an image with tooltips
     """
@@ -110,7 +105,6 @@ class ImageExplorerBlock(XBlock): # pylint: disable=no-init
             'sprite_url': sprite_url,
         }
 
-
         fragment = Fragment()
         fragment.add_content(render_template('/templates/html/image_explorer.html', context))
         fragment.add_css(load_resource('public/css/image_explorer.css'))
@@ -120,10 +114,8 @@ class ImageExplorerBlock(XBlock): # pylint: disable=no-init
 
         return fragment
 
-
     @XBlock.json_handler
     def publish_event(self, data, suffix=''):
-
         try:
             event_type = data.pop('event_type')
         except KeyError:
@@ -136,7 +128,7 @@ class ImageExplorerBlock(XBlock): # pylint: disable=no-init
         if event_type == 'xblock.image-explorer.hotspot.opened':
             self.register_progress(data['item_id'])
 
-        return {'result':'success'}
+        return {'result': 'success'}
 
     def register_progress(self, hotspot_id):
         """
@@ -235,7 +227,7 @@ class ImageExplorerBlock(XBlock): # pylint: disable=no-init
         """
         Parse the XML to get the hotspot information
         """
-        hotspots_element= xmltree.find('hotspots')
+        hotspots_element = xmltree.find('hotspots')
         hotspot_elements = hotspots_element.findall('hotspot')
         hotspots = []
         for index, hotspot_element in enumerate(hotspot_elements):
