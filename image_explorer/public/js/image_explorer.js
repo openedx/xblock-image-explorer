@@ -36,7 +36,6 @@ function ImageExplorerBlock(runtime, element) {
 
     /* reveal feedback action */
     $(element).find('.image-explorer-hotspot').on('click', function(eventObj) {
-      eventObj.preventDefault();
       if (eventObj.target != this)
         return; // User clicked on the feedback popup, which is a child of the hotspot.
       eventObj.stopPropagation();
