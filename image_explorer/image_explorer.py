@@ -159,7 +159,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             unique_id = self.location.name
         except AttributeError:
             # workaround for xblock workbench
-            unique_id = self.parent.replace('.',  '-')
+            unique_id = 'workbench-workaround-id'
         return unique_id
 
     def studio_view(self, context):
