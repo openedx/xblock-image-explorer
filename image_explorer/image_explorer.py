@@ -14,7 +14,7 @@ from xblock.fragment import Fragment
 
 from StringIO import StringIO
 
-from .utils import render_template, AttrDict, load_resource
+from .utils import loader, AttrDict
 
 log = logging.getLogger(__name__)
 
@@ -106,9 +106,9 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         }
 
         fragment = Fragment()
-        fragment.add_content(render_template('/templates/html/image_explorer.html', context))
-        fragment.add_css(load_resource('public/css/image_explorer.css'))
-        fragment.add_javascript(load_resource('public/js/image_explorer.js'))
+        fragment.add_content(loader.render_template('/templates/html/image_explorer.html', context))
+        fragment.add_css(loader.load_unicode('public/css/image_explorer.css'))
+        fragment.add_javascript(loader.load_unicode('public/js/image_explorer.js'))
 
         fragment.initialize_js('ImageExplorerBlock')
 
@@ -159,7 +159,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             unique_id = self.location.name
         except AttributeError:
             # workaround for xblock workbench
-            unique_id = self.parent.replace('.',  '-')
+            unique_id = 'workbench-workaround-id'
         return unique_id
 
     def studio_view(self, context):
@@ -167,10 +167,10 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         Editing view in Studio
         """
         fragment = Fragment()
-        fragment.add_content(render_template('/templates/html/image_explorer_edit.html', {
+        fragment.add_content(loader.render_template('/templates/html/image_explorer_edit.html', {
             'self': self,
         }))
-        fragment.add_javascript(load_resource('public/js/image_explorer_edit.js'))
+        fragment.add_javascript(loader.load_unicode('public/js/image_explorer_edit.js'))
 
         fragment.initialize_js('ImageExplorerEditBlock')
 
