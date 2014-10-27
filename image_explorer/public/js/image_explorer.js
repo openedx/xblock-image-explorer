@@ -53,6 +53,7 @@ function ImageExplorerBlock(runtime, element) {
 
       reveal.css('display', 'block');
       active_feedback = reveal;
+      $(this).trigger('feedback:open');
       hotspot_opened_at = new Date().getTime();
       publish_event({
               event_type:'xblock.image-explorer.hotspot.opened',
@@ -93,6 +94,7 @@ function ImageExplorerBlock(runtime, element) {
       // Close the visible feedback popup
       var hotspot = active_feedback.closest('.image-explorer-hotspot');
       pause_youtube_videos(hotspot);
+      hotspot.trigger('feedback:close');
       active_feedback.css('display', 'none');
       var duration = new Date().getTime() - hotspot_opened_at;
       publish_event({
