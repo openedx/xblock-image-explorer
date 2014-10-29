@@ -5,6 +5,7 @@
 
 import logging
 import textwrap
+import uuid
 from lxml import etree
 from xml.etree import ElementTree as ET
 
@@ -84,6 +85,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         description = self._get_description(xmltree)
         hotspots = self._get_hotspots(xmltree)
         background = self._get_background(xmltree)
+        has_youtube = False
 
         for hotspot in hotspots:
             width = 'width:{0}px'.format(hotspot.feedback.width) if hotspot.feedback.width else 'width:300px'
@@ -94,6 +96,8 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
                              hotspot.feedback.max_height else 'max-height:300px'
 
             hotspot.reveal_style = 'style="{0};{1};{2}"'.format(width, height, max_height)
+            if hotspot.feedback.youtube:
+                has_youtube = True
 
         sprite_url = self.runtime.local_resource_url(self, 'public/images/hotspot-sprite.png')
 
@@ -109,6 +113,8 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         fragment.add_content(loader.render_template('/templates/html/image_explorer.html', context))
         fragment.add_css(loader.load_unicode('public/css/image_explorer.css'))
         fragment.add_javascript(loader.load_unicode('public/js/image_explorer.js'))
+        if has_youtube:
+            fragment.add_javascript_url('https://www.youtube.com/iframe_api')
 
         fragment.initialize_js('ImageExplorerBlock')
 
@@ -149,7 +155,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         opened_hotspots = [h for h in hotspots_ids if h in self.opened_hotspots]
         percent_completion = float(len(opened_hotspots)) / len(hotspots_ids)
         self.runtime.publish(self, 'grade', {
-            'value': percent_completion,
+           'value': percent_completion,
             'max_value': 1,
         })
         log.debug(u'Sending grade for {}: {}'.format(self._get_unique_id(), percent_completion))
@@ -252,6 +258,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             if youtube_element is not None:
                 feedback.type = 'youtube'
                 feedback.youtube = AttrDict()
+                feedback.youtube.id = 'youtube-{}'.format(uuid.uuid4().hex)
                 feedback.youtube.video_id = youtube_element.get('video_id')
                 feedback.youtube.width = youtube_element.get('width')
                 feedback.youtube.height = youtube_element.get('height')

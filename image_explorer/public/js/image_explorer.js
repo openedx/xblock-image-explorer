@@ -2,6 +2,8 @@ function ImageExplorerBlock(runtime, element) {
 
     var hotspot_opened_at = null;
     var active_feedback = null;
+    // Holds a reference to YouTube API Player objects.
+    var video_players = {};
 
     function publish_event(data) {
       $.ajax({
@@ -39,7 +41,10 @@ function ImageExplorerBlock(runtime, element) {
       if (eventObj.target != this)
         return; // User clicked on the feedback popup, which is a child of the hotspot.
       eventObj.stopPropagation();
-      $(element).find('.image-explorer-hotspot-reveal').css('display', 'none');
+
+      if (active_feedback) {
+        close_feedback();
+      }
 
       var target = $(eventObj.currentTarget);
       var reveal = target.find('.image-explorer-hotspot-reveal');
@@ -48,6 +53,7 @@ function ImageExplorerBlock(runtime, element) {
 
       reveal.css('display', 'block');
       active_feedback = reveal;
+      $(this).trigger('feedback:open');
       hotspot_opened_at = new Date().getTime();
       publish_event({
               event_type:'xblock.image-explorer.hotspot.opened',
@@ -55,11 +61,41 @@ function ImageExplorerBlock(runtime, element) {
       });
     });
 
+  function pause_youtube_videos(hotspot) {
+    hotspot.find('.youtube-player').each(function() {
+      var pauseVideo = function(player) {
+        player.pauseVideo();
+      };
+
+      if (!video_players[this.id]) {
+        // YouTube API does not allow creating multiple YT.Player instances
+        // for the same video iframe, so store the reference to the new YT.Player
+        // for future use.
+        video_players[this.id] = new YT.Player(this.id, {
+          events: {
+            onReady: function(evt) {
+              pauseVideo(evt.target);
+            }
+          }
+        });
+      }
+
+      // YT.Player objects take some time to initialize. Before the player is ready,
+      // all API methods will throw an error, so try to pause the video, but ignore errors.
+      // If YT.Player is not ready at this time, it will be paused in the onReady callback.
+      try {
+        pauseVideo(video_players[this.id]);
+      } catch (e) {}
+    });
+  }
+
     /* close feedback action */
     function close_feedback() {
       // Close the visible feedback popup
-      active_feedback.css('display', 'none');
       var hotspot = active_feedback.closest('.image-explorer-hotspot');
+      pause_youtube_videos(hotspot);
+      hotspot.trigger('feedback:close');
+      active_feedback.css('display', 'none');
       var duration = new Date().getTime() - hotspot_opened_at;
       publish_event({
               event_type:'xblock.image-explorer.hotspot.closed',
@@ -68,6 +104,7 @@ function ImageExplorerBlock(runtime, element) {
       });
       active_feedback = null;
     }
+
     $(document).on('click', function(eventObj) {
       if (!active_feedback)
         return;
