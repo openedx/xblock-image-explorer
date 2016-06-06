@@ -125,7 +125,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         try:
             event_type = data.pop('event_type')
         except KeyError:
-            return {'result': 'error', 'message': 'Missing event_type in JSON data'}
+            return {'result': 'error', 'message': self.ugettext('Missing event_type in JSON data')}
 
         data['user_id'] = self.scope_ids.user_id
         data['component_id'] = self._get_unique_id()
