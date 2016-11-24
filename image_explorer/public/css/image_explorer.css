@@ -35,7 +35,7 @@
 }
 
 .image-explorer-wrapper div.image-explorer-hotspot {
-    background: url("/static/images/image-explorer-hotspot-sprite.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../images/hotspot-sprite.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     width: 41px;
     height: 41px;
     display: block;

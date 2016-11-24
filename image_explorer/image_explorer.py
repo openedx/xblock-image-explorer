@@ -99,20 +99,17 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             if hotspot.feedback.youtube:
                 has_youtube = True
 
-        sprite_url = self.runtime.local_resource_url(self, 'public/images/hotspot-sprite.png')
-
         context = {
             'title': self.display_name,
             'description_html': description,
             'hotspots': hotspots,
             'background': background,
-            'sprite_url': sprite_url,
         }
 
         fragment = Fragment()
         fragment.add_content(loader.render_template('/templates/html/image_explorer.html', context))
-        fragment.add_css(loader.load_unicode('public/css/image_explorer.css'))
-        fragment.add_javascript(loader.load_unicode('public/js/image_explorer.js'))
+        fragment.add_css_url(self.runtime.local_resource_url(self, 'public/css/image_explorer.css'))
+        fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/image_explorer.js'))
         if has_youtube:
             fragment.add_javascript_url('https://www.youtube.com/iframe_api')
 
@@ -176,7 +173,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         fragment.add_content(loader.render_template('/templates/html/image_explorer_edit.html', {
             'self': self,
         }))
-        fragment.add_javascript(loader.load_unicode('public/js/image_explorer_edit.js'))
+        fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/image_explorer_edit.js'))
 
         fragment.initialize_js('ImageExplorerEditBlock')
 
