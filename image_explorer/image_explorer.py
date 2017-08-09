@@ -117,6 +117,23 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
         return fragment
 
+    def student_view_data(self, context=None):
+        """
+        Returns a JSON representation of the Image Explorer Xblock, that can be
+        retrieved using Course Block API.
+        """
+        xmltree = etree.fromstring(self.data)
+
+        description = self._get_description(xmltree)
+        background = self._get_background(xmltree)
+        hotspots = self._get_hotspots(xmltree)
+
+        return {
+            'description': description,
+            'background': background,
+            'hotspots': hotspots,
+        }
+
     @XBlock.json_handler
     def publish_event(self, data, suffix=''):
         try:
