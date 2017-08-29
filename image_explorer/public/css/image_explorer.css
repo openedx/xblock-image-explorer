@@ -5,6 +5,11 @@
 
 .image-explorer-wrapper {
     position: relative;
+    display: inline-block;
+}
+
+.image-explorer-wrapper img{
+    max-width: 100%;
 }
 
 .image-explorer-hotspot-reveal {
@@ -34,6 +39,7 @@
     font-size: 16px;
 }
 
+
 .image-explorer-wrapper div.image-explorer-hotspot {
     background: url("../images/hotspot-sprite.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     width: 41px;
@@ -43,6 +49,7 @@
     -webkit-transition: all 0.0s linear 0s;
     -moz-transition: all 0.0s linear 0s;
     transition: all 0.0s linear 0s;
+    visibility: hidden;
 }
 
 div.image-explorer-hotspot a{
@@ -52,11 +59,11 @@ div.image-explorer-hotspot a{
 }
 
 .image-explorer-wrapper div.image-explorer-hotspot:hover {
-    background-position: 0px -43px
+    background-position: 0 -43px
 }
 
 div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-header p {
-    margin: 10px 0px 10px 20px;
+    margin: 10px 0 10px 20px;
 }
 
 .image-explorer-hotspot-reveal-body {
@@ -93,4 +100,29 @@ div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspo
     display: none;
     padding-left: 10px;
     color: red;
+}
+
+@media only screen and (max-width: 767px){
+    .image-explorer-wrapper div.image-explorer-hotspot{
+        background-size: 100%;
+        width: 28px;
+        height: 28px;
+    }
+    .image-explorer-wrapper div.image-explorer-hotspot:hover{
+        background-position: 0 -30px;
+    }
+    .image-explorer-hotspot-reveal{
+        right: 0;
+        left: 0;
+        top: 10vh;
+        bottom: 10vh;
+        width: auto !important;
+        height: auto !important;
+        position: fixed;
+        overflow: auto;
+        z-index: 99999;
+    }
+    .image-explorer-hotspot-reveal iframe{
+        width: 100% !important;
+    }
 }

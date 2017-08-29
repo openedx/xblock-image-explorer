@@ -121,4 +121,22 @@ function ImageExplorerBlock(runtime, element) {
     publish_event({
         event_type:'xblock.image-explorer.loaded'
     });
+
+
+    // Responsive hotspots for mobiles i-e (< 767px)
+    $(window).load(function () {
+        $('.image-explorer-wrapper').each(function (index) {
+            var $imgWidth = $(this).find('img')[index].naturalWidth;
+            var $imgHeight = $(this).find('img')[index].naturalHeight;
+            $(this).find('.image-explorer-hotspot').each(function () {
+                var setLeft = $(this).position().left / $imgWidth * 100;
+                var setTop = $(this).position().top / $imgHeight * 100;
+                $(this).css({
+                    'left': setLeft + '%',
+                    'top': setTop + '%',
+                    'visibility': 'visible'
+                });
+            });
+        });
+    });
 }
