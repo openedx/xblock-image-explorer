@@ -282,8 +282,14 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             if hotspot.item_id is None:
                 hotspot.item_id = 'hotspot' + str(index)
             hotspot.feedback = feedback
+
             hotspot.x = hotspot_element.get('x')
+            if not hotspot.x.endswith('%'):
+                hotspot.x += 'px'  # px is deprecated as it is not responsive
+
             hotspot.y = hotspot_element.get('y')
+            if not hotspot.y.endswith('%'):
+                hotspot.y += 'px'  # px is deprecated as it is not responsive
 
             hotspots.append(hotspot)
 
