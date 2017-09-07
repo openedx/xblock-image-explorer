@@ -18,7 +18,7 @@
     color: #000000;
     left: 100%;
     top: 25%;
-    z-index: 2;
+    z-index: 100;
     display: none;
     overflow-y: auto;
     cursor: default;
@@ -113,7 +113,7 @@ div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspo
     .image-explorer-hotspot-reveal{
         right: 0;
         left: 0;
-        top: 10vh;
+        top: 143px;
         bottom: 10vh;
         width: auto !important;
         height: auto !important;
