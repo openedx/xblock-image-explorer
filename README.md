@@ -35,11 +35,15 @@ advanced settings.
 Testing
 -------
 
+Make sure you have a python virtual environment with `xblock-sdk` version `0.1.5` or higher.
+
 To run all integration and unit tests, run:
 
 ```bash
-nosetests --with-django
+DJANGO_SETTINGS_MODULE=workbench.settings django-admin.py test
 ```
+
+You may need to first install `geckodriver` on your system.
 
 Usage
 -----

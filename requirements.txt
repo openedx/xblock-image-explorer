@@ -1,4 +1,3 @@
 -e .
--e git://github.com/nosedjango/nosedjango.git@ed7d7f9aa969252ff799ec159f828eaa8c1cbc5a#egg=nosedjango-dev
--e git://github.com/edx-solutions/xblock-utils.git@7d7201fb2b0bfc8e5d13905d1cedf88335ab4a93#egg=xblock-utils
+-e git://github.com/edx-solutions/xblock-utils.git@v1.0.5#egg=xblock-utils
 lxml==3.0.1

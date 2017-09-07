@@ -1,3 +1,5 @@
 xblock_image_explorer.egg-info
 *.pyc
 *~
+var/workbench.log*
+geckodriver.log
