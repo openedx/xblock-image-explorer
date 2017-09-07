@@ -1,9 +1,9 @@
 import types
 
-from xblockutils.base_test import SeleniumBaseTest
+from xblockutils.base_test import SeleniumXBlockTest
 
 
-class TestImageExplorer(SeleniumBaseTest):
+class TestImageExplorer(SeleniumXBlockTest):
     module_name = __name__
     default_css_selector = 'div.image-explorer-xblock-wrapper'
 
@@ -59,7 +59,9 @@ class TestImageExplorer(SeleniumBaseTest):
         self.assertTrue(block.hotspotB.find_element_by_css_selector(".image-explorer-hotspot-reveal-youtube"))
 
     def test_simple_scenario(self):
-        block = self.decorate_block(self.go_to_page("Default Image Explorer Scenario"))
+        self.set_scenario_xml('<image-explorer/>')
+        view = self.go_to_view()
+        block = self.decorate_block(view)
 
         self.assert_in_default_state(block)
 
