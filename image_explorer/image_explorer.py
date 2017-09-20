@@ -75,6 +75,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         </image_explorer>
         """))
 
+    @XBlock.supports("multi_device")  # Mark as mobile-friendly
     def student_view(self, context):
         """
         Player view, displayed to the student

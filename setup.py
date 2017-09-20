@@ -23,7 +23,7 @@ def package_data(pkg, root_list):
 
 setup(
     name='xblock-image-explorer',
-    version='0.4.2',
+    version='0.4.3',
     description='XBlock - Image Explorer',
     packages=['image_explorer'],
     install_requires=[
