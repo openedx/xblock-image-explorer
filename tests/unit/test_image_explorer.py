@@ -58,3 +58,16 @@ class TestImageExplorerBlock(unittest.TestCase):
 
         student_view_data = self.image_explorer_block.student_view_data()
         self.assertEqual(student_view_data, expected_image_explorer_data)
+
+    def test_student_view_multi_device_support(self):
+        """
+        Test student_view multi device support is set
+        """
+        self.assertEqual(
+            self.image_explorer_block.has_support(
+                getattr(self.image_explorer_block, 'student_view', None),
+                'multi_device'
+            ),
+            True
+        )
+
