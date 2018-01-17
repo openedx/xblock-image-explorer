@@ -33,6 +33,21 @@ class TestImageExplorerBlock(unittest.TestCase):
             </image_explorer>
             """.format(self.image_url, self.image_explorer_description)
 
+        self.image_explorer_xml_version2 = """
+            <image_explorer schema_version='2'>
+                <background src='{0}' />
+                <description>{1}</description>
+                <hotspots>
+                    <hotspot x='370' y='20' item-id='hotspotA'>
+                        <feedback width='300' height='240'>
+                            <header><p>Test Header</p></header>
+                            <body><p>Test Body</p></body>
+                        </feedback>
+                    </hotspot>
+                </hotspots>
+            </image_explorer>
+            """.format(self.image_url, self.image_explorer_description)
+
         self.image_explorer_data = {'data': self.image_explorer_xml}
         self.image_explorer_block = ImageExplorerBlock(
             self.runtime,
@@ -71,3 +86,19 @@ class TestImageExplorerBlock(unittest.TestCase):
             True
         )
 
+    def test_hotspot_coordinates_property(self):
+        """
+        Test hotspot coordinates centered property for different schema versions
+        """
+        image_explorer_data = {'data': self.image_explorer_xml_version2}
+        image_explorer_block_schema2 = ImageExplorerBlock(
+            self.runtime,
+            DictFieldData(image_explorer_data),
+            None
+        )
+
+        # for schema version 1 hotsport coordinates are not centered
+        self.assertFalse(self.image_explorer_block.hotspot_coordinates_centered)
+
+        # for schema version 2 hotspot coordinates are centered
+        self.assertTrue(image_explorer_block_schema2.hotspot_coordinates_centered)

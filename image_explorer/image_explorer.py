@@ -10,7 +10,7 @@ from lxml import etree
 from xml.etree import ElementTree as ET
 
 from xblock.core import XBlock
-from xblock.fields import List, Scope, String
+from xblock.fields import List, Scope, String, Boolean
 from xblock.fragment import Fragment
 
 from StringIO import StringIO
@@ -18,7 +18,6 @@ from StringIO import StringIO
 from .utils import loader, AttrDict
 
 log = logging.getLogger(__name__)
-
 
 class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     """
@@ -31,6 +30,12 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         default="Image Explorer"
     )
 
+    _hotspot_coordinates_centered = Boolean(
+        display_name="Hot Spots Coordinates Centered",
+        scope=Scope.settings,
+        default=False,
+    )
+
     opened_hotspots = List(
         help="Store hotspots opened by student, for completion",
         default=[],
@@ -38,7 +43,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     )
 
     data = String(help="XML contents to display for this module", scope=Scope.content, default=textwrap.dedent("""\
-        <image_explorer schema_version='1'>
+        <image_explorer schema_version='2'>
             <background src="//upload.wikimedia.org/wikipedia/commons/thumb/a/ac/MIT_Dome_night1_Edit.jpg/800px-MIT_Dome_night1_Edit.jpg" />
             <description>
                 <p>
@@ -46,7 +51,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
                 </p>
             </description>
             <hotspots>
-                <hotspot x='370' y='20' item-id='hotspotA'>
+                <hotspot x='48.8125%' y='8.3162%' item-id='hotspotA'>
                     <feedback width='300' height='240'>
                         <header>
                             <p>
@@ -61,7 +66,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
                         </body>
                     </feedback>
                 </hotspot>
-                <hotspot x='250' y='70' item-id="hotspotB">
+                <hotspot x='33.8125%' y='18.5831%' item-id="hotspotB">
                     <feedback width='440' height='400'>
                         <header>
                             <p>
@@ -74,6 +79,17 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             </hotspots>
         </image_explorer>
         """))
+
+    @property
+    def hotspot_coordinates_centered(self):
+        if self._hotspot_coordinates_centered:
+            return True
+
+        # hotspots are calculated from center for schema version > 1
+        xmltree = etree.fromstring(self.data)
+        schema_version = int(xmltree.attrib.get('schema_version', 1))
+
+        return schema_version > 1
 
     @XBlock.supports("multi_device")  # Mark as mobile-friendly
     def student_view(self, context):
@@ -102,6 +118,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
         context = {
             'title': self.display_name,
+            'hotspot_coordinates_centered': self.hotspot_coordinates_centered,
             'description_html': description,
             'hotspots': hotspots,
             'background': background,
@@ -199,8 +216,10 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
     @XBlock.json_handler
     def studio_submit(self, submissions, suffix=''):
-
         self.display_name = submissions['display_name']
+        if submissions.get('hotspot_coordinates_centered', False):
+            self._hotspot_coordinates_centered = True
+
         xml_content = submissions['data']
 
         try:
