@@ -6,8 +6,7 @@
 import logging
 import textwrap
 import uuid
-from lxml import etree
-from xml.etree import ElementTree as ET
+from lxml import etree, html
 
 from xblock.core import XBlock
 from xblock.fields import List, Scope, String, Boolean
@@ -251,7 +250,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         Helper met
         """
         if tag is not None:
-            return u''.join(ET.tostring(e) for e in tag)
+            return u''.join(html.tostring(e) for e in tag)
         return None
 
     def _get_description(self, xmltree):
