@@ -14,7 +14,7 @@ from xblock.fragment import Fragment
 
 from StringIO import StringIO
 
-from .utils import loader, AttrDict
+from .utils import loader, AttrDict, _
 
 log = logging.getLogger(__name__)
 
@@ -23,25 +23,25 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     XBlock that renders an image with tooltips
     """
     display_name = String(
-        display_name="Display Name",
-        help="This name appears in the horizontal navigation at the top of the page.",
+        display_name=_("Display Name"),
+        help=_("This name appears in the horizontal navigation at the top of the page."),
         scope=Scope.settings,
-        default="Image Explorer"
+        default=_("Image Explorer")
     )
 
     _hotspot_coordinates_centered = Boolean(
-        display_name="Hot Spots Coordinates Centered",
+        display_name=_("Hot Spots Coordinates Centered"),
         scope=Scope.settings,
         default=False,
     )
 
     opened_hotspots = List(
-        help="Store hotspots opened by student, for completion",
+        help=_("Store hotspots opened by student, for completion"),
         default=[],
         scope=Scope.user_state,
     )
 
-    data = String(help="XML contents to display for this module", scope=Scope.content, default=textwrap.dedent("""\
+    data = String(help=_("XML contents to display for this module"), scope=Scope.content, default=textwrap.dedent("""\
         <image_explorer schema_version='2'>
             <background src="//upload.wikimedia.org/wikipedia/commons/thumb/a/ac/MIT_Dome_night1_Edit.jpg/800px-MIT_Dome_night1_Edit.jpg" />
             <description>
