@@ -21,6 +21,7 @@ from .utils import loader, AttrDict, _
 log = logging.getLogger(__name__)
 
 
+@XBlock.needs('i18n')
 class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     """
     XBlock that renders an image with tooltips
@@ -127,7 +128,9 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         }
 
         fragment = Fragment()
-        fragment.add_content(loader.render_template('/templates/html/image_explorer.html', context))
+        fragment.add_content(loader.render_django_template('/templates/html/image_explorer.html',
+                                                           context=context,
+                                                           i18n_service=self.runtime.service(self, 'i18n')))
         fragment.add_css_url(self.runtime.local_resource_url(self, 'public/css/image_explorer.css'))
         fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/image_explorer.js'))
         if has_youtube:
@@ -208,9 +211,9 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         Editing view in Studio
         """
         fragment = Fragment()
-        fragment.add_content(loader.render_template('/templates/html/image_explorer_edit.html', {
-            'self': self,
-        }))
+        fragment.add_content(loader.render_django_template('/templates/html/image_explorer_edit.html',
+                                                           context={'self': self},
+                                                           i18n_service=self.runtime.service(self, 'i18n')))
         fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/image_explorer_edit.js'))
 
         fragment.initialize_js('ImageExplorerEditBlock')
