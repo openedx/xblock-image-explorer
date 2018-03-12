@@ -1,3 +1,4 @@
 -e .
--e git://github.com/edx-solutions/xblock-utils.git@v1.0.5#egg=xblock-utils
+# FIXME -- bump version to 1.1.0 when https://github.com/edx/xblock-utils/pull/48 merged and tagged
+git+https://github.com/open-craft/xblock-utils.git@MCKIN-7023-template-i18n#egg=xblock-utils==1.1.0
 lxml==3.0.1
