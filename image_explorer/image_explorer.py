@@ -12,12 +12,12 @@ from xblock.core import XBlock
 from xblock.fields import List, Scope, String, Boolean
 from xblock.fragment import Fragment
 
-
 from StringIO import StringIO
 
 from .utils import loader, AttrDict, _
 
 log = logging.getLogger(__name__)
+
 
 class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     """
