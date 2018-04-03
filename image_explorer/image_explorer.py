@@ -12,6 +12,7 @@ from xblock.core import XBlock
 from xblock.fields import List, Scope, String, Boolean
 from xblock.fragment import Fragment
 
+
 from StringIO import StringIO
 
 from .utils import loader, AttrDict, _
@@ -143,6 +144,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
         description = self._get_description(xmltree)
         background = self._get_background(xmltree)
+        background['src'] = self._replace_static_from_url(background['src'])
         hotspots = self._get_hotspots(xmltree)
 
         return {
@@ -244,6 +246,18 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             'width': background.get('width'),
             'height': background.get('height')
         })
+
+    def _replace_static_from_url(self, url):
+        if not url:
+            return url
+        try:
+            from static_replace import replace_static_urls
+        except ImportError:
+            return url
+
+        url = '"{}"'.format(url)
+        absolute_url = replace_static_urls(url, course_id=self.course_id)
+        return absolute_url.strip('"')
 
     def _inner_content(self, tag):
         """
