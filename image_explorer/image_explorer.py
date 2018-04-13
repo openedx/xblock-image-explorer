@@ -3,14 +3,15 @@
 
 # Imports ###########################################################
 
+import uuid
 import logging
 import textwrap
-import uuid
 from lxml import etree, html
+from django.conf import settings
 
 from xblock.core import XBlock
-from xblock.fields import List, Scope, String, Boolean
 from xblock.fragment import Fragment
+from xblock.fields import List, Scope, String, Boolean
 
 from StringIO import StringIO
 
@@ -144,7 +145,8 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
         description = self._get_description(xmltree)
         background = self._get_background(xmltree)
-        background['src'] = self._replace_static_from_url(background['src'])
+        background_src = self._replace_static_from_url(background['src'])
+        background['src'] = self._make_url_absolute(background_src)
         hotspots = self._get_hotspots(xmltree)
 
         return {
@@ -256,8 +258,13 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             return url
 
         url = '"{}"'.format(url)
-        absolute_url = replace_static_urls(url, course_id=self.course_id)
-        return absolute_url.strip('"')
+        lms_relative_url = replace_static_urls(url, course_id=self.course_id)
+        return lms_relative_url.strip('"')
+
+    def _make_url_absolute(self, url):
+        lms_base = settings.ENV_TOKENS.get('LMS_BASE')
+        scheme = 'https' if settings.HTTPS == 'on' else 'http'
+        return '{}://{}{}'.format(scheme, lms_base, url)
 
     def _inner_content(self, tag):
         """
