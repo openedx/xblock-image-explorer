@@ -7,6 +7,7 @@ import uuid
 import logging
 import textwrap
 from lxml import etree, html
+from urlparse import urljoin
 from django.conf import settings
 
 from xblock.core import XBlock
@@ -145,8 +146,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
         description = self._get_description(xmltree)
         background = self._get_background(xmltree)
-        background_src = self._replace_static_from_url(background['src'])
-        background['src'] = self._make_url_absolute(background_src)
+        background['src'] = self._replace_static_from_url(background['src'])
         hotspots = self._get_hotspots(xmltree)
 
         return {
@@ -259,12 +259,14 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
         url = '"{}"'.format(url)
         lms_relative_url = replace_static_urls(url, course_id=self.course_id)
-        return lms_relative_url.strip('"')
+        lms_relative_url = lms_relative_url.strip('"')
+        return self._make_url_absolute(lms_relative_url)
 
     def _make_url_absolute(self, url):
         lms_base = settings.ENV_TOKENS.get('LMS_BASE')
         scheme = 'https' if settings.HTTPS == 'on' else 'http'
-        return '{}://{}{}'.format(scheme, lms_base, url)
+        lms_base = '{}://{}'.format(scheme, lms_base)
+        return urljoin(lms_base, url)
 
     def _inner_content(self, tag):
         """
