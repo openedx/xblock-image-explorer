@@ -3,20 +3,23 @@
 
 # Imports ###########################################################
 
+import uuid
 import logging
 import textwrap
-import uuid
 from lxml import etree, html
+from urlparse import urljoin
+from django.conf import settings
 
 from xblock.core import XBlock
-from xblock.fields import List, Scope, String, Boolean
 from xblock.fragment import Fragment
+from xblock.fields import List, Scope, String, Boolean
 
 from StringIO import StringIO
 
 from .utils import loader, AttrDict, _
 
 log = logging.getLogger(__name__)
+
 
 class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     """
@@ -143,6 +146,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
         description = self._get_description(xmltree)
         background = self._get_background(xmltree)
+        background['src'] = self._replace_static_from_url(background['src'])
         hotspots = self._get_hotspots(xmltree)
 
         return {
@@ -244,6 +248,25 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             'width': background.get('width'),
             'height': background.get('height')
         })
+
+    def _replace_static_from_url(self, url):
+        if not url:
+            return url
+        try:
+            from static_replace import replace_static_urls
+        except ImportError:
+            return url
+
+        url = '"{}"'.format(url)
+        lms_relative_url = replace_static_urls(url, course_id=self.course_id)
+        lms_relative_url = lms_relative_url.strip('"')
+        return self._make_url_absolute(lms_relative_url)
+
+    def _make_url_absolute(self, url):
+        lms_base = settings.ENV_TOKENS.get('LMS_BASE')
+        scheme = 'https' if settings.HTTPS == 'on' else 'http'
+        lms_base = '{}://{}'.format(scheme, lms_base)
+        return urljoin(lms_base, url)
 
     def _inner_content(self, tag):
         """
