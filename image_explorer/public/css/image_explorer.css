@@ -6,6 +6,7 @@
 .image-explorer-wrapper {
     position: relative;
     display: inline-block;
+    max-width: 100%;
 }
 
 .image-explorer-wrapper img{
