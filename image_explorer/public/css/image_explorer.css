@@ -151,3 +151,7 @@ div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspo
     display: inline-block;
     width: 90%;
 }
+
+.xblock-render{
+    overflow: visible !important;
+}
