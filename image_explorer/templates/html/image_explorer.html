@@ -28,6 +28,10 @@
                                 <iframe id="{{hotspot.feedback.youtube.id}}" class="youtube-player" type="text/html" width="{{hotspot.feedback.youtube.width}}" height="{{hotspot.feedback.youtube.height}}" src="https://www.youtube.com/embed/{{hotspot.feedback.youtube.video_id}}?enablejsapi=1" frameborder="0"></iframe>
                             </div>
                         {% endif %}
+                        {% if hotspot.feedback.ooyala %}
+                            <div id="ooyalaplayer_2" style="width: {{hotspot.feedback.ooyala.width}}px; height: {{hotspot.feedback.ooyala.height}}px;" data-video-id="{{hotspot.feedback.ooyala.video_id}}">
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
