@@ -105,6 +105,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         hotspots = self._get_hotspots(xmltree)
         background = self._get_background(xmltree)
         has_youtube = False
+        has_ooyala = False
 
         for hotspot in hotspots:
             width = 'width:{0}px'.format(hotspot.feedback.width) if hotspot.feedback.width else 'width:300px'
@@ -117,6 +118,9 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             hotspot.reveal_style = 'style="{0};{1};{2}"'.format(width, height, max_height)
             if hotspot.feedback.youtube:
                 has_youtube = True
+
+            if hotspot.feedback.ooyala:
+                has_ooyala = True
 
         context = {
             'title': self.display_name,
@@ -132,6 +136,10 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/image_explorer.js'))
         if has_youtube:
             fragment.add_javascript_url('https://www.youtube.com/iframe_api')
+
+        if has_ooyala:
+            fragment.add_javascript_url('https://player.ooyala.com/v3/635104fd644c4170ae227af2de27deab?platform=html5-priority')
+            fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/ooyala_player.js'))
 
         fragment.initialize_js('ImageExplorerBlock')
 
@@ -318,6 +326,15 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
                 feedback.youtube.video_id = youtube_element.get('video_id')
                 feedback.youtube.width = youtube_element.get('width')
                 feedback.youtube.height = youtube_element.get('height')
+
+            feedback.ooyala = None
+            ooyala_element = feedback_element.find('ooyala')
+            if ooyala_element is not None:
+                feedback.type = 'ooyala'
+                feedback.ooyala = AttrDict()
+                feedback.ooyala.video_id = ooyala_element.get('video_id')
+                feedback.ooyala.width = ooyala_element.get('width')
+                feedback.ooyala.height = ooyala_element.get('height')
 
             hotspot = AttrDict()
             hotspot.item_id = hotspot_element.get('item-id')

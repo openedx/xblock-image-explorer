@@ -139,6 +139,12 @@ The `<youtube>` element offers a convenient way of placing an embedded
 YouTube video into a tooltip. The required attributes are `video_id`,
 `width`, and `height`.
 
+#### The Ooyala element
+
+The `<ooyala>` element offers a convenient way of placing an embedded
+Ooyala video into a tooltip. The required attributes are `video_id`,
+`width`, and `height`.
+
 API for native mobile frontends
 -------------------------------
 **Retrieve fixed data for all Image Explorer XBlocks in a course:**
