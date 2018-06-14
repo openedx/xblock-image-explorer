@@ -51,8 +51,9 @@ function ImageExplorerBlock(runtime, element) {
 
       setRevealPosition(target, reveal);
 
-      reveal.css('display', 'block');
       active_feedback = reveal;
+      var $revealClone = reveal.clone();
+      $revealClone.css('display', 'block').appendTo('.hotspot-detail');
       $(this).trigger('feedback:open');
       hotspot_opened_at = new Date().getTime();
       publish_event({
@@ -95,6 +96,7 @@ function ImageExplorerBlock(runtime, element) {
       var hotspot = active_feedback.closest('.image-explorer-hotspot');
       pause_youtube_videos(hotspot);
       hotspot.trigger('feedback:close');
+      $('.hotspot-detail').empty();
       active_feedback.css('display', 'none');
       var duration = new Date().getTime() - hotspot_opened_at;
       publish_event({
