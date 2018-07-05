@@ -6,10 +6,11 @@
         {{ description_html }}
     </div>
     {% endif %}
-    <div class="image-explorer-wrapper">
-        <img src="{{background.src}}" class="image-explorer-background" />
-        {% for hotspot in hotspots %}
-        <div class="image-explorer-hotspot {% if hotspot_coordinates_centered %}centered{% endif %}" style="position: absolute; top: {{hotspot.y}}; left: {{hotspot.x}};" data-item-id="{{hotspot.item_id}}">
+    <div class="overlay-container shown">
+        <div class="image-explorer-wrapper">
+            <img src="{{background.src}}" class="image-explorer-background" />
+            {% for hotspot in hotspots %}
+            <div class="image-explorer-hotspot {% if hotspot_coordinates_centered %}centered{% endif %}" style="position: absolute; top: {{hotspot.y}}; left: {{hotspot.x}};" data-item-id="{{hotspot.item_id}}">
                 <div class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}">
                     <div class="image-explorer-close-reveal">&#xf057;</div>
                     <div class="image-explorer-hotspot-content-wrapper">
@@ -36,6 +37,15 @@
                 </div>
             </div>
         {% endfor %}
+        </div>
+        <div class="tutorial-wrapper">
+            <div class="tutorial-container">
+                <h3>Instructions</h3>
+                <p>Click each step in the loop to learn more about the problem solving approach. When you are finished, click the forward arrow to continue.</p>
+                <div class="tutorial-video">&nbsp;</div>
+                <a id="hide-tutorial">Start Exercise</a>
+            </div>
+        </div>
     </div>
 </div>
 {% endautoescape %}
