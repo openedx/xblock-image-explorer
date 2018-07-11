@@ -62,6 +62,8 @@ class TestImageExplorer(SeleniumXBlockTest):
         self.set_scenario_xml('<image-explorer/>')
         view = self.go_to_view()
         block = self.decorate_block(view)
+        popup = block.find_element_by_css_selector("#hide-tutorial")
+        popup.click()
 
         self.assert_in_default_state(block)
 

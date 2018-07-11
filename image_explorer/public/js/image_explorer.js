@@ -123,4 +123,9 @@ function ImageExplorerBlock(runtime, element) {
     publish_event({
         event_type:'xblock.image-explorer.loaded'
     });
+
+    // Close instructions pop-up
+    $('#hide-tutorial').click(function () {
+        $('.overlay-container').removeClass("shown");
+    });
 }
