@@ -31,9 +31,6 @@ function ImageExplorerBlock(runtime, element) {
               reveal_side = 'right';
           }
       }
-      if (reveal_side === 'left') {
-          reveal.css('margin-left', '-' + (reveal_width + hotspot_image_width) + 'px');
-      }
     }
 
     /* reveal feedback action */
@@ -48,11 +45,15 @@ function ImageExplorerBlock(runtime, element) {
 
       var target = $(eventObj.currentTarget);
       var reveal = target.find('.image-explorer-hotspot-reveal');
+      var revealContainer = $('.hotspot-detail');
+      var overlayContainer = $('.overlay-container');
 
       setRevealPosition(target, reveal);
 
       active_feedback = reveal;
       var $revealClone = reveal.clone();
+      revealContainer.css('display' , 'inline-block');
+      overlayContainer.addClass('details-shown');
       $revealClone.css('display', 'block').appendTo('.hotspot-detail');
       $(this).trigger('feedback:open');
       hotspot_opened_at = new Date().getTime();
@@ -97,6 +98,8 @@ function ImageExplorerBlock(runtime, element) {
       pause_youtube_videos(hotspot);
       hotspot.trigger('feedback:close');
       $('.hotspot-detail').empty();
+      $('.hotspot-detail').css('display', 'none');
+      $('.overlay-container').removeClass('details-shown');
       active_feedback.css('display', 'none');
       var duration = new Date().getTime() - hotspot_opened_at;
       publish_event({
@@ -127,5 +130,6 @@ function ImageExplorerBlock(runtime, element) {
     // Close instructions pop-up
     $('#hide-tutorial').click(function () {
         $('.overlay-container').removeClass("shown");
+        $('.tutorial-wrapper').css("visibility" , "hidden");
     });
 }

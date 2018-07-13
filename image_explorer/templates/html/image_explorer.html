@@ -1,3 +1,4 @@
+{% load i18n %}
 {% autoescape off %}
 <div class="image-explorer-xblock-wrapper">
     <h2>{{title}}</h2>
@@ -38,15 +39,19 @@
             </div>
         {% endfor %}
         </div>
+        <div class="hotspot-detail"></div>
         <div class="tutorial-wrapper">
             <div class="tutorial-container">
                 <h3>Instructions</h3>
-                <p>Click each step in the loop to learn more about the problem solving approach. When you are finished, click the forward arrow to continue.</p>
+                {% if description_html %}
+                <p>{{description_html}}</p>
+                {% else %}
+                <p>{% trans "Click each step in the loop to learn more about the problem solving approach. When you are finished, click the forward arrow to continue." %}</p>
+                {% endif %}
                 <div class="tutorial-video">&nbsp;</div>
                 <a id="hide-tutorial">Start Exercise</a>
             </div>
         </div>
     </div>
-    <div class="hotspot-detail"></div>
 </div>
 {% endautoescape %}
