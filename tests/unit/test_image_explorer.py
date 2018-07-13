@@ -1,10 +1,14 @@
 import unittest
 from lxml import etree
 
+from parsel import Selector
+
+from django.test import override_settings
 from xblock.field_data import DictFieldData
 
 from image_explorer.image_explorer import ImageExplorerBlock
-from ..utils import MockRuntime
+from ..utils import MockRuntime, patch_static_replace_module
+
 
 class TestImageExplorerBlock(unittest.TestCase):
     """
@@ -16,8 +20,11 @@ class TestImageExplorerBlock(unittest.TestCase):
         """
         super(TestImageExplorerBlock, self).setUp()
         self.runtime = MockRuntime()
-        self.image_url = 'http://example.com/test.jpg'
-        self.image_explorer_description = '<p>Test Descrption</p>'
+        patch_static_replace_module()
+
+        self.processed_absolute_url = 'https://lms/a/dynamic/url'
+        self.image_url = '/static/test.jpg'
+        self.image_explorer_description = '<p>Test Descrption</p><img src="/static/test.jpg" />'
         self.image_explorer_xml = """
             <image_explorer schema_version='1'>
                 <background src='{0}' />
@@ -26,7 +33,10 @@ class TestImageExplorerBlock(unittest.TestCase):
                     <hotspot x='370' y='20' item-id='hotspotA'>
                         <feedback width='300' height='240'>
                             <header><p>Test Header</p></header>
-                            <body><p>Test Body</p></body>
+                            <body>
+                                <p>Test Body</p>
+                                <img src="/static/test.jpg" />
+                            </body>
                         </feedback>
                     </hotspot>
                 </hotspots>
@@ -54,17 +64,19 @@ class TestImageExplorerBlock(unittest.TestCase):
             DictFieldData(self.image_explorer_data),
             None
         )
+        self.image_explorer_block.course_id = 'abc/xyz/123'
 
+    @override_settings(ENV_TOKENS={'LMS_BASE': 'lms'}, HTTPS='on')
     def test_student_view_data(self):
         """
         Test the student_view_data results.
         """
         xmltree = etree.fromstring(self.image_explorer_xml)
-        hotspots = self.image_explorer_block._get_hotspots(xmltree)
+        hotspots = self.image_explorer_block._get_hotspots(xmltree, absolute_urls=True)
         expected_image_explorer_data = {
-            'description': self.image_explorer_description,
+            'description': self.image_explorer_block._get_description(xmltree, absolute_urls=True),
             'background': {
-                'src': self.image_url,
+                'src': self.processed_absolute_url,
                 'height': None,
                 'width': None
             },
@@ -73,6 +85,21 @@ class TestImageExplorerBlock(unittest.TestCase):
 
         student_view_data = self.image_explorer_block.student_view_data()
         self.assertEqual(student_view_data, expected_image_explorer_data)
+
+    @override_settings(ENV_TOKENS={'LMS_BASE': 'lms'}, HTTPS='on')
+    def test_static_urls_conversion(self):
+        """
+        Test static urls are processed to absolute if
+        `absolute_urls` is set
+        """
+        xmltree = etree.fromstring(self.image_explorer_xml)
+        description = self.image_explorer_block._inner_content(
+            xmltree.find('description'), absolute_urls=True
+        )
+
+        relative_urls = Selector(text=description).css('::attr(href),::attr(src)').extract()
+        for url in relative_urls:
+            self.assertEqual(url, self.processed_absolute_url)
 
     def test_student_view_multi_device_support(self):
         """
