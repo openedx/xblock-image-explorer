@@ -55,7 +55,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             </description>
             <hotspots>
                 <hotspot x='48.8125%' y='8.3162%' item-id='hotspotA'>
-                    <feedback width='300' height='240'>
+                    <feedback>
                         <header>
                             <p>
                                 This is where many pranks take place. Below are some of the highlights:
@@ -70,13 +70,13 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
                     </feedback>
                 </hotspot>
                 <hotspot x='33.8125%' y='18.5831%' item-id="hotspotB">
-                    <feedback width='440' height='400'>
+                    <feedback>
                         <header>
                             <p>
                                 Watch the Red Line subway go around the dome
                             </p>
                         </header>
-                        <youtube video_id='dmoZXcuozFQ' width='400' height='300' />
+                        <youtube video_id='dmoZXcuozFQ' width='100%' height='300' />
                     </feedback>
                 </hotspot>
             </hotspots>
@@ -109,7 +109,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         has_ooyala = False
 
         for hotspot in hotspots:
-            width = 'width:{0}px'.format(hotspot.feedback.width) if hotspot.feedback.width else 'width:300px'
+            width = 'width:{0}px'.format(hotspot.feedback.width) if hotspot.feedback.width else 'width:auto'
             height = 'height:{0}px'.format(hotspot.feedback.height) if hotspot.feedback.height else ''
             max_height = ''
             if not hotspot.feedback.height:

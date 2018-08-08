@@ -6,6 +6,9 @@
 .overlay-container{
     position: relative;
     overflow: hidden;
+    border: 1px solid #eee;
+    box-shadow: 0 1px 5px 2px #ccc;
+    text-align: center;
 }
 
 .tutorial-wrapper{
@@ -22,8 +25,8 @@
 .tutorial-wrapper .tutorial-container{
     position: absolute;
     left: 50%;
-    top: 20%;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     background-color: #ffffff;
     width: 390px;
     padding: 25px;
@@ -80,8 +83,38 @@
 
 .image-explorer-wrapper {
     position: relative;
+    max-width: 800px;
     display: inline-block;
-    max-width: 100%;
+    width: 100%;
+    min-height: 400px;
+}
+
+.hotspot-detail{
+    display: none;
+    width: calc(40% - 60px);
+    float: right;
+    vertical-align: top;
+    box-shadow: -2px 0 12px 0 #ccc;
+    min-height: 600px;
+    text-align: left;
+}
+
+.overlay-container.details-shown{
+    min-height: 500px;
+}
+
+.overlay-container.details-shown .image-explorer-wrapper{
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    width: 60%;
+    transform: translateY(-50%);
+}
+
+/* adding class when hotspot detail is shown*/
+
+.image-explorer-xblock-wrapper.data-reveal .image-explorer-wrapper{
+    width: auto;
 }
 
 .image-explorer-wrapper img{
@@ -89,20 +122,18 @@
 }
 
 .image-explorer-hotspot-reveal {
-    position: absolute;
     background-color: rgba(102, 165, 181, 0.90);
     color: #000000;
-    left: 100%;
-    top: 25%;
-    z-index: 100;
     display: none;
-    overflow-y: auto;
     cursor: default;
+    min-height: 600px;
+    max-width: 100%;
+    min-width: 100%;
 }
 
 .image-explorer-hotspot-content-wrapper {
     color: #ffffff;
-    margin: 35px 15px 15px 15px;
+    padding: 35px 15px 15px 15px;
 }
 
 .image-explorer-hotspot-reveal.active {
