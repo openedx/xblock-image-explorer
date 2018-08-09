@@ -8,6 +8,8 @@ import logging
 import textwrap
 from lxml import etree, html
 from urlparse import urljoin
+from parsel import Selector
+
 from django.conf import settings
 
 from xblock.core import XBlock
@@ -155,11 +157,10 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         """
         xmltree = etree.fromstring(self.data)
 
-        description = self._get_description(xmltree)
+        description = self._get_description(xmltree, absolute_urls=True)
         background = self._get_background(xmltree)
         background['src'] = self._replace_static_from_url(background['src'])
-        hotspots = self._get_hotspots(xmltree)
-
+        hotspots = self._get_hotspots(xmltree, absolute_urls=True)
         return {
             'description': description,
             'background': background,
@@ -279,24 +280,36 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         lms_base = '{}://{}'.format(scheme, lms_base)
         return urljoin(lms_base, url)
 
-    def _inner_content(self, tag):
+    def _inner_content(self, tag, absolute_urls=False):
         """
         Helper met
         """
         if tag is not None:
-            return u''.join(html.tostring(e) for e in tag)
+            tag_content = u''.join(html.tostring(e) for e in tag)
+            if absolute_urls:
+                return self._change_relative_url_to_absolute(tag_content)
+            else:
+                return tag_content
         return None
 
-    def _get_description(self, xmltree):
+    def _get_description(self, xmltree, absolute_urls=False):
         """
         Parse the XML to get the description information
         """
         description = xmltree.find('description')
         if description is not None:
-            return self._inner_content(description)
+            description = self._inner_content(description, absolute_urls)
+            return description
         return None
 
-    def _get_hotspots(self, xmltree):
+    def _change_relative_url_to_absolute(self, text):
+        if text:
+            relative_urls = Selector(text=text).css('::attr(href),::attr(src)').extract()
+            for url in relative_urls:
+                text = text.replace(url, self._replace_static_from_url(url))
+        return text
+
+    def _get_hotspots(self, xmltree, absolute_urls=False):
         """
         Parse the XML to get the hotspot information
         """
@@ -310,15 +323,14 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             feedback.width = feedback_element.get('width')
             feedback.height = feedback_element.get('height')
             feedback.max_height = feedback_element.get('max-height')
-            feedback.header = self._inner_content(feedback_element.find('header'))
-
+            feedback.header = self._inner_content(feedback_element.find('header'), absolute_urls)
             feedback.side = hotspot_element.get('side', 'auto')
 
             feedback.body = None
             body_element = feedback_element.find('body')
             if body_element is not None:
                 feedback.type = 'text'
-                feedback.body = self._inner_content(body_element)
+                feedback.body = self._inner_content(body_element, absolute_urls)
 
             feedback.youtube = None
             youtube_element = feedback_element.find('youtube')
