@@ -3,7 +3,7 @@ import types
 from xblockutils.base_test import SeleniumXBlockTest
 
 
-class TestImageExplorer(SeleniumXBlockTest):
+class TestImageExplorerv2(SeleniumXBlockTest):
     module_name = __name__
     default_css_selector = 'div.image-explorer-xblock-wrapper'
 
@@ -59,7 +59,7 @@ class TestImageExplorer(SeleniumXBlockTest):
         self.assertTrue(block.hotspotB.find_element_by_css_selector(".image-explorer-hotspot-reveal-youtube"))
 
     def test_simple_scenario(self):
-        self.set_scenario_xml('<image-explorer/>')
+        self.set_scenario_xml('<image-explorer-v2 />')
         view = self.go_to_view()
         block = self.decorate_block(view)
         popup = block.find_element_by_css_selector("#hide-tutorial")

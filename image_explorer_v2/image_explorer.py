@@ -30,7 +30,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         display_name=_("Display Name"),
         help=_("This name appears in the horizontal navigation at the top of the page."),
         scope=Scope.settings,
-        default=_("Image Explorer")
+        default=_("Image Explorer v2")
     )
 
     _hotspot_coordinates_centered = Boolean(
@@ -360,4 +360,4 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     @staticmethod
     def workbench_scenarios():
         """A canned scenario for display in the workbench."""
-        return [("Image explorer scenario", "<vertical_demo><image-explorer/></vertical_demo>")]
+        return [("Image explorer scenario", "<vertical_demo><image-explorer-v2/></vertical_demo>")]

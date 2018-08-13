@@ -1,8 +1,8 @@
 [main]
 host = https://www.transifex.com
 
-[xblocks.image-explorer]
-file_filter = image_explorer/translations/<lang>/LC_MESSAGES/text.po
-source_file = image_explorer/translations/en/LC_MESSAGES/text.po
+[xblocks.image-explorer-v2]
+file_filter = image_explorer_v2/translations/<lang>/LC_MESSAGES/text.po
+source_file = image_explorer_v2/translations/en/LC_MESSAGES/text.po
 source_lang = en
 type = PO

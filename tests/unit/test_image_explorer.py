@@ -3,7 +3,7 @@ from lxml import etree
 
 from xblock.field_data import DictFieldData
 
-from image_explorer.image_explorer import ImageExplorerBlock
+from image_explorer_v2.image_explorer import ImageExplorerBlock
 from ..utils import MockRuntime
 
 class TestImageExplorerBlock(unittest.TestCase):
