@@ -30,7 +30,7 @@ if __name__ == "__main__":
         pass
 
     from django.conf import settings
-    settings.INSTALLED_APPS += ("image_explorer", )
+    settings.INSTALLED_APPS += ("image_explorer_v2", )
 
     for noisy_logger, log_level in logging_level_overrides.iteritems():
         logging.getLogger(noisy_logger).setLevel(log_level)

@@ -22,15 +22,15 @@ def package_data(pkg, root_list):
 # Main ##############################################################
 
 setup(
-    name='xblock-image-explorer',
-    version='1.0.1',
-    description='XBlock - Image Explorer',
-    packages=['image_explorer'],
+    name='xblock-image-explorer-v2',
+    version='1.99.0',
+    description='XBlock - Image Explorer v2',
+    packages=['image_explorer_v2'],
     install_requires=[
         'XBlock',
     ],
     entry_points={
-        'xblock.v1': 'image-explorer = image_explorer:ImageExplorerBlock',
+        'xblock.v1': 'image-explorer-v2 = image_explorer_v2:ImageExplorerBlock',
     },
-    package_data=package_data("image_explorer", ["static", "templates", "public", "translations"]),
+    package_data=package_data("image_explorer_v2", ["static", "templates", "public", "translations"]),
 )
