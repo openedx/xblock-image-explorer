@@ -67,15 +67,15 @@ the block is field with default content, shown in the screenshot below.
 The basic structure of the `image_explorer` XBlock looks like this:
 
 ```xml
-<image_explorer schema_version="1">
+<image_explorer schema_version="3">
   <background src="http://link/to/image.jpg" />
   <description>...custom HTML content...</description>
   <hotspots>
     <hotspot x="370" y="20">
-      <feedback width="300" height="300">
+      <feedback>
         <header>...custom HTML content...</header>
         <body>...custom HTML content...</body>
-        <youtube video_id="dmoZXcuozFQ" width="400" height="300" />
+        <youtube video_id="dmoZXcuozFQ" width="100%" height="300" />
       </feedback>
     </hotspot>
     <hotspot>...</hotspot>
@@ -86,9 +86,8 @@ The basic structure of the `image_explorer` XBlock looks like this:
 ```
 
 The `schema_version` attribute of the `<image_explorer>` wrapper
-element should be set to `1`. It currently isn't used but will provide
-help for easier schema migrations if the XML schema changes in future
-versions.
+element should be set to `3`. Schema versions `1` and `2` were used for
+Image Explorer v1.
 
 The `<image_explorer>` element should contain the following child
 elements:

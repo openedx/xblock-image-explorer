@@ -1,0 +1,41 @@
+{% autoescape off %}
+<div class="image-explorer-xblock-wrapper">
+    <h2>{{title}}</h2>
+    {% if description_html %}
+    <div class="image-explorer-description">
+        {{ description_html }}
+    </div>
+    {% endif %}
+    <div class="image-explorer-wrapper">
+        <img src="{{background.src}}" class="image-explorer-background" />
+        {% for hotspot in hotspots %}
+        <div class="image-explorer-hotspot {% if hotspot_coordinates_centered %}centered{% endif %}" style="position: absolute; top: {{hotspot.y}}; left: {{hotspot.x}};" data-item-id="{{hotspot.item_id}}">
+                <div class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}">
+                    <div class="image-explorer-close-reveal">&#xf057;</div>
+                    <div class="image-explorer-hotspot-content-wrapper">
+                        {% if hotspot.feedback.header %}
+                            <span class="image-explorer-hotspot-reveal-header">
+                                {{hotspot.feedback.header}}
+                            </span>
+                        {% endif %}
+                        {% if hotspot.feedback.body %}
+                            <span class="image-explorer-hotspot-reveal-body">
+                                {{hotspot.feedback.body}}
+                            </span>
+                        {% endif %}
+                        {% if hotspot.feedback.youtube %}
+                            <div class="image-explorer-hotspot-reveal-youtube">
+                                <iframe id="{{hotspot.feedback.youtube.id}}" class="youtube-player" type="text/html" width="{{hotspot.feedback.youtube.width}}" height="{{hotspot.feedback.youtube.height}}" src="https://www.youtube.com/embed/{{hotspot.feedback.youtube.video_id}}?enablejsapi=1" frameborder="0"></iframe>
+                            </div>
+                        {% endif %}
+                        {% if hotspot.feedback.ooyala %}
+                            <div id="ooyalaplayer_2" style="width: {{hotspot.feedback.ooyala.width}}px; height: {{hotspot.feedback.ooyala.height}}px;" data-video-id="{{hotspot.feedback.ooyala.video_id}}">
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endautoescape %}
