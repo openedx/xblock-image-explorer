@@ -1,10 +1,9 @@
 import unittest
+
 from lxml import etree
 
-from xblock.field_data import DictFieldData
+from ..utils import make_block
 
-from image_explorer.image_explorer import ImageExplorerBlock
-from ..utils import MockRuntime
 
 class TestImageExplorerBlock(unittest.TestCase):
     """
@@ -15,7 +14,6 @@ class TestImageExplorerBlock(unittest.TestCase):
         Test case setup
         """
         super(TestImageExplorerBlock, self).setUp()
-        self.runtime = MockRuntime()
         self.image_url = 'http://example.com/test.jpg'
         self.image_explorer_description = '<p>Test Descrption</p>'
         self.image_explorer_xml = """
@@ -48,12 +46,23 @@ class TestImageExplorerBlock(unittest.TestCase):
             </image_explorer>
             """.format(self.image_url, self.image_explorer_description)
 
-        self.image_explorer_data = {'data': self.image_explorer_xml}
-        self.image_explorer_block = ImageExplorerBlock(
-            self.runtime,
-            DictFieldData(self.image_explorer_data),
-            None
-        )
+        self.image_explorer_xml_version3 = """
+            <image_explorer schema_version='3'>
+                <background src='{0}' />
+                <description>{1}</description>
+                <hotspots>
+                    <hotspot x='370' y='20' item-id='hotspotA'>
+                        <feedback>
+                            <header><p>Test Header</p></header>
+                            <body><p>Test Body</p></body>
+                        </feedback>
+                    </hotspot>
+                </hotspots>
+            </image_explorer>
+            """.format(self.image_url, self.image_explorer_description)
+
+        self.image_explorer_block = make_block(self.image_explorer_xml)
+        self.maxDiff = None
 
     def test_student_view_data(self):
         """
@@ -90,12 +99,7 @@ class TestImageExplorerBlock(unittest.TestCase):
         """
         Test hotspot coordinates centered property for different schema versions
         """
-        image_explorer_data = {'data': self.image_explorer_xml_version2}
-        image_explorer_block_schema2 = ImageExplorerBlock(
-            self.runtime,
-            DictFieldData(image_explorer_data),
-            None
-        )
+        image_explorer_block_schema2 = make_block(self.image_explorer_xml_version2)
 
         # for schema version 1 hotsport coordinates are not centered
         self.assertFalse(self.image_explorer_block.hotspot_coordinates_centered)

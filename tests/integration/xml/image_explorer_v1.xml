@@ -1,0 +1,36 @@
+<image_explorer schema_version='2'>
+    <background
+            src="//upload.wikimedia.org/wikipedia/commons/thumb/a/ac/MIT_Dome_night1_Edit.jpg/800px-MIT_Dome_night1_Edit.jpg"/>
+    <description>
+        <p>
+            Enjoy using the Image Explorer. Click around the MIT Dome and see what you find!
+        </p>
+    </description>
+    <hotspots>
+        <hotspot x='48.8125%' y='8.3162%' item-id='hotspotA'>
+            <feedback width='300' height='240'>
+                <header>
+                    <p>
+                        This is where many pranks take place. Below are some of the highlights:
+                    </p>
+                </header>
+                <body>
+                    <ul>
+                        <li>Once there was a police car up here</li>
+                        <li>Also there was a Fire Truck put up there</li>
+                    </ul>
+                </body>
+            </feedback>
+        </hotspot>
+        <hotspot x='33.8125%' y='18.5831%' item-id="hotspotB">
+            <feedback width='440' height='400'>
+                <header>
+                    <p>
+                        Watch the Red Line subway go around the dome
+                    </p>
+                </header>
+                <youtube video_id='dmoZXcuozFQ' width='400' height='300'/>
+            </feedback>
+        </hotspot>
+    </hotspots>
+</image_explorer>

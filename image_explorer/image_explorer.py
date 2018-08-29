@@ -98,7 +98,10 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     def _get_fragment_for_version(self, context):
         fragment = Fragment()
         # IE v2 has a schema version of 3+
-        block_version = 1 if self.schema_version <= 2 else 2
+        if self.schema_version <= 2:
+            block_version = 1
+        else:
+            block_version = 2
 
         fragment.add_content(
             loader.render_django_template(
@@ -112,8 +115,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         fragment.add_css_url(self.runtime.local_resource_url(self, 'public/css/image_explorer.css'))
 
         css_url = 'public/css/image_explorer_v{}.css'.format(block_version)
-        fragment.add_css_url(self.runtime.local_resource_url(self, css_url)
-                             )
+        fragment.add_css_url(self.runtime.local_resource_url(self, css_url))
         js_url = 'public/js/image_explorer_v{}.js'.format(block_version)
         fragment.add_javascript_url(self.runtime.local_resource_url(self, js_url))
         return fragment
