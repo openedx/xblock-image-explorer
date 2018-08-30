@@ -46,21 +46,6 @@ class TestImageExplorerBlock(unittest.TestCase):
             </image_explorer>
             """.format(self.image_url, self.image_explorer_description)
 
-        self.image_explorer_xml_version3 = """
-            <image_explorer schema_version='3'>
-                <background src='{0}' />
-                <description>{1}</description>
-                <hotspots>
-                    <hotspot x='370' y='20' item-id='hotspotA'>
-                        <feedback>
-                            <header><p>Test Header</p></header>
-                            <body><p>Test Body</p></body>
-                        </feedback>
-                    </hotspot>
-                </hotspots>
-            </image_explorer>
-            """.format(self.image_url, self.image_explorer_description)
-
         self.image_explorer_block = make_block(self.image_explorer_xml)
         self.maxDiff = None
 

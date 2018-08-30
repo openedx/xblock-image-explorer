@@ -1,20 +1,19 @@
 import types
 
-from lxml import etree
 from xblockutils.base_test import SeleniumXBlockTest
 from xblockutils.resources import ResourceLoader
 
+from image_explorer.utils import load_scenario_xml_data
+
 loader = ResourceLoader(__name__)
+
 
 class TestImageExplorerBase(SeleniumXBlockTest):
     module_name = __name__
     default_css_selector = 'div.image-explorer-xblock-wrapper'
 
-    def load_xml_data(self, xml_file):
-        xmltree = etree.Element('image-explorer')
-        xml = loader.load_unicode('xml/{}'.format(xml_file))
-        xmltree.set('data', xml)
-        self.set_scenario_xml(etree.tostring(xmltree))
+    def load_xml_data(self, scenario):
+        self.set_scenario_xml(load_scenario_xml_data(scenario))
 
     def assert_page_content(self, block):
         self.assertIn("Image Explorer", block.text)
@@ -70,7 +69,7 @@ class TestImageExplorerBase(SeleniumXBlockTest):
 class TestImageExplorerV1(TestImageExplorerBase):
 
     def test_simple_scenario(self):
-        self.load_xml_data('image_explorer_v1.xml')
+        self.load_xml_data('image_explorer_v1')
         view = self.go_to_view()
         block = self.decorate_block(view)
 
@@ -115,7 +114,7 @@ class TestImageExplorerV1(TestImageExplorerBase):
 
 class TestImageExplorerV2(TestImageExplorerBase):
     def test_simple_scenario(self):
-        self.load_xml_data('image_explorer_v2.xml')
+        self.load_xml_data('image_explorer_v2')
         view = self.go_to_view()
         block = self.decorate_block(view)
         popup = block.find_element_by_css_selector("#hide-tutorial")

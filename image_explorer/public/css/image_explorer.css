@@ -10,7 +10,7 @@
     display: inline-block;
 }
 
-.image-explorer-wrapper img{
+.image-explorer-wrapper img {
     max-width: 100%;
 }
 
@@ -36,7 +36,6 @@
     font-size: 16px;
 }
 
-
 .image-explorer-wrapper div.image-explorer-hotspot {
     background: url("../images/hotspot-sprite.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     width: 41px;
@@ -48,13 +47,12 @@
     transition: all 0.0s linear 0s;
 }
 
-
-.image-explorer-hotspot.centered{ /* offset for hotspot to restrict it to its center */
+.image-explorer-hotspot.centered { /* offset for hotspot to restrict it to its center */
     margin-left: -20.5px;
     margin-top: -20.5px;
 }
 
-div.image-explorer-hotspot a{
+div.image-explorer-hotspot a {
     color: #FFFFFF;
     font-weight: bold;
     text-decoration: underline;
@@ -104,16 +102,18 @@ div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspo
     color: red;
 }
 
-@media only screen and (max-width: 767px){
-    .image-explorer-wrapper div.image-explorer-hotspot{
+@media only screen and (max-width: 767px) {
+    .image-explorer-wrapper div.image-explorer-hotspot {
         background-size: 100%;
         width: 16px;
         height: 16px;
     }
-    .image-explorer-wrapper div.image-explorer-hotspot:hover{
+
+    .image-explorer-wrapper div.image-explorer-hotspot:hover {
         background-position: 0 -17px;
     }
-    .image-explorer-hotspot-reveal{
+
+    .image-explorer-hotspot-reveal {
         right: 0;
         left: 0;
         top: 143px;
@@ -124,15 +124,16 @@ div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspo
         overflow: auto;
         z-index: 99999;
     }
-    .image-explorer-hotspot-reveal iframe{
+
+    .image-explorer-hotspot-reveal iframe {
         width: 100% !important;
     }
-    .image-explorer-hotspot.centered{ /* offset for hotspot to restrict it to its center */
+
+    .image-explorer-hotspot.centered { /* offset for hotspot to restrict it to its center */
         margin-left: -8px;
         margin-top: -8px;
     }
 }
-
 
 /*Studio*/
 
@@ -148,6 +149,148 @@ div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspo
     width: 90%;
 }
 
-.xblock-render{
+.xblock-render {
     overflow: visible !important;
+}
+
+/* V1 styles */
+
+.ie-v1 .image-explorer-hotspot-reveal {
+    position: absolute;
+    left: 100%;
+    top: 25%;
+    z-index: 100;
+    overflow-y: auto;
+}
+
+.ie-v1 .image-explorer-hotspot-content-wrapper {
+    margin: 35px 15px 15px 15px;
+}
+
+/* V2 styles */
+
+/* Overridden styles from v1 */
+
+.ie-v2 .image-explorer-wrapper {
+    max-width: 800px;
+    width: 100%;
+    min-height: 400px;
+}
+
+.ie-v2 .image-explorer-hotspot-reveal {
+    min-height: 600px;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.ie-v2 .image-explorer-hotspot-content-wrapper {
+    padding: 35px 15px 15px 15px;
+}
+
+/* New Styles in v2*/
+.ie-v2 .overlay-container {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #eee;
+    box-shadow: 0 1px 5px 2px #ccc;
+    text-align: center;
+}
+
+.ie-v2 .tutorial-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    visibility: hidden;
+}
+
+.ie-v2 .tutorial-wrapper .tutorial-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    width: 390px;
+    padding: 25px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 1px 20px #000000;
+}
+
+.ie-v2 .tutorial-wrapper .tutorial-container h3 {
+    font-size: 18px;
+    color: #2e82cc;
+}
+
+.ie-v2 .tutorial-wrapper .tutorial-container .tutorial-video {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    background: url('../images/IE_Instruction_Anim_Blue.gif') no-repeat center center;
+    background-size: 100%;
+}
+
+.ie-v2 .tutorial-wrapper .tutorial-container p {
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 80%;
+    color: #4f4f4f;
+    margin: 0 auto;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.ie-v2 .tutorial-wrapper .tutorial-container a {
+    display: inline-block;
+    padding: 20px 0 10px;
+    width: 170px;
+    border-top: 1px solid #ccc;
+    font-size: 15px;
+    color: #2e82cc;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ie-v2 .overlay-container.shown .tutorial-wrapper {
+    visibility: visible;
+    display: block;
+}
+
+.ie-v2 .overlay-container.shown .image-explorer-wrapper {
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+}
+
+.ie-v2 .hotspot-detail {
+    display: none;
+    width: calc(40% - 60px);
+    float: right;
+    vertical-align: top;
+    box-shadow: -2px 0 12px 0 #ccc;
+    min-height: 600px;
+    text-align: left;
+}
+
+.ie-v2 .overlay-container.details-shown {
+    min-height: 500px;
+}
+
+.ie-v2 .overlay-container.details-shown .image-explorer-wrapper {
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    width: 60%;
+    transform: translateY(-50%);
+}
+
+/* adding class when hotspot detail is shown*/
+
+.ie-v2 .image-explorer-xblock-wrapper.data-reveal .image-explorer-wrapper {
+    width: auto;
 }
