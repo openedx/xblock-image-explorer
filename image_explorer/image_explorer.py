@@ -3,20 +3,19 @@
 
 # Imports ###########################################################
 
-import uuid
 import logging
 import textwrap
-from lxml import etree, html
-from urlparse import urljoin
-from django.conf import settings
-
-from xblock.core import XBlock
-from xblock.fragment import Fragment
-from xblock.fields import List, Scope, String, Boolean
-
+import uuid
 from StringIO import StringIO
+from urlparse import urljoin
 
-from .utils import loader, AttrDict, _
+from django.conf import settings
+from lxml import etree, html
+from web_fragments.fragment import Fragment
+from xblock.core import XBlock
+from xblock.fields import Boolean, List, Scope, String
+
+from .utils import AttrDict, _, load_scenario_xml_data, loader
 
 log = logging.getLogger(__name__)
 
@@ -46,7 +45,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     )
 
     data = String(help=_("XML contents to display for this module"), scope=Scope.content, default=textwrap.dedent("""\
-        <image_explorer schema_version='2'>
+        <image_explorer schema_version='3'>
             <background src="//upload.wikimedia.org/wikipedia/commons/thumb/a/ac/MIT_Dome_night1_Edit.jpg/800px-MIT_Dome_night1_Edit.jpg" />
             <description>
                 <p>
@@ -84,15 +83,40 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         """))
 
     @property
+    def schema_version(self):
+        xmltree = etree.fromstring(self.data)
+        return int(xmltree.attrib.get('schema_version', 1))
+
+    @property
+    def block_version(self):
+        # IE v2 has a schema version of 3+
+        return 1 if self.schema_version <= 2 else 2
+
+    @property
     def hotspot_coordinates_centered(self):
         if self._hotspot_coordinates_centered:
             return True
 
         # hotspots are calculated from center for schema version > 1
-        xmltree = etree.fromstring(self.data)
-        schema_version = int(xmltree.attrib.get('schema_version', 1))
+        return self.schema_version > 1
 
-        return schema_version > 1
+    def _get_fragment_for_version(self, context):
+        fragment = Fragment()
+
+        fragment.add_content(
+            loader.render_django_template(
+                '/templates/html/image_explorer_v{}.html'.format(self.block_version),
+                context=context,
+                i18n_service=self.runtime.service(self, 'i18n')
+            )
+        )
+
+        # Add version-specific JS
+        js_url = 'public/js/image_explorer_v{}.js'.format(self.block_version)
+        fragment.add_javascript_url(self.runtime.local_resource_url(self, js_url))
+
+        fragment.initialize_js('ImageExplorerBlock{}'.format(self.block_version))
+        return fragment
 
     @XBlock.supports("multi_device")  # Mark as mobile-friendly
     def student_view(self, context):
@@ -131,20 +155,17 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             'background': background,
         }
 
-        fragment = Fragment()
-        fragment.add_content(loader.render_django_template('/templates/html/image_explorer.html',
-                                                           context=context,
-                                                           i18n_service=self.runtime.service(self, 'i18n')))
+        fragment = self._get_fragment_for_version(context)
+
+        # Add common CSS
         fragment.add_css_url(self.runtime.local_resource_url(self, 'public/css/image_explorer.css'))
-        fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/image_explorer.js'))
+
         if has_youtube:
             fragment.add_javascript_url('https://www.youtube.com/iframe_api')
 
         if has_ooyala:
             fragment.add_javascript_url('https://player.ooyala.com/v3/635104fd644c4170ae227af2de27deab?platform=html5-priority')
             fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/ooyala_player.js'))
-
-        fragment.initialize_js('ImageExplorerBlock')
 
         return fragment
 
@@ -219,9 +240,11 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         Editing view in Studio
         """
         fragment = Fragment()
-        fragment.add_content(loader.render_django_template('/templates/html/image_explorer_edit.html',
-                                                           context={'self': self},
-                                                           i18n_service=self.runtime.service(self, 'i18n')))
+        fragment.add_content(loader.render_django_template(
+            '/templates/html/image_explorer_edit.html',
+            context={'self': self},
+            i18n_service=self.runtime.service(self, 'i18n'))
+        )
         fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/image_explorer_edit.js'))
 
         fragment.initialize_js('ImageExplorerEditBlock')
@@ -360,4 +383,12 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     @staticmethod
     def workbench_scenarios():
         """A canned scenario for display in the workbench."""
-        return [("Image explorer scenario", "<vertical_demo><image-explorer/></vertical_demo>")]
+        return [
+            (
+                "Image explorer v1 scenario",
+                "<vertical_demo>{}</vertical_demo>".format(
+                    load_scenario_xml_data('image_explorer_v1')
+                )
+            ),
+            ("Image explorer v2 scenario", "<vertical_demo><image-explorer/></vertical_demo>"),
+        ]
