@@ -12,6 +12,7 @@ from parsel import Selector
 
 from django.conf import settings
 
+from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fragment import Fragment
 from xblock.fields import List, Scope, String, Boolean
@@ -28,6 +29,10 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     """
     XBlock that renders an image with tooltips
     """
+
+    has_score = True
+    completion_mode = XBlockCompletionMode.COMPLETABLE
+
     display_name = String(
         display_name=_("Display Name"),
         help=_("This name appears in the horizontal navigation at the top of the page."),
