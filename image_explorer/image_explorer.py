@@ -31,6 +31,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     """
 
     has_score = True
+    max_score = 1.0
     completion_mode = XBlockCompletionMode.COMPLETABLE
 
     display_name = String(
