@@ -31,7 +31,6 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     """
 
     has_score = True
-    max_score = 1.0
     completion_mode = XBlockCompletionMode.COMPLETABLE
 
     display_name = String(
@@ -90,6 +89,9 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             </hotspots>
         </image_explorer>
         """))
+
+    def max_score(self):
+        return 1.0
 
     @property
     def hotspot_coordinates_centered(self):
