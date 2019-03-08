@@ -45,7 +45,7 @@ function ImageExplorerBlock(runtime, element) {
       if (active_feedback) {
         close_feedback();
       }
-
+      $(this).addClass('visited');
       var target = $(eventObj.currentTarget);
       var reveal = target.find('.image-explorer-hotspot-reveal');
 
