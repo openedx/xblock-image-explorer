@@ -64,7 +64,7 @@ div.image-explorer-hotspot a{
     text-decoration: underline;
 }
 
-.image-explorer-wrapper div.image-explorer-hotspot:hover {
+.image-explorer-wrapper div.image-explorer-hotspot:hover, .image-explorer-wrapper.visited {
     background-position: 0 -43px
 }
 
