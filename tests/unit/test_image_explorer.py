@@ -144,4 +144,8 @@ class TestImageExplorerBlock(unittest.TestCase):
         )
         hotspots = image_explorer_block_schema2._get_hotspots(xmltree=etree.fromstring(self.image_explorer_xml))
         self.assertEqual(len(hotspots), 1)
+        self.assertFalse(hotspots[0].visited)
+        image_explorer_block_schema2.opened_hotspots.append('hotspotA')
+        hotspots = image_explorer_block_schema2._get_hotspots(xmltree=etree.fromstring(self.image_explorer_xml))
+        self.assertEqual(len(hotspots), 1)
         self.assertTrue(hotspots[0].visited)

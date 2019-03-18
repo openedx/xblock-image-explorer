@@ -373,7 +373,9 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             if not hotspot.y.endswith('%'):
                 hotspot.y += 'px'  # px is deprecated as it is not responsive
 
-            hotspot.visited = True
+            hotspot.visited = False
+            if hotspot.item_id in self.opened_hotspots:
+                hotspot.visited = True
 
             hotspots.append(hotspot)
 
