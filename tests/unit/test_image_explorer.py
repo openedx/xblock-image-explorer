@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+from mock import patch
 from lxml import etree
 
 from parsel import Selector
@@ -142,6 +142,6 @@ class TestImageExplorerBlock(unittest.TestCase):
             DictFieldData(image_explorer_data),
             None
         )
-        hotspots = image_explorer_data._get_hotspots(xmltree=etree.fromstring(self.image_explorer_xml))
+        hotspots = image_explorer_block_schema2._get_hotspots(xmltree=etree.fromstring(self.image_explorer_xml))
         self.assertEqual(len(hotspots), 1)
         self.assertTrue(hotspots[0].visited)
