@@ -1,4 +1,5 @@
 import unittest
+from mock import patch
 from lxml import etree
 
 from parsel import Selector
@@ -129,3 +130,22 @@ class TestImageExplorerBlock(unittest.TestCase):
 
         # for schema version 2 hotspot coordinates are centered
         self.assertTrue(image_explorer_block_schema2.hotspot_coordinates_centered)
+
+    @patch('image_explorer.image_explorer.ImageExplorerBlock._inner_content')
+    def test__get_hotspots(self, mock__inner_content):
+        """
+        Test _get_hotspots return all hotspots.
+        """
+        image_explorer_data = {'data': self.image_explorer_xml_version2}
+        image_explorer_block_schema2 = ImageExplorerBlock(
+            self.runtime,
+            DictFieldData(image_explorer_data),
+            None
+        )
+        hotspots = image_explorer_block_schema2._get_hotspots(xmltree=etree.fromstring(self.image_explorer_xml))
+        self.assertEqual(len(hotspots), 1)
+        self.assertFalse(hotspots[0].visited)
+        image_explorer_block_schema2.opened_hotspots.append('hotspotA')
+        hotspots = image_explorer_block_schema2._get_hotspots(xmltree=etree.fromstring(self.image_explorer_xml))
+        self.assertEqual(len(hotspots), 1)
+        self.assertTrue(hotspots[0].visited)
