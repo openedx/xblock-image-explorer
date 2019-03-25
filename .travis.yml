@@ -1,0 +1,24 @@
+dist: xenial
+language: python
+python:
+    - 2.7
+
+before_install:
+    - sudo apt-get install make git python-virtualenv gcc python-dev libxml2-dev libxmlsec1-dev wget
+    - sudo apt-get install xvfb
+    - sudo apt-get install libgtk-3-0 libdbus-glib-1-2
+    - wget https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
+    - mkdir geckodriver
+    - tar -xf geckodriver-v0.15.0-linux64.tar.gz -C geckodriver
+    - export PATH=$PATH:$(pwd)/geckodriver
+    - wget https://ftp.mozilla.org/pub/firefox/releases/52.0.1esr/linux-x86_64/en-US/firefox-52.0.1esr.tar.bz2
+    - tar -xf firefox-52.0.1esr.tar.bz2
+    - export PATH=$PATH:$(pwd)/firefox
+
+install:
+    - pip install tox
+    - pip install -e git://github.com/edx/xblock-sdk.git#egg=xblock-sdk
+    - cd $VIRTUAL_ENV/src/xblock-sdk/ && make install && cd -
+
+script:
+    - tox

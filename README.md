@@ -35,26 +35,13 @@ advanced settings.
 Testing
 -------
 
-Make sure you have a python virtual environment with `xblock-sdk` version `0.1.5` or higher:
+1. Mimic the installation instructions for firefox & geckodriver from .travis.yml
 
-```bash
-pip install -e git://github.com/edx/xblock-sdk.git#egg=xblock-sdk
-cd $VIRTUAL_ENV/src/xblock-sdk/ && make install && cd -
-pip install -r requirements.txt
-```
+2. mkvirtualenv xblock-image-explorer
 
-To run the unit tests, run:
+3. pip install tox
 
-```bash
-python run_tests.py tests/unit
-```
-
-To run the integration tests, you'll need [`geckodriver`](https://github.com/mozilla/geckodriver) and `xvfb` installed.
-
-```bash
-export DISPLAY=:99
-xvfb-run python run_tests.py tests/integration
-```
+4. tox
 
 Usage
 -----
