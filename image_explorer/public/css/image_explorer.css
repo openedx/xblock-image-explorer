@@ -66,7 +66,7 @@ div.image-explorer-hotspot a{
 
 .image-explorer-wrapper div.image-explorer-hotspot:hover,
 .image-explorer-wrapper div.image-explorer-hotspot.visited {
-    background-position: 0 -43px
+    background-position: 0 100%;
 }
 
 div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-header p {
@@ -121,7 +121,7 @@ div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspo
     .image-explorer-hotspot-reveal{
         right: 0;
         left: 0;
-        top: 143px;
+        top: 185px;
         bottom: 10vh;
         width: auto !important;
         height: auto !important;
