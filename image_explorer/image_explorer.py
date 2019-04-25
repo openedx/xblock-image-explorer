@@ -1,14 +1,35 @@
 # -*- coding: utf-8 -*-
 #
+# Copyright (C) 2014-2015 Harvard, edX, OpenCraft
+#
+# This software's license gives you freedom; you can copy, convey,
+# propagate, redistribute and/or modify this program under the terms of
+# the GNU Affero General Public License (AGPL) as published by the Free
+# Software Foundation (FSF), either version 3 of the License, or (at your
+# option) any later version of the AGPL published by the FSF.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+# General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program in a file in the toplevel directory called
+# "AGPLv3". If not, see <http://www.gnu.org/licenses/>.
+#
+"""
+Image Explorer XBlock
+"""
 
 # Imports ###########################################################
 
 import uuid
 import logging
 import textwrap
-from lxml import etree, html
 from urlparse import urljoin
+from StringIO import StringIO
 from parsel import Selector
+from lxml import etree, html
 
 from django.conf import settings
 
@@ -17,11 +38,10 @@ from xblock.core import XBlock
 from xblock.fragment import Fragment
 from xblock.fields import List, Scope, String, Boolean
 
-from StringIO import StringIO
-
 from .utils import loader, AttrDict, _
 
-log = logging.getLogger(__name__)
+
+log = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
 @XBlock.needs('i18n')
@@ -90,11 +110,17 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         </image_explorer>
         """))
 
-    def max_score(self):
+    def max_score(self):  # pylint: disable=no-self-use
+        """
+        Returns the maximum score that can be achieved (always 1.0 on this XBlock)
+        """
         return 1.0
 
     @property
     def hotspot_coordinates_centered(self):
+        """
+        Returns true if the hotspot coordinates are centered
+        """
         if self._hotspot_coordinates_centered:
             return True
 
@@ -142,16 +168,22 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         }
 
         fragment = Fragment()
-        fragment.add_content(loader.render_django_template('/templates/html/image_explorer.html',
-                                                           context=context,
-                                                           i18n_service=self.runtime.service(self, 'i18n')))
+        fragment.add_content(
+            loader.render_django_template(
+                '/templates/html/image_explorer.html',
+                context=context,
+                i18n_service=self.runtime.service(self, 'i18n')
+            )
+        )
         fragment.add_css_url(self.runtime.local_resource_url(self, 'public/css/image_explorer.css'))
         fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/image_explorer.js'))
         if has_youtube:
             fragment.add_javascript_url('https://www.youtube.com/iframe_api')
 
         if has_ooyala:
-            fragment.add_javascript_url('https://player.ooyala.com/v3/635104fd644c4170ae227af2de27deab?platform=html5-priority')
+            fragment.add_javascript_url(
+                'https://player.ooyala.com/v3/635104fd644c4170ae227af2de27deab?platform=html5-priority'
+            )
             fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/ooyala_player.js'))
 
         fragment.initialize_js('ImageExplorerBlock')
@@ -177,6 +209,10 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
     @XBlock.json_handler
     def publish_event(self, data, suffix=''):
+        """
+        Override XBlock method to publish event when an action is taken on the
+        block. This is used to register student progress.
+        """
         try:
             event_type = data.pop('event_type')
         except KeyError:
@@ -205,15 +241,15 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
         self.runtime.publish(self, 'progress', {})
         self.opened_hotspots.append(hotspot_id)
-        log.debug(u'Opened hotspots so far for {}: {}'.format(self._get_unique_id(), self.opened_hotspots))
+        log.debug(u'Opened hotspots so far for %s: %s', self._get_unique_id(), self.opened_hotspots)
 
         opened_hotspots = [h for h in hotspots_ids if h in self.opened_hotspots]
         percent_completion = float(len(opened_hotspots)) / len(hotspots_ids)
         self.runtime.publish(self, 'grade', {
-           'value': percent_completion,
+            'value': percent_completion,
             'max_value': 1,
         })
-        log.debug(u'Sending grade for {}: {}'.format(self._get_unique_id(), percent_completion))
+        log.debug(u'Sending grade for %s: %s', self._get_unique_id(), percent_completion)
 
     def _get_unique_id(self):
         try:
@@ -239,6 +275,9 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
     @XBlock.json_handler
     def studio_submit(self, submissions, suffix=''):
+        """
+        Handle the action of the submit button when using the block from Studio
+        """
         self.display_name = submissions['display_name']
         if submissions.get('hotspot_coordinates_centered', False):
             self._hotspot_coordinates_centered = True
@@ -248,17 +287,18 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         try:
             etree.parse(StringIO(xml_content))
             self.data = xml_content
-        except etree.XMLSyntaxError as e:
+        except etree.XMLSyntaxError as err:
             return {
                 'result': 'error',
-                'message': e.message
+                'message': err.message
             }
 
         return {
             'result': 'success',
         }
 
-    def _get_background(self, xmltree):
+    @staticmethod
+    def _get_background(xmltree):
         """
         Parse the XML to get the information about the background image
         """
@@ -278,11 +318,12 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             return url
 
         url = '"{}"'.format(url)
-        lms_relative_url = replace_static_urls(url, course_id=self.course_id)
+        lms_relative_url = replace_static_urls(url, course_id=self.course_id)  # pylint: disable=no-member
         lms_relative_url = lms_relative_url.strip('"')
         return self._make_url_absolute(lms_relative_url)
 
-    def _make_url_absolute(self, url):
+    @staticmethod
+    def _make_url_absolute(url):
         lms_base = settings.ENV_TOKENS.get('LMS_BASE')
         scheme = 'https' if settings.HTTPS == 'on' else 'http'
         lms_base = '{}://{}'.format(scheme, lms_base)
@@ -296,8 +337,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             tag_content = u''.join(html.tostring(e) for e in tag)
             if absolute_urls:
                 return self._change_relative_url_to_absolute(tag_content)
-            else:
-                return tag_content
+            return tag_content
         return None
 
     def _get_description(self, xmltree, absolute_urls=False):
