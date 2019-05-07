@@ -1,8 +1,32 @@
 version: 2
 jobs:
-  test:
+  test-python2.7:
     docker:
       - image: circleci/python:2.7.16-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: |
+            mkdir -p ./venv
+            virtualenv ./venv
+            . venv/bin/activate
+            pip install tox
+      - run:
+          name: Run unit tests
+          command: |
+            . venv/bin/activate
+            tox -e unit
+          when: always
+      - run:
+          name: Run integration tests
+          command: |
+            . venv/bin/activate
+            tox -e integration
+          when: always
+  test-python3.6:
+    docker:
+      - image: circleci/python:3.6.8-browsers
     steps:
       - checkout
       - run:
