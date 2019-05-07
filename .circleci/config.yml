@@ -70,5 +70,6 @@ workflows:
   version: 2
   build:
     jobs:
-      - test
+      - test-python2.7
+      - test-python3.6
       - quality
