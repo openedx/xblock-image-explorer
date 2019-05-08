@@ -12,7 +12,8 @@ disable=
     too-many-instance-attributes,
     too-few-public-methods,
     too-many-public-methods,
-    unused-argument
+    unused-argument,
+    unbalanced-tuple-unpacking
 
 [SIMILARITIES]
 min-similarity-lines=4

@@ -23,11 +23,13 @@ Image Explorer XBlock
 
 # Imports ###########################################################
 
+from __future__ import absolute_import, division
+
 import uuid
 import logging
 import textwrap
-from urlparse import urljoin
-from StringIO import StringIO
+from six.moves import urllib
+from six import StringIO
 from parsel import Selector
 from lxml import etree, html
 
@@ -288,9 +290,16 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             etree.parse(StringIO(xml_content))
             self.data = xml_content
         except etree.XMLSyntaxError as err:
+            # Python 2 and 3 compatibility fix
+            # Switch to _, error_message = e.args
+            try:
+                error_message = err.message  # pylint: disable=exception-message-attribute
+            except:  # pylint: disable=bare-except
+                _, error_message = err.args
+
             return {
                 'result': 'error',
-                'message': err.message
+                'message': error_message,
             }
 
         return {
@@ -327,7 +336,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         lms_base = settings.ENV_TOKENS.get('LMS_BASE')
         scheme = 'https' if settings.HTTPS == 'on' else 'http'
         lms_base = '{}://{}'.format(scheme, lms_base)
-        return urljoin(lms_base, url)
+        return urllib.parse.urljoin(lms_base, url)
 
     def _inner_content(self, tag, absolute_urls=False):
         """

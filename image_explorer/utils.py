@@ -23,6 +23,8 @@ Image Explorer XBlock utils
 
 # Imports ###########################################################
 
+from __future__ import absolute_import
+
 import logging
 
 from xblockutils.resources import ResourceLoader
