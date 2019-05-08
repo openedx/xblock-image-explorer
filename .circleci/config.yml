@@ -46,7 +46,7 @@ jobs:
           name: Run python3 quality tests
           command: |
             . venv/bin/activate
-            tox -e py3-quality
+            tox -e python3-quality
           when: always
 workflows:
   version: 2
