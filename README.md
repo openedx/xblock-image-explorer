@@ -1,5 +1,6 @@
 Image Explorer XBlock
 =====================
+[![CircleCI](https://circleci.com/gh/edx-solutions/xblock-image-explorer.svg?style=svg&circle-token=525f7452d8f3016f46c1bdb2a06c17764fe5795f)](https://circleci.com/gh/edx-solutions/xblock-image-explorer)
 
 This package provides the Image Explorer XBlock that allows you to
 use an image with hotspots in a course. When the student clicks a

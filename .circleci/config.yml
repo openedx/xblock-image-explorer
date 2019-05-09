@@ -37,10 +37,16 @@ jobs:
             . venv/bin/activate
             pip install tox pylint
       - run:
-          name: Run integration tests
+          name: Run quality tests
           command: |
             . venv/bin/activate
             tox -e quality
+          when: always
+      - run:
+          name: Run python3 quality tests
+          command: |
+            . venv/bin/activate
+            tox -e python3-quality
           when: always
 workflows:
   version: 2
