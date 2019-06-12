@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-29 18:42+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: image_explorer/image_explorer.py:59
+msgid "Display Name"
+msgstr "Nazwa publiczna"
+
+#: image_explorer/image_explorer.py:60
+msgid "This name appears in the horizontal navigation at the top of the page."
+msgstr "Nazwa ta pojawi się w pasku horyzontalnym nawigacji u góry strony."
+
+#: image_explorer/image_explorer.py:62
+msgid "Image Explorer"
+msgstr "Wyszukiwarka Obrazów"
+
+#: image_explorer/image_explorer.py:66
+msgid "Hot Spots Coordinates Centered"
+msgstr "Wyśrodkowano współrzędne hotspotów"
+
+#: image_explorer/image_explorer.py:72
+msgid "Store hotspots opened by student, for completion"
+msgstr "Hotspoty sklepu otwarte przez ucznia w celu wypełnienia"
+
+#: image_explorer/image_explorer.py:77
+msgid "XML contents to display for this module"
+msgstr "Zawartość XML do wyświetlenia w tym module"
+
+#: image_explorer/image_explorer.py:221
+msgid "Missing event_type in JSON data"
+msgstr "Brak event_type w danych JSON"
+
+#: image_explorer/templates/html/image_explorer_edit.html:8
+msgid "Title"
+msgstr "Tytuł"
+
+#: image_explorer/templates/html/image_explorer_edit.html:11
+msgid "The title of the Image Explorer that is displayed to the user"
+msgstr "Tytuł Wyszukiwarki Obrazów wyświetlany użytkownikowi"
+
+#: image_explorer/templates/html/image_explorer_edit.html:17
+msgid "Hotspot coordinates centered"
+msgstr "Wyśrodkowano współrzędne hotspotu"
+
+#: image_explorer/templates/html/image_explorer_edit.html:19
+msgid ""
+"If set to true, hotspot coordinates interpreted to point to the center of "
+"the hotspot"
+msgstr "Jeśli ustawiono na true, współrzędne hotspotu są interpretowane tak, aby wskazywały na środek hotspotu"
+
+#: image_explorer/templates/html/image_explorer_edit.html:19
+msgid ""
+"If set to false, assumed to point to the top left corner of the hotspot image"
+msgstr "Jeśli ustawiono na false, domyślnie wskazują na lewy górny róg obrazka hotspot"
+
+#: image_explorer/templates/html/image_explorer_edit.html:24
+msgid "Definition"
+msgstr "Definicja"
+
+#: image_explorer/templates/html/image_explorer_edit.html:25
+msgid "The XML definition for the Image Explorer"
+msgstr "Definicja XML dla Wyszukiwarki Obrazów"
+
+#: image_explorer/templates/html/image_explorer_edit.html:36
+msgid "Save"
+msgstr "Zapisz"
+
+#: image_explorer/templates/html/image_explorer_edit.html:40
+msgid "Cancel"
+msgstr "Anuluj"
