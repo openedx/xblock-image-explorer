@@ -1,4 +1,7 @@
 -e .
 -e git+https://github.com/edx/xblock-utils.git@v1.1.0#egg=xblock-utils==1.1.0
+edx-i18n-tools==0.4.7
 lxml==3.0.1
+mako==1.0.7
 parsel==1.2.0
+transifex-client==0.13.4
