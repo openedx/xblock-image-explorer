@@ -118,6 +118,18 @@ function ImageExplorerBlock(runtime, element) {
       }
     });
 
+    $(document).on('keyup', function(eventObj) {
+      if (!active_feedback)
+        return;
+      var target = $(eventObj.target);
+      var close_btn = ".image-explorer-close-reveal";
+      if (target.is(close_btn) && eventObj.keyCode === 13) {
+        close_feedback();
+        eventObj.preventDefault();
+        eventObj.stopPropagation();
+      }
+    });
+
     publish_event({
         event_type:'xblock.image-explorer.loaded'
     });

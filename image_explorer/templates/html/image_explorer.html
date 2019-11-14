@@ -13,7 +13,6 @@
              style="position: absolute; top: {{hotspot.y}}; left: {{hotspot.x}};"
              data-item-id="{{hotspot.item_id}}">
                 <div class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}">
-                    <div class="image-explorer-close-reveal">&#xf057;</div>
                     <div class="image-explorer-hotspot-content-wrapper">
                         {% if hotspot.feedback.header %}
                             <span class="image-explorer-hotspot-reveal-header">
@@ -35,6 +34,7 @@
                             </div>
                         {% endif %}
                     </div>
+                    <div class="image-explorer-close-reveal" tabindex="0">&#xf057;</div>
                 </div>
             </div>
         {% endfor %}
