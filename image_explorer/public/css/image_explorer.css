@@ -41,11 +41,12 @@
 }
 
 
-.image-explorer-wrapper div.image-explorer-hotspot {
+.image-explorer-wrapper button.image-explorer-hotspot {
     background: url("../images/hotspot-sprite.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     width: 41px;
     height: 41px;
     display: block;
+    border: 0;
     text-decoration: none;
     -webkit-transition: all 0.0s linear 0s;
     -moz-transition: all 0.0s linear 0s;
@@ -58,18 +59,18 @@
     margin-top: -20.5px;
 }
 
-div.image-explorer-hotspot a{
+button.image-explorer-hotspot a{
     color: #FFFFFF;
     font-weight: bold;
     text-decoration: underline;
 }
 
-.image-explorer-wrapper div.image-explorer-hotspot:hover,
-.image-explorer-wrapper div.image-explorer-hotspot.visited {
+.image-explorer-wrapper button.image-explorer-hotspot:hover,
+.image-explorer-wrapper button.image-explorer-hotspot.visited {
     background-position: 0 100%;
 }
 
-div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-header p {
+button.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-header p {
     margin: 10px 0 10px 20px;
 }
 
@@ -82,7 +83,7 @@ div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspo
     list-style-type: disc;
 }
 
-div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-body ul li {
+button.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspot-reveal-body ul li {
     margin: 0 0 24px 17px;
 }
 
@@ -110,12 +111,12 @@ div.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hotspo
 }
 
 @media only screen and (max-width: 767px){
-    .image-explorer-wrapper div.image-explorer-hotspot{
+    .image-explorer-wrapper button.image-explorer-hotspot{
         background-size: 100%;
         width: 16px;
         height: 16px;
     }
-    .image-explorer-wrapper div.image-explorer-hotspot:hover{
+    .image-explorer-wrapper button.image-explorer-hotspot:hover{
         background-position: 0 -17px;
     }
     .image-explorer-hotspot-reveal{

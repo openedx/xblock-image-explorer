@@ -9,7 +9,7 @@
     <div class="image-explorer-wrapper">
         <img src="{{background.src}}" class="image-explorer-background" />
         {% for hotspot in hotspots %}
-        <div class="image-explorer-hotspot {% if hotspot_coordinates_centered %}centered{% endif %}{% if hotspot.visited %} visited {% endif %}"
+        <button class="image-explorer-hotspot {% if hotspot_coordinates_centered %}centered{% endif %}{% if hotspot.visited %} visited {% endif %}"
              style="position: absolute; top: {{hotspot.y}}; left: {{hotspot.x}};"
              data-item-id="{{hotspot.item_id}}">
                 <div class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}">
@@ -36,7 +36,7 @@
                     </div>
                     <div class="image-explorer-close-reveal" tabindex="0">&#xf057;</div>
                 </div>
-            </div>
+            </button>
         {% endfor %}
     </div>
 </div>
