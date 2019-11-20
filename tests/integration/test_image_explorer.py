@@ -13,7 +13,7 @@ class TestImageExplorer(SeleniumXBlockTest):
         self.assertIn("Click around the MIT Dome and see what you find!", block.description.text)
 
     def hotspots(self, block):
-        hotspots = block.find_elements_by_css_selector(".image-explorer-hotspot")
+        hotspots = block.find_elements_by_css_selector(".hotspot-container")
         for h in hotspots:
             h.content = h.find_element_by_css_selector(".image-explorer-hotspot-reveal")
             h.close_button = h.find_element_by_css_selector(".image-explorer-close-reveal")
@@ -47,7 +47,7 @@ class TestImageExplorer(SeleniumXBlockTest):
         self.assertIn("Below are some of the highlights:", block.hotspotA.content.text)
         self.assertIn("Once there was a police car up here", block.hotspotA.content.text)
         self.assertIn("Also there was a Fire Truck put up there", block.hotspotA.content.text)
-        self.assertIn('visited', block.hotspotA.get_attribute("class"))
+        self.assertIn('visited', block.hotspotA.find_element_by_css_selector('.image-explorer-hotspot').get_attribute("class"))
 
     def assert_only_hotspotB_revealed(self, block):
         hs = self.hotspots(block)
@@ -58,7 +58,7 @@ class TestImageExplorer(SeleniumXBlockTest):
 
         self.assertIn("Watch the Red Line subway go around the dome", block.hotspotB.content.text)
         self.assertTrue(block.hotspotB.find_element_by_css_selector(".image-explorer-hotspot-reveal-youtube"))
-        self.assertIn('visited', block.hotspotB.get_attribute("class"))
+        self.assertIn('visited', block.hotspotB.find_element_by_css_selector('.image-explorer-hotspot').get_attribute("class"))
 
     def test_simple_scenario(self):
         self.set_scenario_xml('<image-explorer/>')
