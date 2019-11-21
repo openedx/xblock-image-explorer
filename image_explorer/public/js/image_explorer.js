@@ -58,7 +58,7 @@ function ImageExplorerBlock(runtime, element) {
       hotspot_opened_at = new Date().getTime();
       publish_event({
               event_type:'xblock.image-explorer.hotspot.opened',
-              item_id: target.data('item-id')
+              item_id: target.parent('.hotspot-container').data('item-id')
       });
     });
 
@@ -93,7 +93,7 @@ function ImageExplorerBlock(runtime, element) {
     /* close feedback action */
     function close_feedback() {
       // Close the visible feedback popup
-      var hotspot = active_feedback.closest('.image-explorer-hotspot');
+      var hotspot = active_feedback.closest('.hotspot-container');
       pause_youtube_videos(hotspot);
       hotspot.trigger('feedback:close');
       active_feedback.css('display', 'none');
