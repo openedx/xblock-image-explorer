@@ -9,17 +9,24 @@
     <div class="image-explorer-wrapper">
         <img src="{{background.src}}" class="image-explorer-background" />
         {% for hotspot in hotspots %}
-        <button class="image-explorer-hotspot {% if hotspot_coordinates_centered %}centered{% endif %}{% if hotspot.visited %} visited {% endif %}"
-             style="position: absolute; top: {{hotspot.y}}; left: {{hotspot.x}};"
-             data-item-id="{{hotspot.item_id}}">
-                <div class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}">
-                    <div class="image-explorer-close-reveal" tabindex="0">&#xf057;</div>
-                    <div class="image-explorer-hotspot-content-wrapper">
-                        {% if hotspot.feedback.header %}
-                            <span class="image-explorer-hotspot-reveal-header">
-                                {{hotspot.feedback.header}}
-                            </span>
-                        {% endif %}
+        <div class="hotspot-container" data-item-id="{{hotspot.item_id}}" style="position: absolute; top: {{hotspot.y}}; left: {{hotspot.x}};">
+            <button class="image-explorer-hotspot {% if hotspot_coordinates_centered %}centered{% endif %}{% if hotspot.visited %} visited {% endif %}">
+                <span id="icon-plus">
+                    <i class="material-icons">add_circle</i>
+                </span>
+                <span id="icon-check">
+                    <i class="material-icons">check_circle</i>
+                </span>
+            </button>
+            <div role="region" aria-modal="false" class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}" aria-labelledby="{% if hotspot.feedback.header %}{{ie_uid}}_{{hotspot.item_id}}_header{% endif %}" aria-describedby="{{ie_uid}}_{{hotspot.item_id}}_body" tabindex="0">
+                <button class="image-explorer-close-reveal"><span class="sr-only">Close</span>&#xf057;</button>
+                <div class="image-explorer-hotspot-content-wrapper">
+                    {% if hotspot.feedback.header %}
+                        <span id="{{ie_uid}}_{{hotspot.item_id}}_header" class="image-explorer-hotspot-reveal-header">
+                            {{hotspot.feedback.header}}
+                        </span>
+                    {% endif %}
+                    <div id="{{ie_uid}}_{{hotspot.item_id}}_body">
                         {% if hotspot.feedback.body %}
                             <span class="image-explorer-hotspot-reveal-body">
                                 {{hotspot.feedback.body}}
@@ -36,7 +43,8 @@
                         {% endif %}
                     </div>
                 </div>
-            </button>
+            </div>
+        </div>
         {% endfor %}
     </div>
 </div>
