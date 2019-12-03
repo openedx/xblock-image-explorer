@@ -53,6 +53,7 @@
     transition: all 0.0s linear 0s;
 }
 
+.image-explorer-wrapper button.image-explorer-hotspot > span{ display: none;}
 
 .image-explorer-hotspot.centered{ /* offset for hotspot to restrict it to its center */
     margin-left: -20.5px;
