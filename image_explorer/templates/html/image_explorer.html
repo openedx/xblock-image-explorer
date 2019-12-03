@@ -11,7 +11,7 @@
         {% for hotspot in hotspots %}
         <button class="image-explorer-hotspot {% if hotspot_coordinates_centered %}centered{% endif %}{% if hotspot.visited %} visited {% endif %}"
              style="position: absolute; top: {{hotspot.y}}; left: {{hotspot.x}};"
-             data-item-id="{{hotspot.item_id}}">
+             data-item-id="{{hotspot.item_id}}" aria-label="{{hotspot.item_id}}">
                 <div class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}">
                     <div class="image-explorer-close-reveal" tabindex="0">&#xf057;</div>
                     <div class="image-explorer-hotspot-content-wrapper">
