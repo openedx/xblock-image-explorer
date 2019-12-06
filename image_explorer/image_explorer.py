@@ -167,6 +167,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             'description_html': description,
             'hotspots': hotspots,
             'background': background,
+            'ie_uid': uuid.uuid4().hex[:15],
         }
 
         fragment = Fragment()

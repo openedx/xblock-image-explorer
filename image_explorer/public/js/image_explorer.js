@@ -19,7 +19,7 @@ function ImageExplorerBlock(runtime, element) {
       var target_position_left = target.position().left;
       var hotspot_image_width = target.outerWidth();
 
-      var image_width = reveal.parents('.image-explorer-hotspot').siblings('.image-explorer-background').outerWidth();
+      var image_width = reveal.prev('.image-explorer-hotspot').siblings('.image-explorer-background').outerWidth();
 
       if (reveal_side !== 'left' && reveal_side !== 'right') {
           /* do some calculations with regards which side of the hotspot to open the feedback on */
@@ -47,17 +47,18 @@ function ImageExplorerBlock(runtime, element) {
       }
       $(this).addClass('visited');
       var target = $(eventObj.currentTarget);
-      var reveal = target.find('.image-explorer-hotspot-reveal');
+      var reveal = target.next('.image-explorer-hotspot-reveal');
 
       setRevealPosition(target, reveal);
 
       reveal.css('display', 'block');
+      reveal.focus();
       active_feedback = reveal;
       $(this).trigger('feedback:open');
       hotspot_opened_at = new Date().getTime();
       publish_event({
               event_type:'xblock.image-explorer.hotspot.opened',
-              item_id: target.data('item-id')
+              item_id: target.parent('.hotspot-container').data('item-id')
       });
     });
 
@@ -92,7 +93,7 @@ function ImageExplorerBlock(runtime, element) {
     /* close feedback action */
     function close_feedback() {
       // Close the visible feedback popup
-      var hotspot = active_feedback.closest('.image-explorer-hotspot');
+      var hotspot = active_feedback.closest('.hotspot-container');
       pause_youtube_videos(hotspot);
       hotspot.trigger('feedback:close');
       active_feedback.css('display', 'none');
@@ -112,18 +113,6 @@ function ImageExplorerBlock(runtime, element) {
       var close_btn = ".image-explorer-close-reveal";
       var clicked_outside_feedback = (target.closest('.image-explorer-hotspot-reveal').length === 0);
       if (target.is(close_btn) || clicked_outside_feedback) {
-        close_feedback();
-        eventObj.preventDefault();
-        eventObj.stopPropagation();
-      }
-    });
-
-    $(document).on('keyup', function(eventObj) {
-      if (!active_feedback)
-        return;
-      var target = $(eventObj.target);
-      var close_btn = ".image-explorer-close-reveal";
-      if (target.is(close_btn) && eventObj.keyCode === 13) {
         close_feedback();
         eventObj.preventDefault();
         eventObj.stopPropagation();

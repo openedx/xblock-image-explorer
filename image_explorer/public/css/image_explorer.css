@@ -53,6 +53,7 @@
     transition: all 0.0s linear 0s;
 }
 
+.image-explorer-wrapper button.image-explorer-hotspot > span{ display: none;}
 
 .image-explorer-hotspot.centered{ /* offset for hotspot to restrict it to its center */
     margin-left: -20.5px;
@@ -97,6 +98,8 @@ button.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hot
     font-family: "fontawesome";
     font-size: 18pt;
     cursor: pointer;
+    background: none;
+    border: none;
 }
 
 .codemirror-editor-wrapper {
@@ -156,4 +159,17 @@ button.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hot
 
 .xblock-render{
     overflow: visible !important;
+}
+
+
+/* A11y */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
 }
