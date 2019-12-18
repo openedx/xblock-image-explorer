@@ -184,7 +184,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
         if has_ooyala:
             fragment.add_javascript_url(
-                'https://player.ooyala.com/v3/635104fd644c4170ae227af2de27deab?platform=html5-priority'
+                '//player.ooyala.com/core/10efd95b66124001b415aa2a4bee29c8?plugins=main,bm'
             )
             fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/ooyala_player.js'))
 
@@ -389,24 +389,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
                 feedback.type = 'text'
                 feedback.body = self._inner_content(body_element, absolute_urls)
 
-            feedback.youtube = None
-            youtube_element = feedback_element.find('youtube')
-            if youtube_element is not None:
-                feedback.type = 'youtube'
-                feedback.youtube = AttrDict()
-                feedback.youtube.id = 'youtube-{}'.format(uuid.uuid4().hex)
-                feedback.youtube.video_id = youtube_element.get('video_id')
-                feedback.youtube.width = youtube_element.get('width')
-                feedback.youtube.height = youtube_element.get('height')
-
-            feedback.ooyala = None
-            ooyala_element = feedback_element.find('ooyala')
-            if ooyala_element is not None:
-                feedback.type = 'ooyala'
-                feedback.ooyala = AttrDict()
-                feedback.ooyala.video_id = ooyala_element.get('video_id')
-                feedback.ooyala.width = ooyala_element.get('width')
-                feedback.ooyala.height = ooyala_element.get('height')
+            self._collect_video_elements(hotspot_element, feedback)
 
             hotspot = AttrDict()
             hotspot.item_id = hotspot_element.get('item-id')
@@ -427,6 +410,43 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             hotspots.append(hotspot)
 
         return hotspots
+
+    @staticmethod
+    def _collect_video_elements(hotspot, feedback):
+        """
+        Parses and includes video elements contained in the hotspot
+        """
+        feedback_element = hotspot.find('feedback')
+
+        feedback.youtube = None
+        youtube_element = feedback_element.find('youtube')
+        if youtube_element is not None:
+            feedback.type = 'youtube'
+            feedback.youtube = AttrDict()
+            feedback.youtube.id = 'youtube-{}'.format(uuid.uuid4().hex)
+            feedback.youtube.video_id = youtube_element.get('video_id')
+            feedback.youtube.width = youtube_element.get('width')
+            feedback.youtube.height = youtube_element.get('height')
+
+        feedback.ooyala = None
+        ooyala_element = feedback_element.find('ooyala')
+        if ooyala_element is not None:
+            feedback.type = 'ooyala'
+            feedback.ooyala = AttrDict()
+            feedback.ooyala.id = 'oo-{}'.format(uuid.uuid4().hex)
+            feedback.ooyala.video_id = ooyala_element.get('video_id')
+            feedback.ooyala.width = ooyala_element.get('width')
+            feedback.ooyala.height = ooyala_element.get('height')
+
+        # BC element could be anywhere in the hotspot
+        bcove_element = hotspot.find(".//brightcove")
+        if bcove_element is not None:
+            feedback.bcove = AttrDict()
+            feedback.bcove.id = 'bcove-{}'.format(uuid.uuid4().hex)
+            feedback.bcove.video_id = bcove_element.get('video_id')
+            feedback.bcove.account_id = bcove_element.get('account_id')
+            feedback.bcove.width = bcove_element.get('width')
+            feedback.bcove.height = bcove_element.get('height')
 
     @staticmethod
     def workbench_scenarios():

@@ -31,8 +31,20 @@
                             </div>
                         {% endif %}
                         {% if hotspot.feedback.ooyala %}
-                            <div id="ooyalaplayer_2" style="width: {{hotspot.feedback.ooyala.width}}px; height: {{hotspot.feedback.ooyala.height}}px;" data-video-id="{{hotspot.feedback.ooyala.video_id}}">
-                            </div>
+                            <div class="ooyala-element" id="{{hotspot.feedback.ooyala.id}}" style="width: {{hotspot.feedback.ooyala.width}}px; height: {{hotspot.feedback.ooyala.height}}px;" data-video-id="{{hotspot.feedback.ooyala.video_id}}"></div>
+                        {% endif %}
+                        {% if hotspot.feedback.bcove %}
+                            <video-js
+                                id="{{hotspot.feedback.bcove.id}}"
+                                data-account="{{hotspot.feedback.bcove.account_id}}"
+                                data-player="default"
+                                data-embed="default"
+                                data-video-id="{{hotspot.feedback.bcove.video_id}}"
+                                controls=""
+                                playsinline=""
+                                style="width:{{hotspot.feedback.bcove.width}}; height:{{hotspot.feedback.bcove.height}}">
+                            </video-js>
+                            <script src="https://players.brightcove.net/{{hotspot.feedback.bcove.account_id}}/default_default/index.min.js"></script>
                         {% endif %}
                     </div>
                 </div>

@@ -60,8 +60,27 @@ function ImageExplorerBlock(runtime, element) {
               item_id: target.data('item-id')
       });
     });
+  
+  function pauseVideos(hotspot){
+    // pause any videos playing in this hotspot
+    pauseYoutubeVideos(hotspot);
+    pauseOoyalaVideos(hotspot);
+    pauseBrightcoveVideos(hotspot);
+  }
 
-  function pause_youtube_videos(hotspot) {
+  function pauseBrightcoveVideos(hotspot){
+    hotspot.find('.video-js').each(function(){
+      videojs.getPlayer(this.id).pause();
+    });
+  }
+
+  function pauseOoyalaVideos(hotspot){
+    hotspot.find('.oo-player-container').each(function(){
+      OO.Player.create(this.id).pause();
+    });
+  }
+
+  function pauseYoutubeVideos(hotspot) {
     hotspot.find('.youtube-player').each(function() {
       var pauseVideo = function(player) {
         player.pauseVideo();
@@ -93,7 +112,7 @@ function ImageExplorerBlock(runtime, element) {
     function close_feedback() {
       // Close the visible feedback popup
       var hotspot = active_feedback.closest('.image-explorer-hotspot');
-      pause_youtube_videos(hotspot);
+      pauseVideos(hotspot);
       hotspot.trigger('feedback:close');
       active_feedback.css('display', 'none');
       var duration = new Date().getTime() - hotspot_opened_at;

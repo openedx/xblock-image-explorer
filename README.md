@@ -152,6 +152,16 @@ The `<ooyala>` element offers a convenient way of placing an embedded
 Ooyala video into a tooltip. The required attributes are `video_id`,
 `width`, and `height`.
 
+#### The Brightcove element
+
+The `<brightcove>` element offers a convenient way of placing an embedded
+Brightcove video into a tooltip. The required attributes are `video_id`,
+`account_id`, `width`, and `height`.
+e.g;
+```
+<brightcove video_id="6110618169001" account_id="6057949416001" width="320px" height="180px" />
+```
+
 API for native mobile frontends
 -------------------------------
 **Retrieve fixed data for all Image Explorer XBlocks in a course:**
