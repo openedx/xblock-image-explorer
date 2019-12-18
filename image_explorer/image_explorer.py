@@ -409,6 +409,17 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
                 feedback.ooyala.width = ooyala_element.get('width')
                 feedback.ooyala.height = ooyala_element.get('height')
 
+            # BC element could be anywhere in the hotspot
+            bcove_element = hotspot_element.find(".//brightcove")
+            if bcove_element is not None:
+                feedback.type = 'brightcove'
+                feedback.bcove = AttrDict()
+                feedback.bcove.id = 'bcove-{}'.format(uuid.uuid4().hex)
+                feedback.bcove.video_id = bcove_element.get('video_id')
+                feedback.bcove.account_id = bcove_element.get('account_id')
+                feedback.bcove.width = bcove_element.get('width')
+                feedback.bcove.height = bcove_element.get('height')
+
             hotspot = AttrDict()
             hotspot.item_id = hotspot_element.get('item-id')
             if hotspot.item_id is None:
