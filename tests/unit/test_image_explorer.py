@@ -9,6 +9,7 @@ from xblock.field_data import DictFieldData
 
 from image_explorer.image_explorer import ImageExplorerBlock
 from ..utils import MockRuntime, patch_static_replace_module
+from image_explorer.utils import AttrDict
 
 
 class TestImageExplorerBlock(unittest.TestCase):
@@ -149,3 +150,46 @@ class TestImageExplorerBlock(unittest.TestCase):
         hotspots = image_explorer_block_schema2._get_hotspots(xmltree=etree.fromstring(self.image_explorer_xml))
         self.assertEqual(len(hotspots), 1)
         self.assertTrue(hotspots[0].visited)
+
+    def test_collect_video_elements(self):
+        """
+        Test video elements parsing
+        """
+        image_explorer_with_video = """
+            <image_explorer schema_version='2'>
+                <background src='{0}' />
+                <description>{1}</description>
+                <hotspots>
+                    <hotspot x='370' y='20' item-id='hotspotA'>
+                        <feedback width='300' height='240'>
+                            <header><p>Test Header</p></header>
+                            <body>
+                                <p>Test Body</p>
+                                <brightcove video_id="1234" account_id="789" width="320px" height="260px" />
+                            </body>
+                            <youtube video_id="dmoZXcuozFQ" width="400" height="300" />
+                            <ooyala video_id="xyz123" width="400" height="300" />
+                        </feedback>
+                    </hotspot>
+                </hotspots>
+            </image_explorer>
+            """.format(self.image_url, self.image_explorer_description)
+
+        image_explorer_data = {'data': image_explorer_with_video}
+        image_explorer_block = ImageExplorerBlock(
+            self.runtime,
+            DictFieldData(image_explorer_data),
+            None
+        )
+
+        xmltree = etree.fromstring(image_explorer_with_video)
+        hotspots_element = xmltree.find('hotspots')
+        hotspot_with_videos = hotspots_element.findall('hotspot')[0]
+        feedback = AttrDict()
+        image_explorer_block._collect_video_elements(hotspot_with_videos, feedback)
+
+        # check if feedback has video elements attached
+        self.assertTrue(feedback.has_key('youtube'))
+        self.assertEqual(feedback.youtube.video_id, 'dmoZXcuozFQ')
+        self.assertTrue(feedback.has_key('bcove'))
+        self.assertEqual(feedback.bcove.video_id, '1234')
