@@ -184,9 +184,9 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             fragment.add_javascript_url('https://www.youtube.com/iframe_api')
 
         if has_ooyala:
-            # fragment.add_javascript_url(
-            #     '//player.ooyala.com/core/10efd95b66124001b415aa2a4bee29c8?plugins=main,bm'
-            # )
+            fragment.add_javascript_url(
+                '//player.ooyala.com/core/10efd95b66124001b415aa2a4bee29c8?plugins=main,bm'
+            )
             fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/ooyala_player.js'))
 
         fragment.initialize_js('ImageExplorerBlock')
