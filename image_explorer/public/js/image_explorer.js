@@ -54,6 +54,7 @@ function ImageExplorerBlock(runtime, element) {
       reveal.css('display', 'block');
       reveal.focus();
       active_feedback = reveal;
+      feedback_open();
       $(this).trigger('feedback:open');
       hotspot_opened_at = new Date().getTime();
       publish_event({
@@ -61,8 +62,27 @@ function ImageExplorerBlock(runtime, element) {
               item_id: target.parent('.hotspot-container').data('item-id')
       });
     });
+  
+  function pauseVideos(hotspot){
+    // pause any videos playing in this hotspot
+    pauseYoutubeVideos(hotspot);
+    pauseOoyalaVideos(hotspot);
+    pauseBrightcoveVideos(hotspot);
+  }
 
-  function pause_youtube_videos(hotspot) {
+  function pauseBrightcoveVideos(hotspot){
+    hotspot.find('.video-js').each(function(){
+      videojs.getPlayer(this.id).pause();
+    });
+  }
+
+  function pauseOoyalaVideos(hotspot){
+    hotspot.find('.oo-player-container').each(function(){
+      OO.Player.create(this.id).pause();
+    });
+  }
+
+  function pauseYoutubeVideos(hotspot) {
     hotspot.find('.youtube-player').each(function() {
       var pauseVideo = function(player) {
         player.pauseVideo();
@@ -90,11 +110,34 @@ function ImageExplorerBlock(runtime, element) {
     });
   }
 
+  function createOoyalaVideos(hotspot){
+    // matches pattern OO.Player.create('element_id', video_id);
+    var OOregex = /OO.Player.create\(['\"]\w+['\"],['\"][\w+-]+['\"]\)/;
+
+    // Ooyala videos needs to be created on hotspot open
+    hotspot.find('script').each(function(){
+      if(this.text != '' && this.text.indexOf('OO.Player.create') != -1){
+        var script = this.text.replace(/ /g, '');
+        // use regex to extract video creation code
+        var match = OOregex.exec(script);
+        if(match.length > 0){
+          eval(match[0]);
+        }
+      }
+    });
+  }
+
+  /* open feedback action */
+  function feedback_open(){
+    var hotspot = active_feedback.closest('.hotspot-container');
+    createOoyalaVideos(hotspot);
+  }
+
     /* close feedback action */
     function close_feedback() {
       // Close the visible feedback popup
       var hotspot = active_feedback.closest('.hotspot-container');
-      pause_youtube_videos(hotspot);
+      pauseVideos(hotspot);
       hotspot.trigger('feedback:close');
       active_feedback.css('display', 'none');
       var duration = new Date().getTime() - hotspot_opened_at;
