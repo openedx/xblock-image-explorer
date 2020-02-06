@@ -100,6 +100,9 @@ button.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hot
     cursor: pointer;
     background: none;
     border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .codemirror-editor-wrapper {
