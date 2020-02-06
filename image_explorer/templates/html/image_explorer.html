@@ -19,7 +19,6 @@
                 </span>
             </button>
             <div role="region" aria-modal="false" class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}" aria-labelledby="{% if hotspot.feedback.header %}{{ie_uid}}_{{hotspot.item_id}}_header{% endif %}" aria-describedby="{{ie_uid}}_{{hotspot.item_id}}_body" tabindex="0">
-                <button class="image-explorer-close-reveal"><span class="sr-only">Close</span>&#xf057;</button>
                 <div class="image-explorer-hotspot-content-wrapper">
                     {% if hotspot.feedback.header %}
                         <span id="{{ie_uid}}_{{hotspot.item_id}}_header" class="image-explorer-hotspot-reveal-header">
@@ -55,6 +54,7 @@
                         {% endif %}
                     </div>
                 </div>
+                <button class="image-explorer-close-reveal"><span class="sr-only">Close</span>&#xf057;</button>
             </div>
         </div>
         {% endfor %}
