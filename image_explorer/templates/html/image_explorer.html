@@ -18,7 +18,7 @@
                     <i class="material-icons">check_circle</i>
                 </span>
             </button>
-            <div role="region" aria-modal="false" class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}" aria-labelledby="{% if hotspot.feedback.header %}{{ie_uid}}_{{hotspot.item_id}}_header{% endif %}" aria-describedby="{{ie_uid}}_{{hotspot.item_id}}_body" tabindex="0">
+            <div role="dialog" aria-modal="true" class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}" tabindex="0">
                 <div class="image-explorer-hotspot-content-wrapper">
                     {% if hotspot.feedback.header %}
                         <span id="{{ie_uid}}_{{hotspot.item_id}}_header" class="image-explorer-hotspot-reveal-header">
@@ -47,7 +47,7 @@
                                 data-embed="default"
                                 data-video-id="{{hotspot.feedback.bcove.video_id}}"
                                 controls=""
-                                playsinline=""      
+                                playsinline=""
                                 style="width:{{hotspot.feedback.bcove.width}}; height:{{hotspot.feedback.bcove.height}}">
                             </video-js>
                             <script src="https://players.brightcove.net/{{hotspot.feedback.bcove.account_id}}/default_default/index.min.js"></script>
