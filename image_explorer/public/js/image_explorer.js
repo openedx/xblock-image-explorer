@@ -147,6 +147,8 @@ function ImageExplorerBlock(runtime, element) {
               duration: String(duration)
       });
       active_feedback = null;
+      //Moving focus back to parent hotspot
+      $(hotspot).find('.image-explorer-hotspot').focus();
     }
 
     $(document).on('click', function(eventObj) {
