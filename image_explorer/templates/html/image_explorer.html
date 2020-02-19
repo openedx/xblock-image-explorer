@@ -6,7 +6,7 @@
         {{ description_html }}
     </div>
     {% endif %}
-    <div class="image-explorer-wrapper">
+    <div class="image-explorer-wrapper" role="application">
         <img src="{{background.src}}" class="image-explorer-background" />
         {% for hotspot in hotspots %}
         <div class="hotspot-container" data-item-id="{{hotspot.item_id}}" style="position: absolute; top: {{hotspot.y}}; left: {{hotspot.x}};">
