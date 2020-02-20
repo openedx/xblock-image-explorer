@@ -18,7 +18,7 @@
                     <i class="material-icons">check_circle</i>
                 </span>
             </button>
-            <div role="dialog" aria-modal="true" class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}" tabindex="0">
+            <div role="dialog" aria-modal="true" class="image-explorer-hotspot-reveal" {{hotspot.reveal_style}} data-side="{{ hotspot.feedback.side }}" aria-describedby="{{ie_uid}}_{{hotspot.item_id}}_body" tabindex="0">
                 <div class="image-explorer-hotspot-content-wrapper">
                     {% if hotspot.feedback.header %}
                         <span id="{{ie_uid}}_{{hotspot.item_id}}_header" class="image-explorer-hotspot-reveal-header">
