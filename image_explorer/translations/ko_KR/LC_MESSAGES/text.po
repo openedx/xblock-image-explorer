@@ -13,6 +13,70 @@ msgstr ""
 "Language: ko_KR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: image_explorer.py:128
+#: image_explorer/image_explorer.py
+msgid "Display Name"
+msgstr "표시 이름"
+
+#: image_explorer/image_explorer.py
+msgid "This name appears in the horizontal navigation at the top of the page."
+msgstr "이 이름은 페이지 상단의 가로 탐색 영역에 표시됩니다."
+
+#: image_explorer/image_explorer.py
+msgid "Image Explorer"
+msgstr "이미지 탐색기"
+
+#: image_explorer/image_explorer.py
+msgid "Hot Spots Coordinates Centered"
+msgstr "중앙 배치된 핫스팟 좌표"
+
+#: image_explorer/image_explorer.py
+msgid "Store hotspots opened by student, for completion"
+msgstr "학생이 연 핫스팟을 저장하여 완료"
+
+#: image_explorer/image_explorer.py
+msgid "XML contents to display for this module"
+msgstr "이 모듈에 대해 표시할 XML 콘텐츠"
+
+#: image_explorer/image_explorer.py
 msgid "Missing event_type in JSON data"
-msgstr ""
+msgstr "JSON 데이터에 event_type 누락"
+
+#: image_explorer/templates/html/image_explorer_edit.html
+msgid "Title"
+msgstr "제목"
+
+#: image_explorer/templates/html/image_explorer_edit.html
+msgid "The title of the Image Explorer that is displayed to the user"
+msgstr "사용자에게 표시되는 이미지 탐색기의 제목"
+
+#: image_explorer/templates/html/image_explorer_edit.html
+msgid "Hotspot coordinates centered"
+msgstr "중앙 배치된 핫스팟 좌표"
+
+#: image_explorer/templates/html/image_explorer_edit.html
+msgid ""
+"If set to true, hotspot coordinates interpreted to point to the center of "
+"the hotspot"
+msgstr "true로 설정하면 핫스팟 좌표가 핫스팟의 중앙을 가리키는 것으로 해석"
+
+#: image_explorer/templates/html/image_explorer_edit.html
+msgid ""
+"If set to false, assumed to point to the top left corner of the hotspot "
+"image"
+msgstr "false로 설정하면 핫스팟 이미지의 왼쪽 상단을 가리키는 것으로 가정"
+
+#: image_explorer/templates/html/image_explorer_edit.html
+msgid "Definition"
+msgstr "정의"
+
+#: image_explorer/templates/html/image_explorer_edit.html
+msgid "The XML definition for the Image Explorer"
+msgstr "이미지 탐색기의 XML 정의"
+
+#: image_explorer/templates/html/image_explorer_edit.html
+msgid "Save"
+msgstr "저장"
+
+#: image_explorer/templates/html/image_explorer_edit.html
+msgid "Cancel"
+msgstr "취소"
