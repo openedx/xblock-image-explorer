@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  test-2.7: &test-template
     docker:
       - image: circleci/python:2.7.16-browsers
     steps:
@@ -24,6 +24,10 @@ jobs:
             . venv/bin/activate
             tox -e integration
           when: always
+  test-3.5:
+    <<: *test-template
+    docker:
+        - image: circleci/python:3.5-browsers
   quality:
     docker:
       - image: circleci/python:2.7.16
@@ -52,5 +56,6 @@ workflows:
   version: 2
   build:
     jobs:
-      - test
+      - test-2.7
+      - test-3.5
       - quality

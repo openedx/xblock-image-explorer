@@ -29,6 +29,7 @@ import uuid
 import logging
 import textwrap
 import pkg_resources
+import six
 from six.moves import urllib
 from six import StringIO
 from parsel import Selector
@@ -354,7 +355,10 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         Helper met
         """
         if tag is not None:
-            tag_content = u''.join(html.tostring(e) for e in tag)
+            if six.PY3:
+                tag_content = b''.join(html.tostring(e) for e in tag).decode('utf-8')
+            else:
+                tag_content = u''.join(html.tostring(e) for e in tag)
             if absolute_urls:
                 return self._change_relative_url_to_absolute(tag_content)
             return tag_content
