@@ -1,4 +1,5 @@
 # Test mocks and helpers
+from __future__ import absolute_import
 from mock import patch, MagicMock
 
 from xblock.runtime import DictKeyValueStore, KvsFieldData

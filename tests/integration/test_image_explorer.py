@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import types
 
 from xblockutils.base_test import SeleniumXBlockTest
@@ -17,7 +18,7 @@ class TestImageExplorer(SeleniumXBlockTest):
         for h in hotspots:
             h.content = h.find_element_by_css_selector(".image-explorer-hotspot-reveal")
             h.close_button = h.find_element_by_css_selector(".image-explorer-close-reveal")
-            h.is_clickable = types.MethodType(lambda s: s.is_displayed() and s.is_enabled(), h, type(h))
+            h.is_clickable = types.MethodType(lambda s: s.is_displayed() and s.is_enabled(), h)
         return {h.get_attribute("data-item-id"): h for h in hotspots}
 
     def decorate_block(self, block):
