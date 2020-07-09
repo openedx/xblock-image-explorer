@@ -28,6 +28,7 @@ from __future__ import absolute_import, division
 import uuid
 import logging
 import textwrap
+import pkg_resources
 from six.moves import urllib
 from six import StringIO
 from parsel import Selector
@@ -53,6 +54,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     """
 
     has_score = True
+    has_author_view = True
     completion_mode = XBlockCompletionMode.COMPLETABLE
 
     display_name = String(
@@ -132,8 +134,14 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
         return schema_version > 1
 
+    def author_view(self, context=None):
+        """
+        Renders the Studio preview view.
+        """
+        return self.student_view(context, authoring=True)
+
     @XBlock.supports("multi_device")  # Mark as mobile-friendly
-    def student_view(self, context):
+    def student_view(self, context, authoring=False):
         """
         Player view, displayed to the student
         """
@@ -178,7 +186,8 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
                 i18n_service=self.runtime.service(self, 'i18n')
             )
         )
-        fragment.add_css_url(self.runtime.local_resource_url(self, 'public/css/image_explorer.css'))
+        hotspot_image_url = self.runtime.local_resource_url(self, 'public/images/hotspot-sprite.png')
+        fragment.add_css(self.resource_string('public/css/image_explorer.css'))
         fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/image_explorer.js'))
         if has_youtube:
             fragment.add_javascript_url('https://www.youtube.com/iframe_api')
@@ -189,7 +198,8 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             )
             fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/ooyala_player.js'))
 
-        fragment.initialize_js('ImageExplorerBlock')
+        fragment.initialize_js('ImageExplorerBlock', {'hotspot_image': hotspot_image_url,
+                                                      'authoring_view': 'true' if authoring else 'false'})
 
         return fragment
 
@@ -453,3 +463,8 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
     def workbench_scenarios():
         """A canned scenario for display in the workbench."""
         return [("Image explorer scenario", "<vertical_demo><image-explorer/></vertical_demo>")]
+
+    def resource_string(self, path):  # pylint: disable=no-self-use
+        """Handy helper for getting resources from our kit."""
+        data = pkg_resources.resource_string(__name__, path)
+        return data.decode("utf8")
