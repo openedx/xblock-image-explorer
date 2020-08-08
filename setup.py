@@ -28,6 +28,7 @@ setup(
     packages=['image_explorer'],
     install_requires=[
         'XBlock>=1.2',
+        'parsel>=1.2.0,<=1.3.0',
     ],
     entry_points={
         'xblock.v1': 'image-explorer = image_explorer:ImageExplorerBlock',
