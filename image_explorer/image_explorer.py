@@ -354,7 +354,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         Helper met
         """
         if tag is not None:
-            tag_content = u''.join(html.tostring(e) for e in tag)
+            tag_content = ''.join([ html.tostring(e, encoding=str) for e in tag ])
             if absolute_urls:
                 return self._change_relative_url_to_absolute(tag_content)
             return tag_content

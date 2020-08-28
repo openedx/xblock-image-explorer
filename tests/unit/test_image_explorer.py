@@ -189,7 +189,7 @@ class TestImageExplorerBlock(unittest.TestCase):
         image_explorer_block._collect_video_elements(hotspot_with_videos, feedback)
 
         # check if feedback has video elements attached
-        self.assertTrue(feedback.has_key('youtube'))
+        self.assertTrue('youtube' in feedback)
         self.assertEqual(feedback.youtube.video_id, 'dmoZXcuozFQ')
-        self.assertTrue(feedback.has_key('bcove'))
+        self.assertTrue('bcove' in feedback)
         self.assertEqual(feedback.bcove.video_id, '1234')
