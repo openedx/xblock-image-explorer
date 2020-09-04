@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/python:2.7.16-browsers
+      - image: circleci/python:3.5-browsers
     steps:
       - checkout
       - run:
@@ -26,7 +26,7 @@ jobs:
           when: always
   quality:
     docker:
-      - image: circleci/python:2.7.16
+      - image: circleci/python:3.5
     steps:
       - checkout
       - run:
@@ -36,12 +36,6 @@ jobs:
             virtualenv ./venv
             . venv/bin/activate
             pip install tox pylint
-      - run:
-          name: Run quality tests
-          command: |
-            . venv/bin/activate
-            tox -e quality
-          when: always
       - run:
           name: Run python3 quality tests
           command: |
