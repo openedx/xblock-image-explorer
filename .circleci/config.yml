@@ -1,8 +1,11 @@
-version: 2
+version: 2.1
 jobs:
   test:
+    parameters:
+      python_version:
+        type: string
     docker:
-      - image: circleci/python:2.7.16-browsers
+      - image: circleci/python:<< parameters.python_version >>-browsers
     steps:
       - checkout
       - run:
@@ -52,5 +55,8 @@ workflows:
   version: 2
   build:
     jobs:
-      - test
+      - test:
+          matrix:
+            parameters:
+              python_version: ["2.7.16", "3.5.7"]
       - quality
