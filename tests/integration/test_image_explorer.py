@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import types
 
 from xblockutils.base_test import SeleniumXBlockTest
