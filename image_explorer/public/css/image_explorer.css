@@ -50,6 +50,9 @@
     -webkit-transition: all 0.0s linear 0s;
     -moz-transition: all 0.0s linear 0s;
     transition: all 0.0s linear 0s;
+    background: url("/static/studio/xblock/resources/image_explorer/public/images/hotspot-sprite.8e637638fd95.png") 0px 0px no-repeat scroll rgba(0, 0, 0, 0) !important;
+    outline: none;
+    box-shadow: none;
 }
 
 .image-explorer-wrapper button.image-explorer-hotspot > span{ display: none;}
@@ -102,6 +105,16 @@ button.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hot
     position: absolute;
     top: 0;
     right: 0;
+    box-shadow: none;
+    outline: none;
+}
+
+.image-explorer-close-reveal:hover,
+.image-explorer-close-reveal:active {
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    border: 0;
 }
 
 .codemirror-editor-wrapper {
