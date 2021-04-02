@@ -111,10 +111,10 @@ button.image-explorer-hotspot .image-explorer-hotspot-reveal .image-explorer-hot
 
 .image-explorer-close-reveal:hover,
 .image-explorer-close-reveal:active {
-    box-shadow: none;
-    background-color: transparent;
-    background-image: none;
-    border: 0;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
 }
 
 .codemirror-editor-wrapper {
