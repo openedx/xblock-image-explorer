@@ -333,7 +333,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         if not url:
             return url
         try:
-            from static_replace import replace_static_urls
+            from common.djangoapps.static_replace import replace_static_urls
         except ImportError:
             return url
 
