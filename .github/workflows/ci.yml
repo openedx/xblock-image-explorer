@@ -29,6 +29,12 @@ jobs:
       run: |
         pip install -U pip wheel
         pip install tox pylint
+    - name: Install Required System Packages
+      if: matrix.toxenv=='integration'
+      run: sudo apt-get update && sudo apt-get install libxmlsec1-dev ubuntu-restricted-extras xvfb
+    - name: Use Gecko Driver
+      if: matrix.toxenv=='integration'
+      uses: browser-actions/setup-geckodriver@latest
     - name: Run Quality
       env:
         TOXENV: ${{ matrix.toxenv }}
@@ -44,4 +50,4 @@ jobs:
       env:
         TOXENV: ${{ matrix.toxenv }}
       if: matrix.toxenv=='integration'
-      run: tox -e integration
+      run: xvfb-run --auto-servernum tox -e integration
