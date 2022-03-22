@@ -1,0 +1,57 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  run_tests:
+    name: Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        python-version: [3.8]
+        toxenv: [ quality, unit, integration ]
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+
+    - name: Install Required System Packages
+      if: matrix.toxenv == 'integration'
+      run: sudo apt-get update && sudo apt-get install libxmlsec1-dev ubuntu-restricted-extras xvfb
+
+    - name: Use Gecko Driver
+      if: matrix.toxenv == 'integration'
+      uses: browser-actions/setup-geckodriver@latest
+
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        pip install -U pip wheel
+        pip install tox pylint
+
+    - name: Run Quality
+      env:
+        TOXENV: ${{ matrix.toxenv }}
+      if: matrix.toxenv == 'quality'
+      run: |
+          tox -e quality
+    - name: Run Unit Tests
+      env:
+        TOXENV: ${{ matrix.toxenv }}
+      if: matrix.toxenv == 'unit'
+      run: tox -e unit
+    - name: Run Integration Tests
+      env:
+        TOXENV: ${{ matrix.toxenv }}
+      if: matrix.toxenv == 'integration'
+      run: xvfb-run --auto-servernum tox -e integration
