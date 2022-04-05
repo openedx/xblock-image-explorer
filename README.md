@@ -1,10 +1,7 @@
 Image Explorer XBlock
 =====================
 
-
-## Notice: This repo will be moved to the [openedx organization](https://github.com/openedx) in April 2021.
-
-[![CircleCI](https://circleci.com/gh/edx-solutions/xblock-image-explorer.svg?style=svg&circle-token=525f7452d8f3016f46c1bdb2a06c17764fe5795f)](https://circleci.com/gh/edx-solutions/xblock-image-explorer)
+[![GitHub CI](https://github.com/openedx/xblock-image-explorer/actions/workflows/ci.yml/badge.svg)](https://github.com/openedx/xblock-image-explorer/actions/workflows/ci.yml)
 
 This package provides the Image Explorer XBlock that allows you to
 use an image with hotspots in a course. When the student clicks a
@@ -13,7 +10,7 @@ hotspot icon, tooltip containing custom content is displayed.
 Screenshot below shows the Image Explorer XBlock rendered inside the
 edX LMS with an activated tooltip containing and embedded YouTube video.
 
-![Student view](https://raw.githubusercontent.com/edx-solutions/xblock-image-explorer/3b67392a73edcd606f4e3fb30cfa8b3cc20720d3/doc/img/student-view.png)
+![Student view](https://raw.githubusercontent.com/openedx/xblock-image-explorer/3b67392a73edcd606f4e3fb30cfa8b3cc20720d3/doc/img/student-view.png)
 
 Installation
 ------------
@@ -62,7 +59,7 @@ Usage
 When you add the `Image Explorer` component to a course in the studio,
 the block is field with default content, shown in the screenshot below.
 
-![Edit view](https://raw.githubusercontent.com/edx-solutions/xblock-image-explorer/3b67392a73edcd606f4e3fb30cfa8b3cc20720d3/doc/img/edit-view.png)
+![Edit view](https://raw.githubusercontent.com/openedx/xblock-image-explorer/3b67392a73edcd606f4e3fb30cfa8b3cc20720d3/doc/img/edit-view.png)
 
 The basic structure of the `image_explorer` XBlock looks like this:
 
