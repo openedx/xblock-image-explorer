@@ -27,7 +27,10 @@ from __future__ import absolute_import
 
 import logging
 
-from xblockutils.resources import ResourceLoader
+try:
+    from xblock.utils.resources import ResourceLoader
+except ModuleNotFoundError:
+    from xblockutils.resources import ResourceLoader
 
 
 log = logging.getLogger(__name__)
