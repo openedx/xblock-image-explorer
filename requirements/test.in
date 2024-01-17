@@ -1,0 +1,11 @@
+# Requirements for test runs.
+-c constraints.txt
+
+-r base.txt               # Core dependencies for this package
+
+mock                      # required by the workbench
+pytest-cov                # pytest extension for code coverage statistics
+pytest-django             # pytest extension for better Django support
+xblock-sdk                # workbench
+edx-lint                  # edX pylint rules and plugins
+pycodestyle               # PEP 8 compliance validation
