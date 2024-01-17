@@ -43,11 +43,11 @@ from xblock.fields import List, Scope, String, Boolean
 from .utils import loader, AttrDict, _
 
 
-log = logging.getLogger(__name__)  # pylint: disable=invalid-name
+log = logging.getLogger(__name__)
 
 
 @XBlock.needs('i18n')
-class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
+class ImageExplorerBlock(XBlock):
     """
     XBlock that renders an image with tooltips
     """
@@ -113,7 +113,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         </image_explorer>
         """))
 
-    def max_score(self):  # pylint: disable=no-self-use
+    def max_score(self):
         """
         Returns the maximum score that can be achieved (always 1.0 on this XBlock)
         """
@@ -303,7 +303,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             # Python 2 and 3 compatibility fix
             # Switch to _, error_message = e.args
             try:
-                error_message = err.message  # pylint: disable=exception-message-attribute
+                error_message = err.message
             except:  # pylint: disable=bare-except
                 _, error_message = err.args
 
@@ -463,7 +463,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         """A canned scenario for display in the workbench."""
         return [("Image explorer scenario", "<vertical_demo><image-explorer/></vertical_demo>")]
 
-    def resource_string(self, path):  # pylint: disable=no-self-use
+    def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
