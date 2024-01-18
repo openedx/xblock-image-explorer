@@ -20,6 +20,6 @@
 """
 Image Explorer XBlock
 """
-from __future__ import absolute_import
-
 from .image_explorer import ImageExplorerBlock
+
+__version__ = '2.2.0'

@@ -28,14 +28,13 @@ from __future__ import absolute_import, division
 import uuid
 import logging
 import textwrap
+from io import StringIO
+from urllib.parse import urljoin
 import pkg_resources
-from six.moves import urllib
-from six import StringIO
-from parsel import Selector
-from lxml import etree, html
 
 from django.conf import settings
-
+from lxml import etree, html
+from parsel import Selector
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fragment import Fragment
@@ -44,11 +43,11 @@ from xblock.fields import List, Scope, String, Boolean
 from .utils import loader, AttrDict, _
 
 
-log = logging.getLogger(__name__)  # pylint: disable=invalid-name
+log = logging.getLogger(__name__)
 
 
 @XBlock.needs('i18n')
-class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
+class ImageExplorerBlock(XBlock):
     """
     XBlock that renders an image with tooltips
     """
@@ -114,7 +113,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         </image_explorer>
         """))
 
-    def max_score(self):  # pylint: disable=no-self-use
+    def max_score(self):
         """
         Returns the maximum score that can be achieved (always 1.0 on this XBlock)
         """
@@ -254,7 +253,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
 
         self.runtime.publish(self, 'progress', {})
         self.opened_hotspots.append(hotspot_id)
-        log.debug(u'Opened hotspots so far for %s: %s', self._get_unique_id(), self.opened_hotspots)
+        log.debug('Opened hotspots so far for %s: %s', self._get_unique_id(), self.opened_hotspots)
 
         opened_hotspots = [h for h in hotspots_ids if h in self.opened_hotspots]
         percent_completion = float(len(opened_hotspots)) / len(hotspots_ids)
@@ -262,7 +261,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             'value': percent_completion,
             'max_value': 1,
         })
-        log.debug(u'Sending grade for %s: %s', self._get_unique_id(), percent_completion)
+        log.debug('Sending grade for %s: %s', self._get_unique_id(), percent_completion)
 
     def _get_unique_id(self):
         try:
@@ -304,7 +303,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
             # Python 2 and 3 compatibility fix
             # Switch to _, error_message = e.args
             try:
-                error_message = err.message  # pylint: disable=exception-message-attribute
+                error_message = err.message
             except:  # pylint: disable=bare-except
                 _, error_message = err.args
 
@@ -347,7 +346,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         lms_base = settings.ENV_TOKENS.get('LMS_BASE')
         scheme = 'https' if settings.HTTPS == 'on' else 'http'
         lms_base = '{}://{}'.format(scheme, lms_base)
-        return urllib.parse.urljoin(lms_base, url)
+        return urljoin(lms_base, url)
 
     def _inner_content(self, tag, absolute_urls=False):
         """
@@ -464,7 +463,7 @@ class ImageExplorerBlock(XBlock):  # pylint: disable=no-init
         """A canned scenario for display in the workbench."""
         return [("Image explorer scenario", "<vertical_demo><image-explorer/></vertical_demo>")]
 
-    def resource_string(self, path):  # pylint: disable=no-self-use
+    def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")

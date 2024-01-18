@@ -2,56 +2,41 @@ name: Python CI
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
   pull_request:
     branches:
       - '**'
+  workflow_dispatch:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
 
 jobs:
-  run_tests:
-    name: Tests
+  tests:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-20.04]
         python-version: [3.8]
-        toxenv: [ quality, unit, integration ]
+        toxenv: [django32, django42, quality, package]
+
     steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v2
-
-    - name: Install Required System Packages
-      if: matrix.toxenv == 'integration'
-      run: sudo apt-get update && sudo apt-get install libxmlsec1-dev ubuntu-restricted-extras xvfb
-
-    - name: Use Gecko Driver
-      if: matrix.toxenv == 'integration'
-      uses: browser-actions/setup-geckodriver@latest
+    - name: checkout repo
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
 
     - name: setup python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
-      run: |
-        pip install -U pip wheel
-        pip install tox pylint
+    - name: Install Dependencies
+      run: make requirements
 
-    - name: Run Quality
+    - name: Run Tests
       env:
         TOXENV: ${{ matrix.toxenv }}
-      if: matrix.toxenv == 'quality'
-      run: |
-          tox -e quality
-    - name: Run Unit Tests
-      env:
-        TOXENV: ${{ matrix.toxenv }}
-      if: matrix.toxenv == 'unit'
-      run: tox -e unit
-    - name: Run Integration Tests
-      env:
-        TOXENV: ${{ matrix.toxenv }}
-      if: matrix.toxenv == 'integration'
-      run: xvfb-run --auto-servernum tox -e integration
+      run: tox

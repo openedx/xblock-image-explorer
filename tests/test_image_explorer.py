@@ -8,7 +8,7 @@ from django.test import override_settings
 from xblock.field_data import DictFieldData
 
 from image_explorer.image_explorer import ImageExplorerBlock
-from ..utils import MockRuntime, patch_static_replace_module
+from .utils import MockRuntime, patch_static_replace_module
 from image_explorer.utils import AttrDict
 
 
