@@ -20,11 +20,11 @@ astroid==3.0.2
     #   pylint-celery
 binaryornot==0.4.4
     # via cookiecutter
-boto3==1.34.29
+boto3==1.34.30
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.34.29
+botocore==1.34.30
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -176,7 +176,7 @@ python-slugify==8.0.2
     # via
     #   code-annotations
     #   cookiecutter
-pytz==2023.3.post1
+pytz==2023.4
     # via
     #   -r requirements/base.txt
     #   django
