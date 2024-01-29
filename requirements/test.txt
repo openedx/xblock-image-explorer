@@ -92,7 +92,6 @@ jmespath==1.0.1
     #   -r requirements/base.txt
     #   boto3
     #   botocore
-    #   parsel
 lazy==1.6
     # via
     #   -r requirements/base.txt
@@ -126,12 +125,11 @@ openedx-django-pyfs==3.4.1
     #   -r requirements/base.txt
     #   xblock
 packaging==23.2
+    # via pytest
+parsel==1.6.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
-    #   parsel
-    #   pytest
-parsel==1.8.1
-    # via -r requirements/base.txt
 pbr==6.0.0
     # via stevedore
 platformdirs==4.1.0
@@ -208,6 +206,7 @@ six==1.16.0
     #   edx-lint
     #   fs
     #   fs-s3fs
+    #   parsel
     #   python-dateutil
 sqlparse==0.4.4
     # via
