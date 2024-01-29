@@ -10,3 +10,7 @@
 
 # Common constraints for edx repos
 -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+
+# Newer versions fail with:
+# `AttributeError: module 'openedx.core.lib.safe_lxml.etree' has no attribute '__version__'`.
+parsel==1.6.0
