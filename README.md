@@ -219,16 +219,6 @@ Example image explorer return value:
 },
 ```
 
-Downloading translations from Transifex
--------------------------------------
-
-If you want to download translations from Transifex install [Transifex client][transifex-client] and run this command while inside project root directory
-```
-tx pull -f --mode=reviewed -l en,ar,es_419,fr,he,hi,ko_KR,pt_BR,ru,zh_CN
-```
-
-[transifex-client]: https://docs.transifex.com/client/installing-the-client
-
 License
 -------
 

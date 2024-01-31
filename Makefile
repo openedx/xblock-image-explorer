@@ -73,9 +73,3 @@ dummy_translations: ## generate dummy translation (.po) files
 build_dummy_translations: dummy_translations compile_translations ## generate and compile dummy translation files
 
 validate_translations: build_dummy_translations detect_changed_source_translations ## validate translations
-
-pull_translations: ## pull translations from transifex
-	tx pull -t -a -f --mode reviewed --minimum-perc=1
-
-push_translations: ## push translations to transifex
-	tx push -s
