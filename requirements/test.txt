@@ -14,7 +14,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
-astroid==3.1.0
+astroid==3.2.2
     # via
     #   pylint
     #   pylint-celery
@@ -25,11 +25,11 @@ backports-zoneinfo==0.2.1 ; python_version < "3.9"
     #   django
 binaryornot==0.4.4
     # via cookiecutter
-boto3==1.34.103
+boto3==1.34.108
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.34.103
+botocore==1.34.108
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -101,13 +101,13 @@ lazy==1.6
     # via
     #   -r requirements/base.txt
     #   xblock
-lxml==5.2.1
+lxml==5.2.2
     # via
     #   -r requirements/base.txt
     #   parsel
     #   xblock
     #   xblock-sdk
-mako==1.3.3
+mako==1.3.5
     # via
     #   -r requirements/base.txt
     #   xblock
@@ -137,7 +137,7 @@ parsel==1.6.0
     #   -r requirements/base.txt
 pbr==6.0.0
     # via stevedore
-platformdirs==4.2.1
+platformdirs==4.2.2
     # via pylint
 pluggy==1.5.0
     # via pytest
@@ -145,7 +145,7 @@ pycodestyle==2.11.1
     # via -r requirements/test.in
 pygments==2.18.0
     # via rich
-pylint==3.1.0
+pylint==3.2.1
     # via
     #   edx-lint
     #   pylint-celery
@@ -161,7 +161,7 @@ pylint-plugin-utils==0.8.2
     #   pylint-django
 pypng==0.20220715.0
     # via xblock-sdk
-pytest==8.2.0
+pytest==8.2.1
     # via
     #   pytest-cov
     #   pytest-django
