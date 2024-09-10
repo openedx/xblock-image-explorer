@@ -37,7 +37,11 @@ from lxml import etree, html
 from parsel import Selector
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
-from xblock.fragment import Fragment
+try:
+    from web_fragments.fragment import Fragment
+except:
+    # for backwards compatibility with quince and prior releases
+    from xblock.fragment import Fragment
 from xblock.fields import List, Scope, String, Boolean
 
 from .utils import loader, AttrDict, _
