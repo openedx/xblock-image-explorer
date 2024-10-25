@@ -114,7 +114,6 @@ setup(
     long_description_content_type='text/markdown',
     classifiers=[
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
         'Framework :: Django',
@@ -127,5 +126,5 @@ setup(
     },
     packages=['image_explorer'],
     package_data=package_data("image_explorer", ["static", "templates", "public", "translations"]),
-    python_requires=">=3.8",
+    python_requires=">=3.11",
 )

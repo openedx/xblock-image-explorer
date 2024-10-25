@@ -30,7 +30,6 @@ import logging
 import textwrap
 from io import StringIO
 from urllib.parse import urljoin
-import pkg_resources
 
 from django.conf import settings
 from lxml import etree, html
@@ -465,5 +464,4 @@ class ImageExplorerBlock(XBlock):
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
-        data = pkg_resources.resource_string(__name__, path)
-        return data.decode("utf8")
+        return loader.load_unicode(path)
