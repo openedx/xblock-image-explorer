@@ -14,17 +14,17 @@ asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
-astroid==3.2.4
+astroid==3.3.5
     # via
     #   pylint
     #   pylint-celery
 binaryornot==0.4.4
     # via cookiecutter
-boto3==1.35.15
+boto3==1.35.63
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.35.15
+botocore==1.35.63
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -33,7 +33,7 @@ certifi==2024.8.30
     # via requests
 chardet==5.2.0
     # via binaryornot
-charset-normalizer==3.3.2
+charset-normalizer==3.4.0
     # via requests
 click==8.1.7
     # via
@@ -43,11 +43,11 @@ click==8.1.7
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==1.8.0
+code-annotations==1.8.1
     # via edx-lint
 cookiecutter==2.6.0
     # via xblock-sdk
-coverage[toml]==7.6.1
+coverage[toml]==7.6.7
     # via
     #   coverage
     #   pytest-cov
@@ -55,15 +55,14 @@ cssselect==1.2.0
     # via
     #   -r requirements/base.txt
     #   parsel
-dill==0.3.8
+dill==0.3.9
     # via pylint
-django==4.2.16
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
     #   openedx-django-pyfs
     #   xblock-sdk
-edx-lint==5.4.0
+edx-lint==5.4.1
     # via -r requirements/test.in
 fs==2.4.16
     # via
@@ -76,7 +75,7 @@ fs-s3fs==1.1.1
     #   -r requirements/base.txt
     #   openedx-django-pyfs
     #   xblock-sdk
-idna==3.8
+idna==3.10
     # via requests
 iniconfig==2.0.0
     # via pytest
@@ -101,13 +100,13 @@ lxml==5.3.0
     #   parsel
     #   xblock
     #   xblock-sdk
-mako==1.3.5
+mako==1.3.6
     # via
     #   -r requirements/base.txt
     #   xblock
 markdown-it-py==3.0.0
     # via rich
-markupsafe==2.1.5
+markupsafe==3.0.2
     # via
     #   -r requirements/base.txt
     #   jinja2
@@ -123,7 +122,7 @@ openedx-django-pyfs==3.7.0
     # via
     #   -r requirements/base.txt
     #   xblock
-packaging==24.1
+packaging==24.2
     # via pytest
 parsel==1.6.0
     # via
@@ -131,7 +130,7 @@ parsel==1.6.0
     #   -r requirements/base.txt
 pbr==6.1.0
     # via stevedore
-platformdirs==4.3.2
+platformdirs==4.3.6
     # via pylint
 pluggy==1.5.0
     # via pytest
@@ -139,7 +138,7 @@ pycodestyle==2.12.1
     # via -r requirements/test.in
 pygments==2.18.0
     # via rich
-pylint==3.2.7
+pylint==3.3.1
     # via
     #   edx-lint
     #   pylint-celery
@@ -147,7 +146,7 @@ pylint==3.2.7
     #   pylint-plugin-utils
 pylint-celery==0.3
     # via edx-lint
-pylint-django==2.5.5
+pylint-django==2.6.1
     # via edx-lint
 pylint-plugin-utils==0.8.2
     # via
@@ -155,11 +154,11 @@ pylint-plugin-utils==0.8.2
     #   pylint-django
 pypng==0.20220715.0
     # via xblock-sdk
-pytest==8.3.2
+pytest==8.3.3
     # via
     #   pytest-cov
     #   pytest-django
-pytest-cov==5.0.0
+pytest-cov==6.0.0
     # via -r requirements/test.in
 pytest-django==4.9.0
     # via -r requirements/test.in
@@ -173,7 +172,7 @@ python-slugify==8.0.4
     # via
     #   code-annotations
     #   cookiecutter
-pytz==2024.1
+pytz==2024.2
     # via
     #   -r requirements/base.txt
     #   xblock
@@ -187,9 +186,9 @@ requests==2.32.3
     # via
     #   cookiecutter
     #   xblock-sdk
-rich==13.8.0
+rich==13.9.4
     # via cookiecutter
-s3transfer==0.10.2
+s3transfer==0.10.3
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -206,7 +205,7 @@ six==1.16.0
     #   fs-s3fs
     #   parsel
     #   python-dateutil
-sqlparse==0.5.1
+sqlparse==0.5.2
     # via
     #   -r requirements/base.txt
     #   django
@@ -216,9 +215,9 @@ text-unidecode==1.3
     # via python-slugify
 tomlkit==0.13.2
     # via pylint
-types-python-dateutil==2.9.0.20240906
+types-python-dateutil==2.9.0.20241003
     # via arrow
-urllib3==2.2.2
+urllib3==2.2.3
     # via
     #   -r requirements/base.txt
     #   botocore
@@ -232,7 +231,7 @@ web-fragments==2.2.0
     #   -r requirements/base.txt
     #   xblock
     #   xblock-sdk
-webob==1.8.8
+webob==1.8.9
     # via
     #   -r requirements/base.txt
     #   xblock
