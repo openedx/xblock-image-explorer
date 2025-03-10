@@ -14,17 +14,17 @@ asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
-astroid==3.3.8
+astroid==3.3.9
     # via
     #   pylint
     #   pylint-celery
 binaryornot==0.4.4
     # via cookiecutter
-boto3==1.37.4
+boto3==1.37.9
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.37.4
+botocore==1.37.9
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -81,7 +81,7 @@ iniconfig==2.0.0
     # via pytest
 isort==6.0.1
     # via pylint
-jinja2==3.1.5
+jinja2==3.1.6
     # via
     #   code-annotations
     #   cookiecutter
@@ -116,7 +116,7 @@ mccabe==0.7.0
     # via pylint
 mdurl==0.1.2
     # via markdown-it-py
-mock==5.1.0
+mock==5.2.0
     # via -r requirements/test.in
 openedx-django-pyfs==3.7.0
     # via
@@ -138,7 +138,7 @@ pycodestyle==2.12.1
     # via -r requirements/test.in
 pygments==2.19.1
     # via rich
-pylint==3.3.4
+pylint==3.3.5
     # via
     #   edx-lint
     #   pylint-celery
@@ -188,7 +188,7 @@ requests==2.32.3
     #   xblock-sdk
 rich==13.9.4
     # via cookiecutter
-s3transfer==0.11.3
+s3transfer==0.11.4
     # via
     #   -r requirements/base.txt
     #   boto3
