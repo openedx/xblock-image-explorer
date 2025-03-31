@@ -31,6 +31,7 @@ jmespath==1.0.1
     # via
     #   boto3
     #   botocore
+    #   parsel
 lazy==1.6
     # via xblock
 lxml==5.3.1
@@ -45,10 +46,10 @@ markupsafe==3.0.2
     #   xblock
 openedx-django-pyfs==3.7.0
     # via xblock
-parsel==1.6.0
-    # via
-    #   -c requirements/constraints.txt
-    #   -r requirements/base.in
+packaging==24.2
+    # via parsel
+parsel==1.10.0
+    # via -r requirements/base.in
 python-dateutil==2.9.0.post0
     # via
     #   botocore
@@ -65,7 +66,6 @@ six==1.17.0
     # via
     #   fs
     #   fs-s3fs
-    #   parsel
     #   python-dateutil
 sqlparse==0.5.3
     # via django
