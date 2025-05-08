@@ -2,5 +2,4 @@
 -c constraints.txt
 
 xblock[django]
-parsel==v1.6
-cssselect==v1.2
+parsel

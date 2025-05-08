@@ -51,6 +51,7 @@ coverage[toml]==7.8.0
     # via pytest-cov
 cssselect==1.2.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   parsel
 dill==0.4.0
@@ -123,7 +124,9 @@ openedx-django-pyfs==3.7.0
 packaging==25.0
     # via pytest
 parsel==1.6.0
-    # via -r requirements/base.txt
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/base.txt
 pbr==6.1.1
     # via stevedore
 platformdirs==4.3.7

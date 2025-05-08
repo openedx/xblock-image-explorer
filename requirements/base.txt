@@ -16,7 +16,7 @@ botocore==1.37.37
     #   s3transfer
 cssselect==1.2.0
     # via
-    #   -r requirements/base.in
+    #   -c requirements/constraints.txt
     #   parsel
 django==4.2.20
     # via
@@ -48,7 +48,9 @@ markupsafe==3.0.2
 openedx-django-pyfs==3.7.0
     # via xblock
 parsel==1.6.0
-    # via -r requirements/base.in
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/base.in
 python-dateutil==2.9.0.post0
     # via
     #   botocore
