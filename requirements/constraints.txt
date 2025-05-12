@@ -10,4 +10,19 @@
 
 # Common constraints for edx repos
 -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
-
+#
+# Parsel needs to know the lxml version https://github.com/scrapy/parsel/blob/master/parsel/selector.py#L35.
+# Since this information was not being passed and etree flavor of openedx doesn't open version for outside
+# we had to pin parsel which doesn't have this code branch.
+#
+# And this version of parsel has cssselect which doesn't expose
+# '_unicode_safe_getattr' hence we had to pin cssselect to the required version.
+#
+# This issue has been explained in https://github.com/openedx/xblock-image-explorer/pull/195#issuecomment-2844971682
+#
+# This can be removed once we resolve
+# https://github.com/openedx/xblock-image-explorer/issues/197#issue-3048741312,
+# one of the ways to do is to remove the dependency on Parsel as explained in
+# https://github.com/openedx/xblock-image-explorer/pull/195#pullrequestreview-2808751843
+parsel==v1.6
+cssselect==v1.2
