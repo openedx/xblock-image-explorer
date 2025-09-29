@@ -10,7 +10,7 @@ appdirs==1.4.4
     #   fs
 arrow==1.3.0
     # via cookiecutter
-asgiref==3.9.1
+asgiref==3.9.2
     # via
     #   -r requirements/base.txt
     #   django
@@ -20,11 +20,11 @@ astroid==3.3.11
     #   pylint-celery
 binaryornot==0.4.4
     # via cookiecutter
-boto3==1.40.35
+boto3==1.40.40
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.40.35
+botocore==1.40.40
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -93,7 +93,7 @@ lazy==1.6
     # via
     #   -r requirements/base.txt
     #   xblock
-lxml==6.0.1
+lxml==6.0.2
     # via
     #   -r requirements/base.txt
     #   parsel
@@ -105,7 +105,7 @@ mako==1.3.10
     #   xblock
 markdown-it-py==4.0.0
     # via rich
-markupsafe==3.0.2
+markupsafe==3.0.3
     # via
     #   -r requirements/base.txt
     #   jinja2
@@ -177,7 +177,7 @@ pytz==2025.2
     # via
     #   -r requirements/base.txt
     #   xblock
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via
     #   -r requirements/base.txt
     #   code-annotations
@@ -193,7 +193,7 @@ s3transfer==0.14.0
     # via
     #   -r requirements/base.txt
     #   boto3
-simplejson==3.20.1
+simplejson==3.20.2
     # via
     #   -r requirements/base.txt
     #   xblock
