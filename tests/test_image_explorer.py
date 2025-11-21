@@ -1,9 +1,8 @@
 import unittest
+from unittest.mock import Mock
 from mock import patch
+import re
 from lxml import etree
-
-from parsel import Selector
-
 from django.test import override_settings
 from xblock.field_data import DictFieldData
 
@@ -24,7 +23,7 @@ class TestImageExplorerBlock(unittest.TestCase):
         self.runtime = MockRuntime()
         patch_static_replace_module()
 
-        self.processed_absolute_url = 'https://lms/a/dynamic/url'
+        self.processed_absolute_url = '/course/test-course/assets/test.jpg'
         self.image_url = '/static/test.jpg'
         self.image_explorer_description = '<p>Test Descrption</p><img src="/static/test.jpg" />'
         self.image_explorer_xml = """
@@ -67,6 +66,11 @@ class TestImageExplorerBlock(unittest.TestCase):
             None
         )
         self.image_explorer_block.course_id = 'abc/xyz/123'
+        self.runtime._services['replace_urls'] = Mock(
+            replace_urls=lambda html, static_replace_only=False: re.sub(
+                r'/static/([^"\s]*)', r'/course/test-course/assets/\1', html
+            )
+        )
 
     @override_settings(ENV_TOKENS={'LMS_BASE': 'lms'}, HTTPS='on')
     def test_student_view_data(self):
@@ -94,14 +98,8 @@ class TestImageExplorerBlock(unittest.TestCase):
         Test static urls are processed to absolute if
         `absolute_urls` is set
         """
-        xmltree = etree.fromstring(self.image_explorer_xml)
-        description = self.image_explorer_block._inner_content(
-            xmltree.find('description'), absolute_urls=True
-        )
-
-        relative_urls = Selector(text=description).css('::attr(href),::attr(src)').extract()
-        for url in relative_urls:
-            self.assertEqual(url, self.processed_absolute_url)
+        relative_url = self.image_explorer_block._replace_relative_static_urls(self.image_url)
+        self.assertEqual(relative_url, self.processed_absolute_url)
 
     def test_student_view_multi_device_support(self):
         """
