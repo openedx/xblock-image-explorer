@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+import xml
 from mock import patch
 import re
 from lxml import etree
@@ -98,7 +99,11 @@ class TestImageExplorerBlock(unittest.TestCase):
         Test static urls are processed to absolute if
         `absolute_urls` is set
         """
-        relative_url = self.image_explorer_block._replace_relative_static_urls(self.image_url)
+        xmltree = etree.fromstring(self.image_explorer_xml)
+        description = self.image_explorer_block._inner_content(
+            xmltree.find('description'), absolute_urls=True
+        )
+        relative_url = etree.HTML(description).find('.//img').get('src')
         self.assertEqual(relative_url, self.processed_absolute_url)
 
     def test_student_view_multi_device_support(self):
