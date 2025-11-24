@@ -1,5 +1,4 @@
 function applyHotspotButtonStyle(element, data) {
-  console.log("data", data['hotspot_image']);
    $(".image-explorer-wrapper button.image-explorer-hotspot", element).css("background", "url("+data['hotspot_image']+") no-repeat scroll 0 0 rgba(0, 0, 0, 0)");
 }
 
