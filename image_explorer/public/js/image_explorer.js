@@ -1,12 +1,11 @@
 function applyHotspotButtonStyle(element, data) {
+  console.log("data", data['hotspot_image']);
    $(".image-explorer-wrapper button.image-explorer-hotspot", element).css("background", "url("+data['hotspot_image']+") no-repeat scroll 0 0 rgba(0, 0, 0, 0)");
 }
 
 function ImageExplorerBlock(runtime, element, data) {
 
-    if (data['authoring_view'] === 'true') {
-        applyHotspotButtonStyle(element, data);
-    }
+    applyHotspotButtonStyle(element, data);
     var hotspot_opened_at = null;
     var active_feedback = null;
     // Holds a reference to YouTube API Player objects.
