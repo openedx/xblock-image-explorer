@@ -20,11 +20,11 @@ astroid==3.3.11
     #   pylint-celery
 binaryornot==0.4.4
     # via cookiecutter
-boto3==1.41.2
+boto3==1.41.5
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.41.2
+botocore==1.41.5
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -206,7 +206,7 @@ six==1.17.0
     #   fs-s3fs
     #   parsel
     #   python-dateutil
-sqlparse==0.5.3
+sqlparse==0.5.4
     # via
     #   -r requirements/base.txt
     #   django
