@@ -3,3 +3,6 @@
 
 xblock[django]
 parsel
+# Dependency of parsel; see constraints.txt for more information about cssselect constraints.
+# Adding it here to ensure the constraint is honoured.
+cssselect
