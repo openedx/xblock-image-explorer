@@ -29,9 +29,7 @@ import uuid
 import logging
 import textwrap
 from io import StringIO
-from urllib.parse import urljoin
 
-from django.conf import settings
 from lxml import etree, html
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
