@@ -29,11 +29,8 @@ import uuid
 import logging
 import textwrap
 from io import StringIO
-from urllib.parse import urljoin
 
-from django.conf import settings
 from lxml import etree, html
-from parsel import Selector
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fragment import Fragment
@@ -45,6 +42,7 @@ from .utils import loader, AttrDict, _
 log = logging.getLogger(__name__)
 
 
+@XBlock.wants('replace_urls')
 @XBlock.needs('i18n')
 class ImageExplorerBlock(XBlock):
     """
@@ -210,7 +208,7 @@ class ImageExplorerBlock(XBlock):
 
         description = self._get_description(xmltree, absolute_urls=True)
         background = self._get_background(xmltree)
-        background['src'] = self._replace_static_from_url(background['src'])
+        background['src'] = self._replace_relative_static_urls(background['src'])
         hotspots = self._get_hotspots(xmltree, absolute_urls=True)
         return {
             'description': description,
@@ -327,25 +325,6 @@ class ImageExplorerBlock(XBlock):
             'height': background.get('height')
         })
 
-    def _replace_static_from_url(self, url):
-        if not url:
-            return url
-        try:
-            from static_replace import replace_static_urls
-        except ImportError:
-            return url
-
-        url = '"{}"'.format(url)
-        lms_relative_url = replace_static_urls(url, course_id=self.course_id)  # pylint: disable=no-member
-        lms_relative_url = lms_relative_url.strip('"')
-        return self._make_url_absolute(lms_relative_url)
-
-    @staticmethod
-    def _make_url_absolute(url):
-        lms_base = settings.ENV_TOKENS.get('LMS_BASE')
-        scheme = 'https' if settings.HTTPS == 'on' else 'http'
-        lms_base = '{}://{}'.format(scheme, lms_base)
-        return urljoin(lms_base, url)
 
     def _inner_content(self, tag, absolute_urls=False):
         """
@@ -354,7 +333,7 @@ class ImageExplorerBlock(XBlock):
         if tag is not None:
             tag_content = ''.join([ html.tostring(e, encoding=str) for e in tag ])
             if absolute_urls:
-                return self._change_relative_url_to_absolute(tag_content)
+                return self._replace_relative_static_urls(tag_content)
             return tag_content
         return None
 
@@ -368,11 +347,11 @@ class ImageExplorerBlock(XBlock):
             return description
         return None
 
-    def _change_relative_url_to_absolute(self, text):
-        if text:
-            relative_urls = Selector(text=text).css('::attr(href),::attr(src)').extract()
-            for url in relative_urls:
-                text = text.replace(url, self._replace_static_from_url(url))
+    def _replace_relative_static_urls(self, text):
+        if replace_urls_service := self.runtime.service(self, 'replace_urls'):
+            text = replace_urls_service.replace_urls(text)
+        else:
+            log.error('Unable to perform URL substitution on the following content: %s', text)
         return text
 
     def _get_hotspots(self, xmltree, absolute_urls=False):

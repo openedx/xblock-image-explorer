@@ -13,6 +13,7 @@ function ImageExplorerEditBlock(runtime, element) {
         $('.xblock-editor-error-message', element).css('display', 'none');
         $.post(handlerUrl, JSON.stringify(data)).done(function(response) {
             if (response.result === 'success') {
+                runtime.notify('save', {state: 'end'})
                 window.location.reload(false);
             } else {
                 $('.xblock-editor-error-message', element).html('Error: '+response.message);

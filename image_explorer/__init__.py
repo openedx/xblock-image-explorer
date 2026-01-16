@@ -22,4 +22,4 @@ Image Explorer XBlock
 """
 from .image_explorer import ImageExplorerBlock
 
-__version__ = '3.0.2'
+__version__ = '3.1.0'

@@ -4,9 +4,7 @@ function applyHotspotButtonStyle(element, data) {
 
 function ImageExplorerBlock(runtime, element, data) {
 
-    if (data['authoring_view'] === 'true') {
-        applyHotspotButtonStyle(element, data);
-    }
+    applyHotspotButtonStyle(element, data);
     var hotspot_opened_at = null;
     var active_feedback = null;
     // Holds a reference to YouTube API Player objects.
