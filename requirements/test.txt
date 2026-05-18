@@ -20,11 +20,11 @@ astroid==4.0.4
     #   pylint-celery
 binaryornot==0.6.0
     # via cookiecutter
-boto3==1.43.6
+boto3==1.43.9
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.43.6
+botocore==1.43.9
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -33,7 +33,7 @@ certifi==2026.4.22
     # via requests
 charset-normalizer==3.4.7
     # via requests
-click==8.3.3
+click==8.4.0
     # via
     #   click-log
     #   code-annotations
@@ -67,7 +67,7 @@ fs-s3fs==1.1.1
     #   -r requirements/base.txt
     #   openedx-django-pyfs
     #   xblock-sdk
-idna==3.14
+idna==3.15
     # via requests
 iniconfig==2.3.0
     # via pytest
@@ -171,7 +171,7 @@ pyyaml==6.0.3
     #   code-annotations
     #   cookiecutter
     #   xblock
-requests==2.33.1
+requests==2.34.2
     # via
     #   cookiecutter
     #   xblock-sdk
