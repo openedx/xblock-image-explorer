@@ -20,11 +20,11 @@ astroid==4.0.4
     #   pylint-celery
 binaryornot==0.6.0
     # via cookiecutter
-boto3==1.43.18
+boto3==1.43.24
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.43.18
+botocore==1.43.24
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -67,7 +67,7 @@ fs-s3fs==1.1.1
     #   -r requirements/base.txt
     #   openedx-django-pyfs
     #   xblock-sdk
-idna==3.17
+idna==3.18
     # via requests
 iniconfig==2.3.0
     # via pytest
@@ -217,7 +217,7 @@ web-fragments==4.0.0
     #   -r requirements/base.txt
     #   xblock
     #   xblock-sdk
-webob==1.8.9
+webob==1.8.10
     # via
     #   -r requirements/base.txt
     #   xblock
