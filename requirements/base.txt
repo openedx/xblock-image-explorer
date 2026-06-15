@@ -8,9 +8,9 @@ appdirs==1.4.4
     # via fs
 asgiref==3.11.1
     # via django
-boto3==1.43.24
+boto3==1.43.29
     # via fs-s3fs
-botocore==1.43.24
+botocore==1.43.29
     # via
     #   boto3
     #   s3transfer
@@ -18,6 +18,10 @@ django==5.2.15
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   openedx-django-pyfs
+dnspython==2.8.0
+    # via pymongo
+edx-opaque-keys==4.0.0
+    # via xblock
 fs==2.4.16
     # via
     #   fs-s3fs
@@ -41,6 +45,8 @@ markupsafe==3.0.3
     #   xblock
 openedx-django-pyfs==4.0.0
     # via xblock
+pymongo==4.17.0
+    # via edx-opaque-keys
 python-dateutil==2.9.0.post0
     # via
     #   botocore
@@ -60,13 +66,15 @@ six==1.17.0
     #   python-dateutil
 sqlparse==0.5.5
     # via django
+stevedore==5.8.0
+    # via edx-opaque-keys
+typing-extensions==4.15.0
+    # via edx-opaque-keys
 urllib3==2.7.0
     # via botocore
-web-fragments==4.0.0
-    # via xblock
 webob==1.8.10
     # via xblock
-xblock[django]==6.1.0
+xblock[django]==6.3.0
     # via -r requirements/base.in
 
 # The following packages are considered to be unsafe in a requirements file:
