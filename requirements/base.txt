@@ -8,9 +8,9 @@ appdirs==1.4.4
     # via fs
 asgiref==3.11.1
     # via django
-boto3==1.43.34
+boto3==1.43.36
     # via fs-s3fs
-botocore==1.43.34
+botocore==1.43.36
     # via
     #   boto3
     #   s3transfer
