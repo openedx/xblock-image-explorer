@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "xblock-image-explorer"
 description = "XBlock - Image Explorer"
 readme = "README.md"
-license = "AGPL-3.0"
+license = "AGPL-3.0-or-later"
 license-files = ["LICENSE"]
 authors = [
     {name = "edX", email = "oscm@edx.org"},
