@@ -7,6 +7,7 @@ on:
     branches:
     - '**'
   workflow_dispatch:
+  workflow_call:
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
@@ -14,6 +15,7 @@ concurrency:
 
 jobs:
   tests:
+    name: ${{ matrix.toxenv }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -22,21 +24,23 @@ jobs:
         python-version: ['3.12']
         toxenv: [django42, django52, quality, package]
 
+    permissions:
+      contents: read
+
     steps:
     - name: checkout repo
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         submodules: recursive
 
-    - name: setup python
-      uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+    - name: Setup uv
+      uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
       with:
+        enable-cache: true
         python-version: ${{ matrix.python-version }}
 
-    - name: Install Dependencies
-      run: make requirements
+    - name: Install CI dependencies
+      run: uv sync --locked --group ci
 
     - name: Run Tests
-      env:
-        TOXENV: ${{ matrix.toxenv }}
-      run: tox
+      run: uv run tox -e ${{ matrix.toxenv }}
