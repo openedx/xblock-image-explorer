@@ -55,6 +55,7 @@ include = ["image_explorer*"]
 
 [tool.setuptools.exclude-package-data]
 "*" = ["tests*", "*.tests*", "spec*", "*.spec*"]
+"image_explorer" = ["locale", "translations"]
 
 [tool.coverage.run]
 branch = true
